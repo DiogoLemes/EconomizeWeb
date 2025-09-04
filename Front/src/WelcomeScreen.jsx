@@ -1,16 +1,14 @@
-import LoginScreenIntro from "./WelcomeScreenIntro";
-import LoginScreenWelcomeMenu from "./WelcomeScreenMenu";
-import LoginUserBox from "./LoginBox";
-import SignInUserBox from './SignUpBox'
+import WelcomeScreenIntro from "./WelcomeScreenIntro";
+import WelcomeScreenMenu from "./WelcomeScreenMenu";
+import SignUpBox from './SignUpBox'
 
-export default function LoginScreen() {
+export default function WelcomeScreen() {
     return (
         <div className="flex max-h-full min-h-screen max-w-full h-full w-full p-1">
-        <LoginScreenIntro />
+        <WelcomeScreenIntro />
         <div className="bg-black h-auto w-0.5"></div>
-        {/* <LoginUserBox /> */}
-        <SignInUserBox />
-        {/* <LoginScreenWelcomeMenu /> */}
+        <SignUpBox />
+        {/* <WelcomeScreenMenu /> */}
       </div>
     )
 }

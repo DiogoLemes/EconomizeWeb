@@ -1,15 +1,65 @@
+import Footer from "./Footer"
+import Sidebar from "./Sidebar"
+
 export default function Dashboard() {
+    
+    const fakeData = {
+        saldo1: '1.200',
+        saldo2: 10.500,
+        saldo3: 3.875,
+        saldo4: 999.12
+    }
+    
     return(
-        <div className="lato-bold flex flex-col text-black">
-            <div className="flex flex-row p-2">
-                <span className="text-4xl mx-auto"> Bom dia, Nome de Usuário</span>
-                <span className="lato-regular mr-16">Nome usuário</span>
+        <div className="flex flex-wrap">
+            <div className="flex-[0_0_15%]">
+                <Sidebar/>
             </div>
-            <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
-            <span className="self-start ml-8 text-2xl mt-12">Você não possui despesas!</span>
-            <img src="\src\assets\undraw_processing.svg" alt="processing_icon" className="w-[25%] h-[25%] mx-auto"/>
-            <span className="self-start ml-8 text-2xl mt-4">Clique aqui para criar <br/>uma nova despesa!</span>
-            <img src="\src\assets\Arrow.svg" alt="Seta apontando para botão à esquerda" className="ml-8 w-36 h-18"/>
+            <div className="lato-bold flex flex-col text-black flex-[0_0_85%]">
+                <div className="flex flex-row p-2">
+                    <span className="text-4xl mx-auto"> Bom dia, Nome de Usuário</span>
+                    <span className="lato-regular mr-16">Nome usuário</span>
+                </div>
+                <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
+                <div className="flex flex-row">
+                    <div className="grid grid-cols-2 gap-[33%] w-[33%] pl-10 pt-10">
+                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                            <div className="flex flex-col mx-2 gap-6">
+                                <span className="lato-regular text-start pl-2 pt-2">Saldo</span>
+                                <span className="text-xl pl-2">R${fakeData.saldo1}</span>
+                            </div>
+                            <img src="\src\assets\Icone Saldo.svg" alt="icone saldo" className="p-4 ml-4" />
+                        </div>
+                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                            <div className="flex flex-col mx-2 gap-6">
+                                <span className="lato-regular text-start pl-2 pt-2">Despesas Mensais</span>
+                                <span className="text-xl pl-2">R${fakeData.saldo2}</span>
+                            </div>
+                            <img src="\src\assets\Icone Despesas.svg" alt="icone despesas" className="p-4 ml-4" />
+                        </div>
+                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                            <div className="flex flex-col mx-2 gap-6">
+                                <span className="lato-regular text-start pl-2 pt-2">Cartão de Crédito</span>
+                                <span className="text-xl pl-2">R${fakeData.saldo3}</span>
+                            </div>
+                            <img src="\src\assets\Icone Cartão.svg" alt="icone cartão crédito" className="p-4 ml-4" />
+                        </div>
+                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                            <div className="flex flex-col mx-2 gap-6">
+                                <span className="lato-regular text-start pl-2 pt-2">Próximos Gastos</span>
+                                <span className="text-xl pl-2">R${fakeData.saldo4}</span>
+                            </div>
+                            <img src="\src\assets\Icone Prox.svg" alt="icone proximos gastos" className="p-4 ml-4" />
+                        </div>
+                    </div>
+                    <div>
+                        <span>Para onde seu dinheiro foi?</span>
+                    </div>
+                </div>
+            </div>
+            <Footer/>
         </div>
+        
+
     )
 }

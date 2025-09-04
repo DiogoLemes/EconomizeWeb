@@ -1,6 +1,5 @@
 import Logo from "./Logo";
 
-
 export default function LoginScreenIntro(){
     return (
         <div className="w-6/12 grow bg-[#FBFBFE]">

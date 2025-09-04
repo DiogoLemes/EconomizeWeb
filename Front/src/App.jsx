@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import './App.css'
 import WelcomeScreen from './WelcomeScreen'
-import Sidebar from './Sidebar'
 import Footer from './Footer'
 import Dashboard from './Dashboard'
 
@@ -12,13 +10,13 @@ function App() {
       <div className="flex flex-wrap">
         {/* <WelcomeScreen/> */}
         <div className='flex-[0_0_12%]'>
-          <Sidebar/>
+          
         </div>
         <div className='flex-[0_0_88%]'>
-          <Dashboard/>
+          {/* <Dashboard/> */}
         </div>
         <div className='flex-[0_0_100%]'>
-          <Footer/>
+          {/* <Footer/> */}
         </div>
       </div>
     </>
