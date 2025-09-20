@@ -41,7 +41,7 @@ export default function LoginForm() {
                 </div>
             </form>
             <div className="flex justify-center mb-auto mx-auto p-4">
-                <button type="button" onClick={handleClick}  className="lato-bold bg-logo-primary rounded-4xl w-56 h-16 text-white justify-center">ENTRAR</button>
+                <button type="button" onClick={handleClick}  className="lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center">ENTRAR</button>
             </div>
         </div>
    )

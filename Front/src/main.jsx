@@ -10,6 +10,7 @@ import Investimentos from './Investimentos.jsx'
 import Cartoes from './Cartoes.jsx'
 import Perfil from './Perfil.jsx'
 import Configuracoes from './Configuracoes.jsx'
+import InvestimentosVazia from './Investimentos Vazia.jsx'
 
 const router = createBrowserRouter([
   {

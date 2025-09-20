@@ -57,7 +57,7 @@ export default function SignupForm() {
                 </div>
             </form>
             <div className="flex justify-center my-auto p-4">
-                <button type="button" onClick={handleClick} className="lato-bold bg-logo-primary rounded-4xl w-56 h-16 text-white justify-center">CADASTRAR</button>
+                <button type="button" onClick={handleClick} className="lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center">CADASTRAR</button>
             </div>
         </div>
     )
