@@ -1,21 +1,23 @@
-import { useState } from 'react'
 import './App.css'
-import LoginScreenIntro from './LoginScreenIntro'
-import IntroScreenButton from './IntroScreenButton'
-import LoginScreenWelcomeMenu from './LoginScreenWelcomeMenu'
-import LoginUserBox from './LoginUserBox'
-import SignInUserBox from './SignInUserBox'
+import WelcomeScreen from './WelcomeScreen'
+import Footer from './Footer'
+import Dashboard from './Dashboard'
 
 function App() {
 
   return (
     <>
-      <div className="flex max-h-full min-h-screen max-w-full h-full w-full p-1">
-        <LoginScreenIntro/>
-        <div className="bg-black h-auto w-0.5"></div>
-        {/* <LoginUserBox /> */}
-        <SignInUserBox />
-        {/* <LoginScreenWelcomeMenu /> */}
+      <div className="flex flex-wrap">
+        {/* <WelcomeScreen/> */}
+        <div className='flex-[0_0_12%]'>
+          
+        </div>
+        <div className='flex-[0_0_88%]'>
+          {/* <Dashboard/> */}
+        </div>
+        <div className='flex-[0_0_100%]'>
+          {/* <Footer/> */}
+        </div>
       </div>
     </>
   )
