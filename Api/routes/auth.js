@@ -25,9 +25,7 @@ module.exports = async function (fastify, opts) {
       }
     }
   });
-};
 
-module.exports = async function (fastify, opts) {
   fastify.post('/auth/login', async (request, reply) => {
     const { email, senha } = request.body;
     if (!email || !senha) {
