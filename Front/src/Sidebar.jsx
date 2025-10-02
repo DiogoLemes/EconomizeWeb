@@ -4,8 +4,9 @@ import {SidebarData} from './SidebarData'
 import { NavLink, useLocation } from 'react-router'
 
 export default function Sidebar() {
+
+    const [showPopup, setShowPopup] = useState(false)
     const location = useLocation()
-    const [buttonPopup, setButtonPopup] = useState(false)
     const unselectedClass = "hover:bg-sidebar-button rounded-md p-2 mx-4 h-12 text-sidebar-text text-start target:text-sidebar-selected-text target:bg-sidebar-button hover:cursor-pointer"
     const selectedClass = "rounded-md p-2 mx-4 h-12 text-sidebar-selected-text text-start hover:cursor-pointer bg-sidebar-button"
 
@@ -36,14 +37,12 @@ export default function Sidebar() {
                 
             </ul>
             <div >
-                <button onClick={() => setButtonPopup(true)} className="rounded-full bg-sidebar-selected-text w-28 h-28 mt-[30%] self-center relative">
+                <button onClick={() => setShowPopup(true)} className="rounded-full bg-sidebar-selected-text w-28 h-28 mt-[30%] self-center relative hover:cursor-pointer">
                     <div className="absolute top-1/2 left-1/2 h-1/2 w-[6%] bg-black rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
                     <div className="absolute top-1/2 left-1/2 h-[6%] w-1/2 bg-black rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
                 </button>
-                <PopupMenu trigger={buttonPopup} setTrigger={setButtonPopup}/> {/*comentar esse componente se quiser remover o popup (não fecha ainda)*/}
+               {showPopup && <PopupMenu onClose={() => setShowPopup(false)}/>}
             </div>
         </div>
     )
 }
-
-//  trigger={buttonPopup} setTrigger={setButtonPopup}
