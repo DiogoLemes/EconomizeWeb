@@ -1,7 +1,31 @@
+import { useEffect } from "react"
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
 
 export default function Investimentos() {
+
+    function ConsoleLogTeste(){
+        
+        const data = fetch("/monthGoals/1", {
+            method: "GET",
+            // body: JSON.stringify({
+            //     nome: "example" 
+            // }),
+        })
+        console.log(Response.json(data))
+    }
+
+    // useEffect(() => {
+    //     const fetchData = async () =>
+    //     {
+    //         const result = await fetch("http://localhost:3000/monthGoals/1")
+    //         const jsonResult = await result.json()
+    //         console.log(jsonResult)
+    //     }
+
+    //     fetchData()
+    // }, [])
+    
     return(
         <div className="flex flex-wrap">
             <div className="flex-[0_0_15%]">
@@ -23,6 +47,7 @@ export default function Investimentos() {
                             <span>Ainda nenhuma meta alcançada</span>
                         </div>
                     </div>
+                    <button onClick={()=> ConsoleLogTeste()} className="bg-amber-400 h-40 w-40"></button>
                 </div>
             </div>
             <Footer/>
