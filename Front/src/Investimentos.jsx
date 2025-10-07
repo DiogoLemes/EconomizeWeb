@@ -6,13 +6,23 @@ export default function Investimentos() {
 
     function ConsoleLogTeste(){
         
-        const data = fetch("/monthGoals/1", {
-            method: "GET",
-            // body: JSON.stringify({
-            //     nome: "example" 
-            // }),
-        })
-        console.log(Response.json(data))
+        // const dataGET = fetch("/monthGoals/1", {
+        //     method: "GET",
+        //     // body: JSON.stringify({
+        //     //     nome: "example" 
+        //     // }),
+        // })
+
+        // const dataPOST = fetch("/addGoals/1", {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-type' : 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         nome: "example" 
+        //     }),
+        // }).then(res => console.log(res))
+        // console.log(Response.json(dataPOST))
     }
 
     // useEffect(() => {

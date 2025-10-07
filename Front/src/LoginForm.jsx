@@ -1,11 +1,42 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function LoginForm() {
     
     const navigate = useNavigate(); // Hook do React Router
 
-    const handleClick = () => {
-        navigate('/dashboard'); // Redireciona para /dashboard
+    async function checkSubmitLogin() {
+        const userEmail = document.getElementById('LoginUserEmail')
+        const userPassword = document.getElementById('LoginUserPassword')
+
+        const loginData = {
+            email: userEmail.value,
+            senha: userPassword.value
+        }
+
+        console.log(loginData)
+
+        const data = await fetch('http://localhost:3000/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData)
+        }).then(res => {
+            if(!res.ok) {
+                console.log(res)
+                return;
+            }
+            return res.json()
+        })
+
+        const userId = data.id
+        const userNAME = data.nome
+        console.log("login page userId: " + userId)
+
+        navigate('/dashboard',{state: {
+            id: userId,
+            username: userNAME,
+        }}); // Redireciona para /dashboard
     };
 
     function ShowHidePwd() {
@@ -24,7 +55,7 @@ export default function LoginForm() {
     
     return(
         <div className="w-full h-full flex flex-wrap">
-            <button className="hover:bg-[#E4E4E6] hover:opacity-80 flex items-center justify-center flex-[0_0_100%] border border-black w-4/5 max-w-4/5 h-13 max-h-20 rounded-md mt-[7.5%] mx-auto px-4 py-2">
+            <button className="hover:bg-[#E4E4E6] hover:opacity-80 hover:cursor-pointer flex items-center justify-center flex-[0_0_100%] border border-black w-4/5 max-w-4/5 h-13 max-h-20 rounded-md mt-[7.5%] mx-auto px-4 py-2">
                 <img src="src\assets\logo_google_icon.svg" alt="Google logo" className="w-6 h-6" />
                 <span className="lato-bold text-md font-bold text-black">Fazer Login com o Google</span>
             </button>
@@ -32,7 +63,7 @@ export default function LoginForm() {
             <span className="w-1/3 h-6 self-center text-[#525252] flex-[0_0_33%]">ou</span>
             <div className="w-1/3 h-0.5 self-center bg-[#525252] opacity-75 flex-[0_0_33%]"></div>
             <form className="flex flex-col w-full gap-14 my-4">
-                <input placeholder="Seu Email" type="email" className="lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none"></input>
+                <input id="LoginUserEmail" placeholder="Seu Email" type="email" className="lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none"></input>
                 <div className="relative">
                     <input id="LoginUserPassword" placeholder="Sua Senha" type="password" className="w-full lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none pr-10"></input>
                     <button type="button" onClick={ShowHidePwd} className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -41,7 +72,7 @@ export default function LoginForm() {
                 </div>
             </form>
             <div className="flex justify-center mb-auto mx-auto p-4">
-                <button type="button" onClick={handleClick}  className="lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center">ENTRAR</button>
+                <button type="button" onClick={checkSubmitLogin}  className="lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center hover:cursor-pointer">ENTRAR</button>
             </div>
         </div>
    )

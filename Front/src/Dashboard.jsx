@@ -1,14 +1,32 @@
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
+import { useLocation, useNavigation, useParams } from "react-router-dom"
 
 export default function Dashboard() {
-    
-    const fakeData = {
-        saldo1: '1.200',
-        saldo2: 10.500,
-        saldo3: 3.875,
-        saldo4: 999.12
+
+    const location = useLocation();
+    const receivedData = location.state;
+    console.log(receivedData)
+
+    if (!receivedData) {
+        console.log("no data received")
     }
+     const userID = receivedData.id
+     console.log(userID)
+     const userNAME = receivedData.username
+     console.log(userNAME)
+
+    const classeCards = "bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row"
+
+    let saldo1 = 1000
+    let saldo2 = 12345
+    let saldo3 = 4
+    let saldo4 = 23480000
+
+    saldo1 = saldo1.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) //tolocalestring ou intl.number ver dps
+    saldo2 = saldo2.toLocaleString("pt-BR", {style: "currency", currency: "BRL"}) //esses numeros tem q pegar do banco dps msm
+    saldo3 = saldo3.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})
+    saldo4 = saldo4.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})
 
     return(
         <div className="flex flex-wrap">
@@ -17,37 +35,38 @@ export default function Dashboard() {
             </div>
             <div className="lato-bold flex flex-col text-black flex-[0_0_85%]">
                 <div className="flex flex-row p-2">
-                    <span className="text-4xl mx-auto"> Bom dia, Nome de Usuário</span>
-                    <span className="lato-regular mr-16">Nome usuário</span>
+                    <span className="text-4xl mx-auto"> Bom dia, {userNAME}</span>
+                    <span className="lato-regular mr-16">{userNAME}</span>
                 </div>
                 <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
                 <div className="flex flex-col w-[60%] h-[100%]">
                     <div className="grid grid-cols-2 w-[80%] h-[40%] pl-10 pt-10">
-                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                        {/* quantidade de digitos diferentes muda as dimensoes dos cartões, arrumar isso */}
+                        <div className={classeCards}>
                             <div className="flex flex-col mx-2 gap-6">
                                 <span className="lato-regular text-start pl-2 pt-2">Saldo</span>
-                                <span className="text-xl pl-2">R${fakeData.saldo1}</span>
+                                <span className="text-xl pl-2 text-left">{saldo1}</span>
                             </div>
                             <img src="\src\assets\Icone Saldo.svg" alt="icone saldo" className="p-4 ml-4" />
                         </div>
-                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                        <div className={classeCards}>
                             <div className="flex flex-col mx-2 gap-6">
                                 <span className="lato-regular text-start pl-2 pt-2">Despesas Mensais</span>
-                                <span className="text-xl pl-2">R${fakeData.saldo2}</span>
+                                <span className="text-xl pl-2 text-left">{saldo2}</span>
                             </div>
                             <img src="\src\assets\Icone Despesas.svg" alt="icone despesas" className="p-4 ml-4" />
                         </div>
-                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                        <div className={classeCards}>
                             <div className="flex flex-col mx-2 gap-6">
                                 <span className="lato-regular text-start pl-2 pt-2">Cartão de Crédito</span>
-                                <span className="text-xl pl-2">R${fakeData.saldo3}</span>
+                                <span className="text-xl pl-2 text-left">{saldo3}</span>
                             </div>
                             <img src="\src\assets\Icone Cartão.svg" alt="icone cartão crédito" className="p-4 ml-4" />
                         </div>
-                        <div className="bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row">
+                        <div className={classeCards}>
                             <div className="flex flex-col mx-2 gap-6">
                                 <span className="lato-regular text-start pl-2 pt-2">Próximos Gastos</span>
-                                <span className="text-xl pl-2">R${fakeData.saldo4}</span>
+                                <span className="text-xl pl-2 text-left">{saldo4}</span>
                             </div>
                             <img src="\src\assets\Icone Prox.svg" alt="icone proximos gastos" className="p-4 ml-4" />
                         </div>
