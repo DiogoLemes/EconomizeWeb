@@ -21,7 +21,7 @@ module.exports = async function (fastify, opts) {
     // Filtra metas que ainda não atingiram o valor da meta, prismna não suporta essa condição diretamente
     const metasAtivas = metas.filter(meta => Number(meta.valor_atual) < Number(meta.valor_meta));
     console.log('Metas ativas filtradas:', metasAtivas);
-    reply.send(metasAtivas);
+    reply.send(formatarMetasParaBrasilia(metasAtivas));
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao buscar metas.' });
     }
@@ -50,7 +50,7 @@ module.exports = async function (fastify, opts) {
         data: dataToUpdate
       });
       await atualizarStatusMetas(fastify, [meta]);
-      reply.send(meta);
+      reply.send(formatarMetasParaBrasilia([meta]));
 
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao editar meta.' });
@@ -96,9 +96,11 @@ module.exports = async function (fastify, opts) {
           criado_em: new Date()
         }
       });
-      await atualizarStatusMetas(fastify, metas);
-      reply.code(201).send(meta);
+      await atualizarStatusMetas(fastify, [meta]);
+
+      reply.code(201).send(formatarMetasParaBrasilia([meta]));
     } catch (error) {
+      console.log('Erro em /addGoals:', error);
       reply.code(500).send({ error: 'Erro ao criar meta.' });
     }
     
@@ -120,7 +122,7 @@ module.exports = async function (fastify, opts) {
       const metasHistoricas = metas.filter(meta =>
       (meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
       );
-      reply.send(metasHistoricas);
+      reply.send(formatarMetasParaBrasilia(metasHistoricas));
     } catch (error) {
       console.error('Erro em histGoals:', error);
       reply.code(500).send({ error: 'Erro ao buscar metas.' });
@@ -140,16 +142,17 @@ module.exports = async function (fastify, opts) {
       if (!meta) {
         return reply.code(404).send({ error: 'Meta não encontrada.' });
       }
-      reply.send(meta);
+      reply.send(formatarMetasParaBrasilia([meta]));
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao buscar meta.' });
     }
   })
 
-
+  console.log('fim de rotas...');
 }
 
 async function atualizarStatusMetas(fastify, metas) {
+  console.log('Iniciando atualização de status para metas...');
   const hoje = new Date();
 
   for (const meta of metas) {
@@ -184,4 +187,14 @@ async function atualizarStatusMetas(fastify, metas) {
       meta.status = status;
     }
   }
+  console.log('Atualização de status para metas concluída.');
+}
+
+function formatarMetasParaBrasilia(metas) {
+  return metas.map(meta => ({
+    ...meta,
+    data_inicio: meta.data_inicio ? new Date(meta.data_inicio).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) : null,
+    data_fim: meta.data_fim ? new Date(meta.data_fim).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) : null,
+    criado_em: meta.criado_em ? new Date(meta.criado_em).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) : null
+  }));
 }
