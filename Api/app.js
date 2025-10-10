@@ -9,6 +9,11 @@ const options = {}
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
+  await fastify.register(require('@fastify/cors'), {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  })
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
