@@ -1,20 +1,12 @@
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
-import { useLocation, useNavigation, useParams } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+import { useContext } from "react"
+import {AuthContext} from "./UserContext"
 
 export default function Dashboard() {
 
-    const location = useLocation();
-    const receivedData = location.state;
-    console.log(receivedData)
-
-    if (!receivedData) {
-        console.log("no data received")
-    }
-     const userID = receivedData.id
-     console.log(userID)
-     const userNAME = receivedData.username
-     console.log(userNAME)
+    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
 
     const classeCards = "bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row"
 
@@ -31,12 +23,12 @@ export default function Dashboard() {
     return(
         <div className="flex flex-wrap">
             <div className="flex-[0_0_15%]">
-                <Sidebar/>
+                <Sidebar selected="dashboard"/>
             </div>
             <div className="lato-bold flex flex-col text-black flex-[0_0_85%]">
                 <div className="flex flex-row p-2">
-                    <span className="text-4xl mx-auto"> Bom dia, {userNAME}</span>
-                    <span className="lato-regular mr-16">{userNAME}</span>
+                    <span className="text-4xl mx-auto"> Bom dia, {user}</span>
+                    <span className="lato-regular mr-16">{user}</span>
                 </div>
                 <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
                 <div className="flex flex-col w-[60%] h-[100%]">
@@ -76,7 +68,7 @@ export default function Dashboard() {
                         <div className="flex flex-col">
                             <div className="flex justify-between items-center mb-2 lato-regular">
                                 <span className="text-md text-start">Mercado</span>
-                                <span className="text-md text-end">R$450.00 / R$500.00</span> {/*fazer map com dados igual sidebar*/}
+                                <span className="text-md text-end">R$450.00 / R$500.00</span> {/*fazer map com dados?*/}
                             </div>
                             <progress value={0.5} className=" h-3 rounded-full bg-[#DEDCFF] [&::-moz-progress-bar]:bg-[#00CB9E]" />
                         </div>

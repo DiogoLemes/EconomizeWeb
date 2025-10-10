@@ -1,9 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import WelcomeScreen from './WelcomeScreen'
+import WelcomeScreen from './WelcomeScreen.jsx'
 import Dashboard from './Dashboard.jsx'
 import Transacoes from './Transacoes.jsx'
 import Investimentos from './Investimentos.jsx'
@@ -11,6 +10,7 @@ import Cartoes from './Cartoes.jsx'
 import Perfil from './Perfil.jsx'
 import Configuracoes from './Configuracoes.jsx'
 import InvestimentosVazia from './Investimentos Vazia.jsx'
+import UserContext from './UserContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -45,6 +45,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <UserContext>
+      <RouterProvider router={router}/>
+    </UserContext>
   </StrictMode>,
 )

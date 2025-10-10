@@ -1,8 +1,16 @@
 import { Link, useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import UserContext from "./UserContext"
+import {AuthContext} from "./UserContext"
 
 export default function LoginForm() {
     
-    const navigate = useNavigate(); // Hook do React Router
+    const navigate = useNavigate() // Hook do React Router
+
+    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
+    console.log(user)
+    console.log(id)
+    console.log(email)
 
     async function checkSubmitLogin() {
         const userEmail = document.getElementById('LoginUserEmail')
@@ -24,30 +32,33 @@ export default function LoginForm() {
         }).then(res => {
             if(!res.ok) {
                 console.log(res)
-                return;
+                return
             }
             return res.json()
         })
 
-        const userId = data.id
-        const userNAME = data.nome
-        console.log("login page userId: " + userId)
+        const loginUserId = data.id
+        setId(loginUserId)
+        const loginUsername = data.nome
+        setUser(loginUsername)
+        const loginUserEmail = data.email
+        setEmail(loginUserEmail)
+        console.log("login page loginUserId: " + user)
+        console.log("login page loginUsername: " + id)
+        console.log("login page loginUserEmail: " + email)
 
-        navigate('/dashboard',{state: {
-            id: userId,
-            username: userNAME,
-        }}); // Redireciona para /dashboard
-    };
+        navigate('/dashboard') // Redireciona para /dashboard
+    }
 
     function ShowHidePwd() {
             const icon = document.getElementById('PasswordIcon')
             const pwd = document.getElementById('LoginUserPassword')
             if(pwd.type == "password") {
-                pwd.type = "text";
+                pwd.type = "text"
                 icon.src = "src/assets/eye-password-hide.svg"
             }
             else {
-                pwd.type = "password";
+                pwd.type = "password"
                 icon.src = "src/assets/eye-password-show.svg"
             }
             

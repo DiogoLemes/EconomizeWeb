@@ -2,10 +2,11 @@ import Footer from "./Footer"
 import Sidebar from "./Sidebar"
 
 export default function Cartoes() {
+
     return(
         <div className="flex flex-wrap">
                     <div className="flex-[0_0_15%]">
-                        <Sidebar/>
+                        <Sidebar selected="cartoes"/>
                     </div>
                     <div className="flex-[0_0_85%]">
                         <div className="lato-bold flex flex-col text-black">

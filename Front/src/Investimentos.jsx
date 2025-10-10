@@ -1,45 +1,36 @@
 import { useEffect } from "react"
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
+import { useContext } from "react"
+import {AuthContext} from "./UserContext"
 
 export default function Investimentos() {
-
-    function ConsoleLogTeste(){
-        
-        // const dataGET = fetch("/monthGoals/1", {
-        //     method: "GET",
-        //     // body: JSON.stringify({
-        //     //     nome: "example" 
-        //     // }),
-        // })
-
-        // const dataPOST = fetch("/addGoals/1", {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-type' : 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         nome: "example" 
-        //     }),
-        // }).then(res => console.log(res))
-        // console.log(Response.json(dataPOST))
-    }
-
-    // useEffect(() => {
-    //     const fetchData = async () =>
-    //     {
-    //         const result = await fetch("http://localhost:3000/monthGoals/1")
-    //         const jsonResult = await result.json()
-    //         console.log(jsonResult)
-    //     }
-
-    //     fetchData()
-    // }, [])
     
+    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
+    console.log(user)
+    console.log(id)
+    console.log(email)
+    setUser("nome teste")
+    setId(17)
+    setEmail("nometeste@email.com")
+
+    const url = `http://localhost:3000/monthGoals/${id}`
+
+    const data = fetch(url)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error("Error fetching user data:", error);
+        });
+
     return(
         <div className="flex flex-wrap">
             <div className="flex-[0_0_15%]">
-                <Sidebar/>
+                <Sidebar selected="investimentos"/>
             </div>
             <div className="flex-[0_0_85%]">
                 <div className="lato-bold flex flex-col text-black">
@@ -57,7 +48,6 @@ export default function Investimentos() {
                             <span>Ainda nenhuma meta alcançada</span>
                         </div>
                     </div>
-                    <button onClick={()=> ConsoleLogTeste()} className="bg-amber-400 h-40 w-40"></button>
                 </div>
             </div>
             <Footer/>

@@ -1,12 +1,12 @@
 @import "tailwindcss";
-/* @font-face {
-  font-family: Dx-Restcal; 
-  src: url("src\fonts\Dx-Restcal-Free Font\DxRestcal-Medium.otf") format("otf");
-  font-style: medium;
-} */ /* talvez essa fonte não funcione (suporte do tailwind)*/
+ 
+@font-face {
+  font-family: Lato;
+  src: url("../src/assets/fonts/Lato-Bold.ttf");  
+}  
 
 @theme {
-  /* --font-dxrestcal: Dx-Restcal, "sans serif"; */
+  --font-lato: Lato, "sans-sarif";
   --color-logo-primary: #2F27CE;
   --text-logo-primary: #2F27CE;
   --text-white-text: #FBFBFE;

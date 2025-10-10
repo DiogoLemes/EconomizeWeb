@@ -4,8 +4,23 @@ import Sidebar from "./Sidebar"
 
 export default function Perfil() {
     
-    const navigate = useNavigate() // Hook do React Router
+    const inactiveButtonClass = "lato-bold text-gray-700 opacity-75 hover:bg-[#E3E3FF] hover:text-black hover:opacity-100 hover:cursor-pointer w-[50%] h-12"
+    const activeButtonClass = "lato-bold border-2 text-black bg-[#E3E3FF] hover:cursor-pointer border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
+    const formInputClass = ""
+    
+    const nomeTeste = "nome sobrenome"
+    const emailTeste = "email@email.com"
+    const senhaTeste = "1234567890"
 
+    function ConsoleLogTeste() {
+        const nomeSplit = nomeTeste.split(" ")
+        if(nomeSplit.length() >= 2){
+            nomeSplit[0]
+        }
+    }
+
+
+    const navigate = useNavigate() // Hook do React Router
     const navConfig = () => {
         navigate('/configuracoes') // Redireciona para pagina de config
     }
@@ -14,14 +29,11 @@ export default function Perfil() {
         navigate('/perfil') // Redireciona para pagina de perfil (ja esta na pagina, deixei por enquanto)
     }
 
-    const inactiveButtonClass = "lato-bold text-gray-700 opacity-75 hover:bg-[#E3E3FF] hover:text-black hover:opacity-100 hover:cursor-pointer w-[50%] h-12"
-    const activeButtonClass = "lato-bold border-2 text-black bg-[#E3E3FF] hover:cursor-pointer border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
-    
     
     return(
         <div className="flex flex-wrap">
             <div className="flex-[0_0_15%]">
-                <Sidebar/>
+                <Sidebar selected="perfil"/>
             </div>
             <div className="flex-[0_0_85%]">
                 <div className="lato-bold flex flex-col text-black">
@@ -32,7 +44,18 @@ export default function Perfil() {
                     <div className="border-[#b7b7ff] border-2 rounded-[2%] h-[50vh] w-[50vw] self-center mb-10 drop-shadow-xl">
                         <button id="profileButton" onClick={navProfile} className={activeButtonClass}>Perfil</button>
                         <button id="settingsButton" onClick={navConfig} className={inactiveButtonClass}>Configurações</button>
-                        {/* (form de perfil) */}
+                        <form className="flex flex-col mx-auto px-[15%]">
+                            <div className="flex flex-col">
+                                <span className="lato-bold text-xl text-start p-2">Informações Básicas:</span>
+                                <div className="gap-4 flex flex-wrap">
+                                    <input type="text" value="teste" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
+                                    <input type="text" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
+                                    <input type="text" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
+                                    <input type="text" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
+                                </div>
+                                <input type="button" value="Alterar dados" className="lato-bold bg-logo-primary rounded-xl w-56 h-16 text-white justify-center hover:cursor-pointer"/>{/*input ou botao? */}
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

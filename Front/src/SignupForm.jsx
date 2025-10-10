@@ -1,10 +1,17 @@
 import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import UserContext from "./UserContext"
+import {AuthContext} from "./UserContext"
+
 
 export default function SignupForm() {
 
-    const navigate = useNavigate(); // Hook do React Router
+    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
+    console.log(user)
+    
+    const navigate = useNavigate() // Hook do React Router
 
-    const signupSubmit = () => {
+    async function checkSubmitSignup() {
         const userFirstName = document.getElementById('SignupUserFirstName')
         const userLastName = document.getElementById('SignupUserLastName')
         const userEmail = document.getElementById('SignupUserEmail')
@@ -19,7 +26,7 @@ export default function SignupForm() {
 
         console.log(signupData)
 
-        fetch('http://localhost:3000/auth/register', {
+        const data = await fetch('http://localhost:3000/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,27 +35,37 @@ export default function SignupForm() {
         }).then(res => {
             if(!res.ok) {
                 console.log(res)
-                return;
+                return
             }
 
             return res.json()
         })
         
+        const signupUserId = data.id
+        setId(signupUserId)
+
+        const signupUserName = data.nome
+        setUser(signupUserName)
+
+        const signupUserEmail = data.email
+        setEmail(signupUserEmail)
+
+        console.log("signup page signupUserId: " + signupUserId)
+        console.log("signup page signupUserName: " + signupUserName)
+        console.log("signup page signupUserEmail: " + signupUserEmail)
         
-        
-        
-        // navigate('/dashboard'); // Redireciona para /dashboard
-    };
+        //navigate('/dashboard') // Redireciona para /dashboard
+    }
 
     function ShowHidePwd() {
             const icon = document.getElementById('PasswordIcon')
             const pwd = document.getElementById('SignupUserPassword')
             if(pwd.type == "password") {
-                pwd.type = "text";
+                pwd.type = "text"
                 icon.src = "src/assets/eye-password-hide.svg"
             }
             else {
-                pwd.type = "password";
+                pwd.type = "password"
                 icon.src = "src/assets/eye-password-show.svg"
             }
             
@@ -74,7 +91,7 @@ export default function SignupForm() {
                 </div>
             </form>
             <div className="flex justify-center my-auto p-4">
-                <button type="button" onClick={() => signupSubmit()} className="lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center hover:cursor-pointer">CADASTRAR</button>
+                <button type="button" onClick={checkSubmitSignup} className="lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center hover:cursor-pointer">CADASTRAR</button>
             </div>
         </div>
     )
