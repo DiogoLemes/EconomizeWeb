@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useContext } from "react"
 import {AuthContext} from "./UserContext"
 
-export default function NovaMeta() {
+export default function NovaMeta({onClose}) {
 
   const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
   
@@ -54,22 +54,53 @@ export default function NovaMeta() {
     setTipoMeta(estado)
   }
   
-  function FuncaoTeste(){
+  function submitMeta(){
     const nomeMeta = document.getElementById("nomeMeta")
     const tipoCategoriaMeta = tipoMeta
     const dataPrazoMeta = document.getElementById("dataPrazoMeta")
     const boolSemPrazoMeta = document.getElementById("boolSemPrazoMeta")
     const valorMeta = document.getElementById("valorMeta")
-
-    console.log("data prazo meta: " + dataPrazoMeta.value)
-    const dataPrazoFinal = dataPrazoMeta.valueAsDate
-    console.log(dataPrazoFinal.toISOString())
-    const AAAA = new Date(dataPrazoFinal)
-    console.log(AAAA)
     const dataCriacaoMeta = new Date()
-    console.log(dataCriacaoMeta)
+    let dataPrazoFinal
 
-    //criar tipo data, enviar dados pra api, e pegar metas no fetch da tela investimentos
+    if(boolSemPrazoMeta.checked){
+      dataPrazoFinal = null
+    }
+    else {
+      const dataPrazo = dataPrazoMeta.valueAsDate
+      const hoursInMili = 23 * 60 * 60 * 1000
+      const minutesInMili = 59 * 60 * 1000
+      const secondsInMili = 59 * 1000
+      const timeZoneOffset = dataPrazo.getTimezoneOffset() //pega diferença de fuso horarios em minutos
+      const fullOffset = timeZoneOffset * 60000 + hoursInMili + minutesInMili + secondsInMili //adiciona 23h59m59 de tempo para prazo ser no fim do dia
+      dataPrazoFinal = new Date(dataPrazo.getTime() + fullOffset)
+    }
+    
+    const novaMetaData = {
+      nome: nomeMeta.value,
+      valor_meta: valorMeta.value,
+      valor_atual: 0,
+      tipo: tipoCategoriaMeta,
+      data_inicio: dataCriacaoMeta,
+      data_fim: dataPrazoFinal
+    }
+
+    fetch(`http://localhost:3000/addGoals/${id}`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(novaMetaData)
+    }).then(res => {
+        if(!res.ok) {
+          console.log(res)
+          return
+        }
+
+        return res.json()
+      })
+
+      onClose()
   }
 
   return (
@@ -98,8 +129,7 @@ export default function NovaMeta() {
                     </div>
                     <input id="valorMeta" type="number" pattern="\d*" placeholder="Valor (R$)" className={valorMetaClasse}/>
                   </div>
-                  {/* <button onClick={() => console.log('teste')} className="bg-[#FFB151] text-black p-2 rounded-md lato-bold text-xl w-[60%] hover:cursor-pointer">Criar Meta</button> */}
-                  <input type='button' value="Criar Meta" onClick={() => FuncaoTeste()} className="bg-[#FFB151] text-black p-2 rounded-md lato-bold text-xl w-[60%] hover:cursor-pointer"></input>
+                  <button value="Criar Meta" type='submit' onClick={() => submitMeta()} className="bg-[#FFB151] text-black p-2 rounded-md lato-bold text-xl w-[60%] hover:cursor-pointer">Criar Meta</button>
                 </div>
               </form>
             </div>

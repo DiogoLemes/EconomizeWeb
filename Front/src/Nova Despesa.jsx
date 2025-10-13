@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-export default function NovaDespesa() {
+export default function NovaDespesa({onClose}) {
   
   const botaoInativo = "bg-[#DB7A7A] p-2 rounded-xl w-30 hover:cursor-pointer"
   const botaoAtivo = "bg-[#FF4D4D] p-2 rounded-xl w-30 hover:cursor-pointer"
@@ -18,6 +18,10 @@ export default function NovaDespesa() {
       setRecorrenteNao(true)
       setRecorrenteSim(false)
     }
+  }
+
+  function submitDespesa(){
+    console.log("despesa criada")
   }
   
   return (
@@ -40,11 +44,14 @@ export default function NovaDespesa() {
                       <span>A cada:</span>
                       <input type="number" size="5" 
                       className="bg-white rounded-md border-2 border-[#B3B3B3] text-[1.2rem] h-8 lato-regular outline-none my-4 p-1"/>
-                      <input type="text" placeholder="Meses" size="6"
-                      className="bg-white rounded-md border-2 border-[#B3B3B3] text-[1.2rem] h-8 lato-regular outline-none my-4 p-1"/> {/* menu dropdown igual o figma */}
+                      <select className='bg-white rounded-md border-2 border-[#B3B3B3] text-[1.2rem] h-8 lato-regular outline-none my-4 pl-1'>
+                          <option>Dias</option>
+                          <option>Semanas</option>
+                          <option>Meses</option>
+                        </select>
                     </div>
                   </div>
-                  <button className="bg-[#FF3C3C] text-black p-2 rounded-xl lato-regular text-xl w-[60%] hover:cursor-pointer">Criar Despesa</button>
+                  <button type="submit" onClick={() => submitDespesa()} className="bg-[#FF3C3C] text-black p-2 rounded-xl lato-regular text-xl w-[60%] hover:cursor-pointer">Criar Despesa</button>
                 </div>
               </form>
             </div>

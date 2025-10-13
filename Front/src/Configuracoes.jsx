@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
+import { useContext } from "react"
+import { AuthContext } from "./UserContext"
 
 export default function Configuracoes() {
+
+    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
+
+    const loggedInUsername = sessionStorage.getItem("loggedUsername")
+    setUser(loggedInUsername)
     
     const navigate = useNavigate() // Hook do React Router
 
@@ -27,7 +34,7 @@ export default function Configuracoes() {
                     <div className="lato-bold flex flex-col text-black">
                         <div className="flex flex-row p-2">
                             <span className="text-4xl mx-auto"> Config</span>
-                            <span className="lato-regular mr-16 text-end">Nome usuário</span>
+                            <span className="lato-regular mr-16 text-end">{user}</span>
                         </div>
                         <div className="border-black border-2 h-[50vh] w-[50vw] self-center mb-10">
                             <button id="profileButton" onClick={navProfile} className={inactiveButtonClass}>Perfil</button>

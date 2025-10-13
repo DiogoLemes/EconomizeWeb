@@ -8,6 +8,9 @@ export default function Dashboard() {
 
     const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
 
+    const loggedInUsername = sessionStorage.getItem("loggedUsername")
+    setUser(loggedInUsername)
+
     const classeCards = "bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row"
 
     let saldo1 = 1000

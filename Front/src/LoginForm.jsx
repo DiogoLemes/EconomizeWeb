@@ -8,9 +8,6 @@ export default function LoginForm() {
     const navigate = useNavigate() // Hook do React Router
 
     const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
-    console.log(user)
-    console.log(id)
-    console.log(email)
 
     async function checkSubmitLogin() {
         const userEmail = document.getElementById('LoginUserEmail')
@@ -43,9 +40,10 @@ export default function LoginForm() {
         setUser(loginUsername)
         const loginUserEmail = data.email
         setEmail(loginUserEmail)
-        console.log("login page loginUserId: " + user)
-        console.log("login page loginUsername: " + id)
-        console.log("login page loginUserEmail: " + email)
+
+
+        sessionStorage.setItem("loggedUsername", loginUsername)
+        sessionStorage.setItem("userId", loginUserId)
 
         navigate('/dashboard') // Redireciona para /dashboard
     }

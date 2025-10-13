@@ -17,13 +17,13 @@ export default function PopupMenu ({onClose}) {
             case 'BotoesPopup':
                 return <BotoesPopup trocarComponente={trocarComponente}/>
             case 'NovaCategoria':
-                return <NovaCategoria/>
+                return <NovaCategoria onClose={onClose}/>
             case 'NovaDespesa':
-                return <NovaDespesa/>
+                return <NovaDespesa onClose={onClose}/>
             case 'NovaReceita':
-                return <NovaReceita/>
+                return <NovaReceita onClose={onClose}/>
             case 'NovaMeta':
-                return <NovaMeta/>
+                return <NovaMeta onClose={onClose}/>
             default:
                 return <BotoesPopup trocarComponente={trocarComponente}/>
         }

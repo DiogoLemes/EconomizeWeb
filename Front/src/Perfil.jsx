@@ -1,11 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer"
 import Sidebar from "./Sidebar"
+import { useContext } from "react";
+import { AuthContext } from "./UserContext";
 
 export default function Perfil() {
+
+    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
+
+    const loggedInUsername = sessionStorage.getItem("loggedUsername")
+    setUser(loggedInUsername)
     
-    const inactiveButtonClass = "lato-bold text-gray-700 opacity-75 hover:bg-[#E3E3FF] hover:text-black hover:opacity-100 hover:cursor-pointer w-[50%] h-12"
-    const activeButtonClass = "lato-bold border-2 text-black bg-[#E3E3FF] hover:cursor-pointer border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
+    const inactiveButtonClass = "font-lato border-2 text-gray-700 bg-[#F7F7F7] hover:bg-[#E3E3FF] hover:text-black hover:opacity-100 hover:cursor-pointer border-b-[#636364] border-t-0 border-r-0 border-l-0 w-[50%] h-12"
+    const activeButtonClass = "font-lato border-2 text-black bg-[#E3E3FF] hover:cursor-pointer border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
     const formInputClass = ""
     
     const nomeTeste = "nome sobrenome"
@@ -36,24 +43,35 @@ export default function Perfil() {
                 <Sidebar selected="perfil"/>
             </div>
             <div className="flex-[0_0_85%]">
-                <div className="lato-bold flex flex-col text-black">
+                <div className="flex flex-col text-black">
                     <div className="flex flex-row p-2">
                         <span className="text-4xl mx-auto"> Perfil</span>
-                        <span className="lato-regular mr-16 text-end">Nome usuário</span>
+                        <span className="mr-16 text-end">{user}</span>
                     </div>
-                    <div className="border-[#b7b7ff] border-2 rounded-[2%] h-[50vh] w-[50vw] self-center mb-10 drop-shadow-xl">
+                    <div className="bg-[#FBFBFE] h-[70vh] w-[50vw] self-center drop-shadow-2xl mt-10">
                         <button id="profileButton" onClick={navProfile} className={activeButtonClass}>Perfil</button>
                         <button id="settingsButton" onClick={navConfig} className={inactiveButtonClass}>Configurações</button>
-                        <form className="flex flex-col mx-auto px-[15%]">
-                            <div className="flex flex-col">
-                                <span className="lato-bold text-xl text-start p-2">Informações Básicas:</span>
-                                <div className="gap-4 flex flex-wrap">
-                                    <input type="text" value="teste" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
-                                    <input type="text" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
-                                    <input type="text" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
-                                    <input type="text" className="outline rounded border-b-2 border-[#525252] text-black opacity-75 w-[45%]"></input>
+                        <form className="mx-auto px-[5%] h-[80%]">
+                            <div className="flex flex-col py-2 justify-evenly h-[100%]">
+                                <div className="h-[33%]">
+                                    <span className="font-lato text-md text-start py-2">Informações Básicas:</span>
+                                    <div className="gap-4 flex flex-wrap px-[5%] my-4">
+                                        <input type="text" id="nome" value="" className="outline-2 outline-[#B3B3B3] rounded text-black opacity-75 w-[45%] h-[10%] p-1 font-lato"></input>
+                                        <input type="text" id="sobrenome" value="" className="outline-2 outline-[#B3B3B3] rounded text-black opacity-75 w-[45%] h-[10%] p-1 font-lato"></input>
+                                        <input type="text" id="emailAtual" value="" className="outline-2 outline-[#B3B3B3] rounded text-black opacity-75 w-[45%] h-[10%] p-1 font-lato"></input>
+                                        <input type="text" id="emailNovo" value="" className="outline-2 outline-[#B3B3B3] rounded text-black opacity-75 w-[45%] h-[10%] p-1 font-lato"></input>
+                                    </div>
+                                    <input type="button" value="Alterar dados" className="font-lato bg-logo-primary rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1"/>{/*input ou botao? */}
                                 </div>
-                                <input type="button" value="Alterar dados" className="lato-bold bg-logo-primary rounded-xl w-56 h-16 text-white justify-center hover:cursor-pointer"/>{/*input ou botao? */}
+                                <div>
+                                    <span className="font-lato text-md text-start py-2">Segurança:</span>
+                                    <div className="gap-4 flex flex-wrap px-[5%] my-4">
+                                        <input type="text" id="senhaAtual" value="" className="outline-2 outline-[#B3B3B3] rounded text-black opacity-75 w-[45%] h-[10%] p-1 font-lato"></input>
+                                        <input type="text" id="senhaNova" value="" className="outline-2 outline-[#B3B3B3] rounded text-black opacity-75 w-[45%] h-[10%] p-1 font-lato"></input>
+                                    </div>
+                                    <input type="button" value="Alterar Senha" className="font-lato bg-logo-primary rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1"/>{/*input ou botao? */}
+                                </div>
+                                <div></div>
                             </div>
                         </form>
                     </div>

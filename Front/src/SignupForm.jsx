@@ -7,7 +7,6 @@ import {AuthContext} from "./UserContext"
 export default function SignupForm() {
 
     const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
-    console.log(user)
     
     const navigate = useNavigate() // Hook do React Router
 
@@ -24,7 +23,7 @@ export default function SignupForm() {
             senha: userPassword.value
         }
 
-        console.log(signupData)
+        //console.log(signupData)
 
         const data = await fetch('http://localhost:3000/auth/register', {
             method: 'POST',
@@ -50,11 +49,10 @@ export default function SignupForm() {
         const signupUserEmail = data.email
         setEmail(signupUserEmail)
 
-        console.log("signup page signupUserId: " + signupUserId)
-        console.log("signup page signupUserName: " + signupUserName)
-        console.log("signup page signupUserEmail: " + signupUserEmail)
+        sessionStorage.setItem("loggedUsername", signupUserName)
+        sessionStorage.setItem("userId", signupUserId)
         
-        //navigate('/dashboard') // Redireciona para /dashboard
+        navigate('/dashboard') // Redireciona para /dashboard
     }
 
     function ShowHidePwd() {
