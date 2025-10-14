@@ -53,8 +53,17 @@ export default function NovaReceita({onClose}) {
                           <option>Meses</option>
                         </select>
                       </div>
+                      {/* Campo de valor e dropdown pra selecionar a meta */}
+                      <div className="flex w-[100%] justify-items-start gap-4 mt-4">
+                        <input type="text" placeholder="Valor"
+                        className="bg-white rounded-md border-2 border-[#B3B3B3] text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
+                        <select className="bg-white rounded-md border-2 border-[#B3B3B3] text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
+                          <option> Selecione a meta</option>
+                          <option>Meta</option>
+                        </select>
+                      </div>
+                      <button type="submit" onClick={() => submitReceita()} className="bg-[#22DF61] text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar Receita</button>
                     </div>
-                    <button type="submit" onClick={() => submitReceita()} className="bg-[#22DF61] text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar Receita</button>
                   </div>
                 </form>
               </div>
