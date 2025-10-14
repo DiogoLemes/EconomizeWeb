@@ -8,10 +8,10 @@ export default function InvestimentosVazia() {
                 <Sidebar/>
             </div>
             <div className="flex-[0_0_85%]">
-                <div className="lato-bold flex flex-col text-black">
+                <div className="font-lato-bold flex flex-col text-black">
                     <div className="flex flex-row p-2">
                         <span className="text-4xl mx-auto">Investimentos</span>
-                        <span className="lato-regular mr-16 text-end">Nome usuário</span>
+                        <span className="font-lato-regular mr-16 text-end">Nome usuário</span>
                     </div>
                      <div className="flex flex-row justify-between p-4 h-100 w-200 ">
                         <div className="border-[#d4d4d4] border-2 border-dashed rounded-md flex flex-col text-start p-2 h-80 w-80">

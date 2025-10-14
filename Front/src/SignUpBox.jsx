@@ -5,8 +5,8 @@ import { useState } from "react";
 
 export default function SignUpBox() {
     
-    const inactiveButtonClass = "lato-bold text-gray-700 opacity-75 hover:bg-[#E3E3FF] hover:text-black hover:opacity-100 hover:cursor-pointer flex-[0_0_50%] h-12"
-    const activeButtonClass = "lato-bold border-3 text-black bg-[#E3E3FF] border-b-logo-primary border-t-0 border-r-0 border-l-0 hover:cursor-pointer flex-[0_0_50%] h-12"
+    const inactiveButtonClass = "font-lato-bold text-gray-700 opacity-75 hover:bg-[#E3E3FF] hover:text-black hover:opacity-100 hover:cursor-pointer flex-[0_0_50%] h-12"
+    const activeButtonClass = "font-lato-bold border-3 text-black bg-[#E3E3FF] border-b-logo-primary border-t-0 border-r-0 border-l-0 hover:cursor-pointer flex-[0_0_50%] h-12"
 
     const [botaoLogin, setbotaoLogin] = useState(false)
     const [botaoCadastro, setbotaoCadastro] = useState(true)

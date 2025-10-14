@@ -1,12 +1,78 @@
 @import "tailwindcss";
  
 @font-face {
-  font-family: Lato;
+  font-family: "Lato-Black";
+  src: url("../src/assets/fonts/Lato-Black.ttf");
+  font-style: normal;
+  font-weight: black;
+}  
+@font-face {
+  font-family: "Lato-Black-Italic";
+  src: url("../src/assets/fonts/Lato-BlackItalic.ttf");
+  font-style: italic;
+  font-weight: black;
+}  
+@font-face {
+  font-family: "Lato-Bold";
   src: url("../src/assets/fonts/Lato-Bold.ttf");  
+  font-style: normal;
+  font-weight: bold;
+}  
+@font-face {
+  font-family: "Lato-Bold-Italic";
+  src: url("../src/assets/fonts/Lato-BoldItalic.ttf");
+  font-style: italic;
+  font-weight: bold;
+}  
+@font-face {
+  font-family: "Lato-Italic";
+  src: url("../src/assets/fonts/Lato-Italic.ttf");
+  font-style: italic;
+  font-weight: medium;
+}  
+@font-face {
+  font-family: "Lato-Light";
+  src: url("../src/assets/fonts/Lato-Light.ttf");
+  font-style: normal;
+  font-weight: light;
+}
+@font-face {
+  font-family: "Lato-Light-Italic";
+  src: url("../src/assets/fonts/Lato-LightItalic.ttf");
+  font-style: italic;
+  font-weight: light;
+}  
+@font-face {
+  font-family: "Lato-Regular";
+  src: url("../src/assets/fonts/Lato-Regular.ttf");
+  font-style: normal;
+  font-weight: medium;
+}  
+@font-face {
+  font-family: "Lato-Thin";
+  src: url("../src/assets/fonts/Lato-Thin.ttf");
+  font-style: normal;
+  font-weight: thin;
+}  
+@font-face {
+  font-family: "Lato-Thin-Italic";
+  src: url("../src/assets/fonts/Lato-ThinItalic.ttf");
+  font-style: italic;
+  font-weight: thin;
 }  
 
+
 @theme {
-  --font-lato: Lato, "sans-sarif";
+  --font-lato-black: "Lato-Black", "sans-sarif";
+  --font-lato-black-i: "Lato-Black-Italic", "sans-sarif";
+  --font-lato-bold: "Lato-Bold", "sans-sarif";
+  --font-lato-bold-i: "Lato-Bold-Italic", "sans-sarif";
+  --font-lato-italic: "Lato-Italic", "sans-sarif";
+  --font-lato-light: "Lato-Light", "sans-sarif";
+  --font-lato-light-i: "Lato-Light-Italic", "sans-sarif";
+  --font-lato-regular: "Lato-Regular", "sans-sarif";
+  --font-lato-thin: "Lato-Thin", "sans-sarif";
+  --font-lato-thin-i: "Lato-Thin-Italic", "sans-sarif";
   --color-logo-primary: #2F27CE;
   --text-logo-primary: #2F27CE;
   --text-white-text: #FBFBFE;
