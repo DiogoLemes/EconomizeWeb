@@ -2,7 +2,7 @@ import Logo from "./Logo";
 
 export default function LoginScreenIntro(){
     return (
-        <div className="w-6/12 flex flex-col bg-[#FBFBFE]">
+        <div className="w-6/12 flex flex-col bg-white-div">
           <Logo/>
           <div className="font-lato-bold text-black text-5xl self-center">
             <p className="mt-15 text-center">Planeje hoje.</p>

@@ -51,6 +51,8 @@ export default function SignupForm() {
 
         sessionStorage.setItem("loggedUsername", signupUserName)
         sessionStorage.setItem("userId", signupUserId)
+        sessionStorage.setItem("userEmail", signupUserEmail)
+        localStorage.setItem("theme", "light") //tema padrão do site
         
         navigate('/dashboard') // Redireciona para /dashboard
     }
@@ -74,15 +76,15 @@ export default function SignupForm() {
             <form className="flex flex-wrap w-full gap-8 mb-4">
                 <div className="flex flex-wrap flex-[0_0_100%]">
                     <span className="text-black self-start text-left font-lato-bold text-sm flex-[0_0_100%]">Coloque seu nome:</span>
-                    <input id="SignupUserFirstName" placeholder="Seu Nome" type="text" className="flex-[0_0_45%] font-lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none"></input>
-                    <input id="SignupUserLastName" placeholder="Seu Sobrenome" type="text" className="flex-[0_0_45%] ml-[5%] font-lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none"></input>
+                    <input id="SignupUserFirstName" placeholder="Seu Nome" type="text" className="flex-[0_0_45%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
+                    <input id="SignupUserLastName" placeholder="Seu Sobrenome" type="text" className="flex-[0_0_45%] ml-[5%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
                 </div>
                 <div className="flex flex-wrap flex-[0_0_60%]">
                     <span className="text-black self-start text-left font-lato-bold text-sm flex-[0_0_100%]">Coloque seu email:</span>
-                    <input id="SignupUserEmail" placeholder="Seu Email" type="email" className="flex-[0_0_100%] font-lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none"></input>
+                    <input id="SignupUserEmail" placeholder="Seu Email" type="email" className="flex-[0_0_100%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
                 </div>
                 <div className="relative flex-[0_0_60%]"> {/* mudar de relativo pra flex-row e botar 'coloque sua senha:' */}
-                    <input id="SignupUserPassword" placeholder="Sua Senha" type="password" className=" w-full font-lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none pr-10"></input>
+                    <input id="SignupUserPassword" placeholder="Sua Senha" type="password" className=" w-full font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"></input>
                     <button type="button" onClick={() => ShowHidePwd()} className="absolute right-2 top-1/2 -translate-y-2/2">
                         <img id="PasswordIcon" src="src/assets/eye-password-show.svg" alt="icone senha" className="w-6 h-6 opacity-75"></img>
                     </button>

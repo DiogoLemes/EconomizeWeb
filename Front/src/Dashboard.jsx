@@ -6,12 +6,12 @@ import {AuthContext} from "./UserContext"
 
 export default function Dashboard() {
 
-    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
+    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
 
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
 
-    const classeCards = "bg-white-div rounded-2xl border-[#DEDCFF] border-1 shadow-md h-24 w-70 flex flex-row"
+    const classeCards = "bg-white-div rounded-2xl border-theme-light border-1 shadow-md h-[6em] w-[20em] flex flex-row"
 
     let saldo1 = 1000
     let saldo2 = 12345
@@ -31,11 +31,14 @@ export default function Dashboard() {
             <div className="font-lato-bold flex flex-col text-black flex-[0_0_85%]">
                 <div className="flex flex-row p-2">
                     <span className="text-4xl mx-auto"> Bom dia, {user}</span>
-                    <span className="font-lato-regular mr-16">{user}</span>
+                    <div className="flex flex-row gap-2">
+                        <img src={userPfp} className="w-8 h-8 rounded-[50%]"/>
+                        <span className="font-lato-regular mr-16 text-end">{user}</span>
+                    </div>
                 </div>
                 <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
                 <div className="flex flex-col w-[60%] h-[100%]">
-                    <div className="grid grid-cols-2 w-[80%] h-[40%] pl-10 pt-10">
+                    <div className="grid grid-cols-2 place-content-between w-[100%] h-[40%] gap-4 p-5">
                         {/* quantidade de digitos diferentes muda as dimensoes dos cartões, arrumar isso */}
                         <div className={classeCards}>
                             <div className="flex flex-col mx-2 gap-6">
@@ -73,7 +76,7 @@ export default function Dashboard() {
                                 <span className="text-md text-start">Mercado</span>
                                 <span className="text-md text-end">R$450.00 / R$500.00</span> {/*fazer map com dados?*/}
                             </div>
-                            <progress value={0.5} className=" h-3 rounded-full bg-[#DEDCFF] [&::-moz-progress-bar]:bg-[#00CB9E]" />
+                            <progress value={0.5} className=" h-3 rounded-full bg-theme-light [&::-moz-progress-bar]:bg-receita-highlight" />
                         </div>
                     </div>
                 </div>

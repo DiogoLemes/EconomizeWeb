@@ -17,7 +17,7 @@ export default function Sidebar({selected}) {
     }
 
     return (
-        <div className="font-lato-regular text-lg bg-[#F1F2F7] h-[92vh] mb-0 flex flex-col gap-12">
+        <div className="font-lato-regular text-lg bg-sidebar-bg h-[92vh] mb-0 flex flex-col gap-12">
             <img src="src\assets\logo.svg" alt="logo economize" className="w-[50%] h-[10%] mx-auto"></img>
             <span className="text-sidebar-text text-center font-lato-bold">MENU</span>
             <ul className="">

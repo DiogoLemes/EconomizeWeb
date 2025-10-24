@@ -6,7 +6,7 @@ import { AuthContext } from "./UserContext"
 
 export default function Investimentos() {
     
-    const {user, setUser, id, setId, email, setEmail} = useContext(AuthContext)
+    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
 
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
@@ -26,7 +26,7 @@ export default function Investimentos() {
         }
 
         fetchDataMetasAtuais();
-    }, []);
+    });
 
     useEffect(() => {
         
@@ -39,7 +39,7 @@ export default function Investimentos() {
         }
 
         fetchDataHistMetas();
-    }, []);
+    });
 
         
     return(
@@ -51,7 +51,10 @@ export default function Investimentos() {
                 <div className="font-lato-bold flex flex-col text-black">
                     <div className="flex flex-row p-2">
                         <span className="text-4xl mx-auto">Investimentos</span>
-                        <span className="font-lato-regular mr-16 text-end">{user}</span>
+                        <div className="flex flex-row gap-2">
+                            <img src={userPfp} className="w-8 h-8 rounded-[50%]"/>
+                            <span className="font-lato-regular mr-16 text-end">{user}</span>
+                        </div>
                     </div>
                     <div className="flex flex-row justify-between p-4 w-[90%] gap-10">
                         <div className="border-[#d4d4d4] border-1 border-dashed rounded-md flex flex-col text-start p-2 w-[50%] gap-4 overflow-y-scroll h-180">

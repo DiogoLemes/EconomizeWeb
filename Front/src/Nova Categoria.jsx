@@ -4,10 +4,10 @@ export default function NovaCategoria({onClose}) {
   
   const [categoriaReceita, setCategoriaReceita] = useState(false)
   const [categoriaDespesa, setCategoriaDespesa] = useState(false)
-  const classeReceitaInativa = "bg-[#327448] p-2 rounded-xl w-30 hover:cursor-pointer hover:bg-[#52C077]"
-  const classeReceitaAtiva = "bg-[#52C077] p-2 rounded-xl w-30 hover:cursor-pointer"
-  const classeDespesaInativa = "bg-[#b33e3e] p-2 rounded-xl w-30 hover:cursor-pointer hover:bg-[#FF4D4D]"
-  const classeDespesaAtiva = "bg-[#FF4D4D] p-2 rounded-xl w-30 hover:cursor-pointer"
+  const classeReceitaInativa = "bg-receita-button-inactive p-2 rounded-xl w-30 hover:cursor-pointer hover:bg-receita-button-active"
+  const classeReceitaAtiva = "bg-receita-button-active p-2 rounded-xl w-30 hover:cursor-pointer"
+  const classeDespesaInativa = "bg-despesa-button-inactive p-2 rounded-xl w-30 hover:cursor-pointer hover:bg-despesa-button-active"
+  const classeDespesaAtiva = "bg-despesa-button-active p-2 rounded-xl w-30 hover:cursor-pointer"
 
   function TipoCategoriaAtual(tipo) {
     if(tipo == "Despesa"){
@@ -26,13 +26,13 @@ export default function NovaCategoria({onClose}) {
   
   return (
     <div>
-        <div className="bg-white-div rounded-4xl h-[50%] w-[40%] fixed z-2 top-1/4 left-[30%] p-3 text-black"> {/* tela de categoria */}
-          <div className="bg-[#DEDCFF] font-lato-bold text-2xl rounded-3xl w-[100%] h-[100%] flex flex-row">
+        <div className="bg-white-div rounded-4xl h-[50%] w-[40%] fixed z-2 top-1/4 left-[30%] p-3 text-black">
+          <div className="bg-theme-light font-lato-bold text-2xl rounded-3xl w-[100%] h-[100%] flex flex-row">
             <form className="w-[50%]">
                 <div className="flex flex-col p-4 gap-2">
                   <span className="text-start">Nova Categoria:</span>
                   <input type="text" placeholder="Nome da Categoria"
-                  className="bg-white rounded-md border-2 border-[#B3B3B3] text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
+                  className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
                   <div className="font-lato-regular text-xl text-start mb-6">
                     <span className="text-[1rem]">Tipo de Categoria:</span>
                     <div className=" flex justify-items-start gap-4 mt-4">

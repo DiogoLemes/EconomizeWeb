@@ -44,6 +44,7 @@ export default function LoginForm() {
 
         sessionStorage.setItem("loggedUsername", loginUsername)
         sessionStorage.setItem("userId", loginUserId)
+        sessionStorage.setItem("userEmail", loginUserEmail)
 
         navigate('/dashboard') // Redireciona para /dashboard
     }
@@ -64,17 +65,17 @@ export default function LoginForm() {
     
     return(
         <div className="w-full h-full flex flex-wrap">
-            <button className="hover:bg-[#E4E4E6] hover:opacity-80 hover:cursor-pointer flex items-center justify-center flex-[0_0_100%] border border-black w-4/5 max-w-4/5 h-13 max-h-20 rounded-md mt-[7.5%] mx-auto px-4 py-2">
+            <button className="hover:bg-google-button-hover hover:opacity-80 hover:cursor-pointer flex items-center justify-center flex-[0_0_100%] border border-black w-4/5 max-w-4/5 h-13 max-h-20 rounded-md mt-[7.5%] mx-auto px-4 py-2">
                 <img src="src\assets\logo_google_icon.svg" alt="Google logo" className="w-6 h-6" />
                 <span className="font-lato-bold text-md text-black">Fazer Login com o Google</span>
             </button>
-            <div className="w-1/3 h-0.5 self-center bg-[#525252] opacity-75 flex-[0_0_33%]"></div>
-            <span className="w-1/3 h-6 self-center text-center text-[#525252] flex-[0_0_33%]">ou</span>
-            <div className="w-1/3 h-0.5 self-center bg-[#525252] opacity-75 flex-[0_0_33%]"></div>
+            <div className="w-1/3 h-0.5 self-center bg-gray-outline opacity-75 flex-[0_0_33%]"></div>
+            <span className="w-1/3 h-6 self-center text-center text-gray-outline flex-[0_0_33%]">ou</span>
+            <div className="w-1/3 h-0.5 self-center bg-gray-outline opacity-75 flex-[0_0_33%]"></div>
             <form className="flex flex-col w-full gap-14 my-4">
-                <input id="LoginUserEmail" placeholder="Seu Email" type="email" className="font-lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none"></input>
+                <input id="LoginUserEmail" placeholder="Seu Email" type="email" className="font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
                 <div className="relative">
-                    <input id="LoginUserPassword" placeholder="Sua Senha" type="password" className="w-full font-lato-bold border-b-2 border-[#525252] text-black opacity-75 outline-none pr-10"></input>
+                    <input id="LoginUserPassword" placeholder="Sua Senha" type="password" className="w-full font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"></input>
                     <button type="button" onClick={ShowHidePwd} className="absolute right-2 top-1/2 -translate-y-1/2">
                         <img id="PasswordIcon" src="src\assets\eye-password-show.svg" alt="icone senha" className="w-6 h-6 opacity-75 mb-1"></img>
                     </button>

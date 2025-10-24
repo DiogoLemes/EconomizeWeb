@@ -61,7 +61,6 @@
   font-weight: thin;
 }  
 
-
 @theme {
   --font-lato-black: "Lato-Black", "sans-sarif";
   --font-lato-black-i: "Lato-Black-Italic", "sans-sarif";
@@ -73,11 +72,70 @@
   --font-lato-regular: "Lato-Regular", "sans-sarif";
   --font-lato-thin: "Lato-Thin", "sans-sarif";
   --font-lato-thin-i: "Lato-Thin-Italic", "sans-sarif";
+
   --color-logo-primary: #2F27CE;
   --text-logo-primary: #2F27CE;
+
   --text-white-text: #FBFBFE;
   --color-white-div: #FBFBFE;
+
   --color-sidebar-button: #E4E7F5;
   --color-sidebar-text: #082431;
   --color-sidebar-selected-text: #433BFF;
+  --color-sidebar-bg: #F1F2F7;
+
+  --color-meta-bg: #FFEED9;
+  --color-meta-button-inactive: #FFD29D;
+  --color-meta-button-active: #FFB151;
+
+  --color-receita-bg: #D1FAE5;
+  --color-receita-highlight: #00CB9E;
+  --color-receita-button-active: #2dcf0c;
+  --color-receita-button-inactive: #50A96E;
+
+  --color-despesa-bg: #FFD0D0;
+  --color-despesa-button-inactive: #DB7A7A;
+  --color-despesa-button-active: #FD3838;
+
+
+  --color-categoria-bg: #DEDCFF;
+
+  --color-button-active: #E3E3FF;
+
+  --color-input-border: #B3B3B3;
+  
+  --color-cartoes-bg: #D9D9D9;
+  --color-perfil-bg: #FBFBFE;
+  --color-button-profile-inactive: #F7F7F7;
+  --color-delete-button: #FF0000;
+  
+  --color-gray-outline: #525252;
+
+  --color-google-button-hover: #E4E4E6;
+
+  --color-footer-bg: #6F6ADD;
+
+  --color-theme-light: #DEDCFF;
+}
+
+.light{
+  --text-white-text: #FBFBFE;
+  --color-white-div: #FBFBFE;
+
+  --color-sidebar-button: #E4E7F5;
+  --color-sidebar-text: #082431;
+  --color-sidebar-selected-text: #433BFF;
+  --color-sidebar-bg: #F1F2F7;
+}
+
+.dark{
+  --text-white-text: #000000;
+  --color-white-div: #000000;
+
+  --color-sidebar-button: #000000;
+  --color-sidebar-text: #e7e7e7;
+  --color-sidebar-selected-text: #433BFF;
+  --color-sidebar-bg: #252425;
+
+  --color-perfil-bg: #424242;
 }
