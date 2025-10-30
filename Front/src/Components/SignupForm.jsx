@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
-import UserContext from "./UserContext"
-import {AuthContext} from "./UserContext"
+import UserContext from "../UserContext"
+import {AuthContext} from "../UserContext"
 
 
 export default function SignupForm() {

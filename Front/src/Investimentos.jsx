@@ -1,8 +1,9 @@
-import Footer from "./Footer"
-import Sidebar from "./Sidebar"
+import Footer from "./Components/Footer"
+import Sidebar from "./Components/Sidebar"
 import { useEffect, useState } from "react"
 import { useContext } from "react"
 import { AuthContext } from "./UserContext"
+import Header from "./Components/Header"
 
 export default function Investimentos() {
     
@@ -43,147 +44,152 @@ export default function Investimentos() {
 
         
     return(
-        <div className="flex flex-wrap">
-            <div className="flex-[0_0_15%]">
-                <Sidebar selected="investimentos"/>
-            </div>
-            <div className="flex-[0_0_85%]">
-                <div className="font-lato-bold flex flex-col text-black">
-                    <div className="flex flex-row p-2">
-                        <span className="text-4xl mx-auto">Investimentos</span>
-                        <div className="flex flex-row gap-2">
-                            <img src={userPfp} className="w-8 h-8 rounded-[50%]"/>
-                            <span className="font-lato-regular mr-16 text-end">{user}</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-row justify-between p-4 w-[90%] gap-10">
-                        <div className="border-[#d4d4d4] border-1 border-dashed rounded-md flex flex-col text-start p-2 w-[50%] gap-4 overflow-y-scroll h-180">
-                            <span className="font-lato-bold">Metas Ativas:</span>
-                            {metasAtivas.length == 0 ? <span className="font-lato-bold">Ainda nenhuma meta criada</span> : 
+        <div className="flex flex-col">
+            <div className="flex flex-row h-[90vh]">
+                <div className="w-[15%]">
+                    <Sidebar selected="investimentos"/>
+                </div>
+                <div className="w-[85%]">
+                    <div className="font-lato-bold flex flex-col text-black">
+                    <Header text={"Investimentos"}/>
+                        <div className="flex flex-row justify-between p-4 w-[90%] gap-10">
+                            <div className="border-gray-outline/50 border-1 border-dashed rounded-md flex flex-col text-start p-2 w-[50%] gap-4 overflow-y-scroll h-180">
+                                <span className="font-lato-bold">Metas Ativas:</span>
+                                {metasAtivas.length == 0 ? <span className="font-lato-bold">Ainda nenhuma meta criada</span> : 
 
-                            metasAtivas.map((meta, index) => {
-                                let progresso = (meta.valor_atual / meta.valor_meta) * 100
-                                let textoTipo
-                                let bgMeta
-                                let tipoMeta
-                                let progressoMeta
-                                let textoMeta
-                                switch(meta.tipo){
-                                    case 1:
-                                        bgMeta = "bg-[#DEDCFF] rounded-xl p-4 font-lato-bold flex flex-col gap-2"
-                                        tipoMeta = "bg-[#C9C6FF] text-[#3A00E3] rounded-md p-1"
-                                        progressoMeta = "h-3 rounded-full bg-[#C9C6FF] [&::-moz-progress-bar]:bg-[#3A00E3]"
-                                        textoMeta = "text-[#3A00E3]"
-                                        textoTipo = "Poupança"
-                                        break;
-                                    case 2:
-                                        bgMeta = "bg-[#D1FAE5] rounded-xl p-4 font-lato-bold flex flex-col gap-2"
-                                        tipoMeta = "bg-[#A7F3D0] text-[#047857] rounded-md p-1"
-                                        progressoMeta = "h-3 rounded-full bg-[#A7F3D0] [&::-moz-progress-bar]:bg-[#059669]"
-                                        textoMeta = "text-[#047857]"
-                                        textoTipo = "Compra"
-                                        break;
-                                    case 3:
-                                        bgMeta = "bg-[#FFEED9] rounded-xl p-4 font-lato-bold flex flex-col gap-2"
-                                        tipoMeta = "bg-[#FFD29D] text-[#FF8D00] rounded-md p-1"
-                                        progressoMeta = "h-3 rounded-full bg-[#FFD29D] [&::-moz-progress-bar]:bg-[#FFB151]"
-                                        textoMeta = "text-[#FF8D00]"
-                                        textoTipo = "Viagem"
-                                        break;
-                                    case 4:
-                                        bgMeta = "bg-[#FFD0D0] rounded-xl p-4 font-lato-bold flex flex-col gap-2"
-                                        tipoMeta = "bg-[#DB7A7A] text-[#A30000] rounded-md p-1"
-                                        progressoMeta = "h-3 rounded-full bg-[#DB7A7A] [&::-moz-progress-bar]:bg-[#A30000]"
-                                        textoMeta = "text-[#A30000]"
-                                        textoTipo = "Emergência"
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                metasAtivas.map((meta, index) => {
+                                    //let progresso = (meta.valor_atual / meta.valor_meta) * 100
+                                    let progresso = (meta.valor_atual / meta.valor_meta) * 100
+                                    let textoTipo
+                                    let bgMeta
+                                    let tipoMeta
+                                    let progressoMeta
+                                    let textoMeta
+                                    switch(meta.tipo){
+                                        case 1:
+                                            bgMeta = "bg-categoria-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2"
+                                            tipoMeta = "bg-categoria-text-bg text-categoria-text rounded-md p-1"
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-categoria-text-bg [&::-moz-progress-bar]:bg-categoria-text
+                                                            [&::-webkit-progress-bar]:bg-categoria-text-bg [&::-webkit-progress-value]:bg-categoria-text`
+                                            textoMeta = "text-categoria-text"
+                                            textoTipo = "Poupança"
+                                            break;
+                                        case 2:
+                                            bgMeta = "bg-receita-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2"
+                                            tipoMeta = "bg-receita-text-bg text-receita-text rounded-md p-1"
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-receita-text-bg [&::-moz-progress-bar]:bg-receita-text
+                                                            [&::-webkit-progress-bar]:bg-receita-text-bg [&::-webkit-progress-value]:bg-receita-text`
+                                            textoMeta = "text-receita-text"
+                                            textoTipo = "Compra"
+                                            break;
+                                        case 3:
+                                            bgMeta = "bg-meta-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2"
+                                            tipoMeta = "bg-meta-text-bg text-meta-text rounded-md p-1"
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-meta-text-bg [&::-moz-progress-bar]:bg-meta-text
+                                                            [&::-webkit-progress-bar]:bg-meta-text-bg [&::-webkit-progress-value]:bg-meta-text`
+                                            textoMeta = "text-meta-text"
+                                            textoTipo = "Viagem"
+                                            break;
+                                        case 4:
+                                            bgMeta = "bg-despesa-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2"
+                                            tipoMeta = "bg-despesa-text-bg text-despesa-text rounded-md p-1"
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-despesa-text-bg [&::-moz-progress-bar]:bg-despesa-text
+                                                            [&::-webkit-progress-bar]:bg-despesa-text-bg [&::-webkit-progress-value]:bg-despesa-text`
+                                            textoMeta = "text-despesa-text"
+                                            textoTipo = "Emergência"
+                                            break;
+                                        default:
+                                            break;
+                                    }
 
-                                return (
-                                    <div key={index} className={bgMeta}>
-                                        <div className="flex justify-between">
-                                            <span className="text-xl">{meta.nome}</span>
-                                            <span className={tipoMeta}>{textoTipo}</span>
+                                    return (
+                                        <div key={index} className={bgMeta}>
+                                            <div className="flex justify-between">
+                                                <span className="text-xl">{meta.nome}</span>
+                                                <span className={tipoMeta}>{textoTipo}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-sm">R$ {meta.valor_atual} / {meta.valor_meta}</span>
+                                                <span className={textoMeta}>{progresso.toFixed(0)}%</span>
+                                            </div>
+                                            <progress value={progresso / 100} className={progressoMeta} />
+                                            <div className="flex justify-between">
+                                                <span className="text-sm">Prazo: {meta.data_fim == null ? '-' : meta.data_fim}</span>
+                                                <span className="text-sm">Continue assim</span>
+                                            </div>
                                         </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-sm">R$ {meta.valor_atual} / {meta.valor_meta}</span>
-                                            <span className={textoMeta}>{progresso.toFixed(0)}%</span>
-                                        </div>
-                                        <progress value={progresso / 100} className={progressoMeta} />
-                                        <div className="flex justify-between">
-                                            <span className="text-sm">Prazo: {meta.data_fim == null ? '-' : meta.data_fim}</span>
-                                            <span className="text-sm">Continue assim</span>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                        <div className="border-[#d4d4d4] border-1 border-dashed rounded-md flex flex-col text-start p-2 w-[50%] gap-4 overflow-y-scroll h-180">
-                            <span className="font-lato-bold">Metas Concluídas:</span>
-                            {histMetas.length == 0 ? <span className="font-lato-bold">Nenhuma meta concluída</span> : 
+                                    )
+                                })}
+                            </div>
+                            <div className="border-gray-outline/50 border-1 border-dashed rounded-md flex flex-col text-start p-2 w-[50%] gap-4 overflow-y-scroll h-180">
+                                <span className="font-lato-bold">Metas Concluídas:</span>
+                                {histMetas.length == 0 ? <span className="font-lato-bold">Nenhuma meta concluída</span> : 
 
-                            histMetas.map((meta, index) => {
-                                
-                                let progresso = (meta.valor_atual / meta.valor_meta) * 100
-                                let textoTipo
-                                let bgMeta
-                                let tipoMeta
-                                let progressoMeta
-                                let textoMeta
+                                histMetas.map((meta, index) => {
+                                    
+                                    let progresso = (meta.valor_atual / meta.valor_meta) * 100
+                                    let textoTipo
+                                    let bgMeta
+                                    let tipoMeta
+                                    let progressoMeta
+                                    let textoMeta
 
-                                switch(meta.tipo){
-                                    case 1:
-                                        bgMeta = "bg-[#DEDCFF] rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
-                                        tipoMeta = "bg-[#C9C6FF] text-[#3A00E3] rounded-md p-1"
-                                        progressoMeta = "h-3 rounded-full bg-[#C9C6FF] [&::-moz-progress-bar]:bg-[#3A00E3]"
-                                        textoMeta = "text-[#3A00E3]"
-                                        textoTipo = "Poupança"
-                                        break;
-                                    case 2:
-                                        bgMeta = "bg-[#D1FAE5] rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
-                                        tipoMeta = "bg-[#A7F3D0] text-[#047857] rounded-md p-1"
-                                        progressoMeta = "h-3 rounded-full bg-[#A7F3D0] [&::-moz-progress-bar]:bg-[#059669]"
-                                        textoMeta = "text-[#047857]"
-                                        textoTipo = "Compra"
-                                        break;
-                                    case 3:
-                                        bgMeta = "bg-[#FFEED9] rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
-                                        tipoMeta = "bg-[#FFD29D] text-[#FF8D00] rounded-md p-1"
-                                        progressoMeta = "h-3 rounded-full bg-[#FFD29D] [&::-moz-progress-bar]:bg-[#FFB151]"
-                                        textoMeta = "text-[#FF8D00]"
-                                        textoTipo = "Viagem"
-                                        break;
-                                    case 4:
-                                        bgMeta = "bg-[#FFD0D0] rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
-                                        tipoMeta = "bg-[#DB7A7A] text-[#A30000] rounded-md p-1" 
-                                        progressoMeta = "h-3 rounded-full bg-[#DB7A7A] [&::-moz-progress-bar]:bg-[#A30000]"
-                                        textoMeta = "text-[#A30000]"
-                                        textoTipo = "Emergência"
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                    switch(meta.tipo){
+                                        case 1:
+                                            bgMeta = "bg-categoria-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
+                                            tipoMeta = "bg-categoria-text text-categoria-text rounded-md p-1"
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-categoria-text-bg [&::-moz-progress-bar]:bg-categoria-text
+                                                            [&::-webkit-progress-bar]:bg-categoria-text-bg [&::-webkit-progress-value]:bg-categoria-text`
+                                            textoMeta = "text-categoria-text"
+                                            textoTipo = "Poupança"
+                                            break;
+                                        case 2:
+                                            bgMeta = "bg-receita-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
+                                            tipoMeta = "bg-receita-text-bg text-receita-text rounded-md p-1"
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-receita-text-bg [&::-moz-progress-bar]:bg-receita-text
+                                                            [&::-webkit-progress-bar]:bg-receita-text-bg [&::-webkit-progress-value]:bg-receita-text`
+                                            textoMeta = "text-receita-text"
+                                            textoTipo = "Compra"
+                                            break;
+                                        case 3:
+                                            bgMeta = "bg-meta-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
+                                            tipoMeta = "bg-meta-text-bg text-meta-text rounded-md p-1"
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-meta-text-bg [&::-moz-progress-bar]:bg-meta-text
+                                                            [&::-webkit-progress-bar]:bg-meta-text-bg [&::-webkit-progress-value]:bg-meta-text`
+                                            textoMeta = "text-meta-text"
+                                            textoTipo = "Viagem"
+                                            break;
+                                        case 4:
+                                            bgMeta = "bg-despesa-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
+                                            tipoMeta = "bg-despesa-text-bg text-despesa-text rounded-md p-1" 
+                                            progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-despesa-text-bg [&::-moz-progress-bar]:bg-despesa-text
+                                                            [&::-webkit-progress-bar]:bg-despesa-text-bg [&::-webkit-progress-value]:bg-despesa-text`
+                                            textoMeta = "text-despesa-text"
+                                            textoTipo = "Emergência"
+                                            break;
+                                        default:
+                                            break;
+                                    }
 
-                                return (
-                                    <div key={index} className={bgMeta}>
-                                        <div className="flex justify-between">
-                                            <span className="text-xl">{meta.nome}</span>
-                                            <span className={tipoMeta}>{textoTipo}</span>
+                                    return (
+                                        <div key={index} className={bgMeta}>
+                                            <div className="flex justify-between">
+                                                <span className="text-xl">{meta.nome}</span>
+                                                <span className={tipoMeta}>{textoTipo}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-sm">R$ {meta.valor_atual} / {meta.valor_meta}</span>
+                                                <span className={textoMeta}>{progresso.toFixed(0)}%</span>
+                                            </div>
+                                            <progress value={progresso / 100} className={progressoMeta} />
+                                            <div className="flex justify-between">
+                                                <span className="text-sm">Prazo: {meta.data_fim == null ? '-' : meta.data_fim}</span>
+                                                <span className="text-sm">Continue assim</span>
+                                            </div>
                                         </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-sm">R$ {meta.valor_atual} / {meta.valor_meta}</span>
-                                            <span className={textoMeta}>{progresso.toFixed(0)}%</span>
-                                        </div>
-                                        <progress value={progresso / 100} className={progressoMeta} />
-                                        <div className="flex justify-between">
-                                            <span className="text-sm">Prazo: {meta.data_fim == null ? '-' : meta.data_fim}</span>
-                                            <span className="text-sm">Continue assim</span>
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>

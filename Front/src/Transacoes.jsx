@@ -1,5 +1,7 @@
-import Footer from "./Footer"
-import Sidebar from "./Sidebar"
+import Footer from "./Components/Footer"
+import Sidebar from "./Components/Sidebar"
+import Header from "./Components/Header"
+import Button from '@mui/material/Button';
 
 export default function Transacoes() {
 
@@ -10,10 +12,7 @@ export default function Transacoes() {
                     </div>
                     <div className="flex-[0_0_85%]">
                         <div className="font-lato-bold flex flex-col text-black">
-                            <div className="flex flex-row p-2">
-                                <span className="text-4xl mx-auto">Transações</span>
-                                <span className="font-lato-regular mr-16 text-end">Nome usuário</span>
-                            </div>
+                            <Header text={"Transações"}/>
                         </div>
                     </div>
                     <Footer/>

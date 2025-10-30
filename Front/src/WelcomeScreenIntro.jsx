@@ -1,4 +1,4 @@
-import Logo from "./Logo";
+import Logo from "./Components/Logo";
 
 export default function LoginScreenIntro(){
     return (

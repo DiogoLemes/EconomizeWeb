@@ -87,18 +87,26 @@
   --color-meta-bg: #FFEED9;
   --color-meta-button-inactive: #FFD29D;
   --color-meta-button-active: #FFB151;
+  --color-meta-text-bg: #FFD29D;
+  --color-meta-text: #FF8D00;
 
   --color-receita-bg: #D1FAE5;
+  --color-receita-text-bg: #A7F3D0;
+  --color-receita-text: #047857;
   --color-receita-highlight: #00CB9E;
-  --color-receita-button-active: #2dcf0c;
+  --color-receita-button-active: #2DCF0C;
   --color-receita-button-inactive: #50A96E;
 
   --color-despesa-bg: #FFD0D0;
   --color-despesa-button-inactive: #DB7A7A;
   --color-despesa-button-active: #FD3838;
+  --color-despesa-text-bg: #DB7A7A;
+  --color-despesa-text: #A30000;
 
 
   --color-categoria-bg: #DEDCFF;
+  --color-categoria-text-bg: #C9C6FF;
+  --color-categoria-text: #3A00E3;
 
   --color-button-active: #E3E3FF;
 
