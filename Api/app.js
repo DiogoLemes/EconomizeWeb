@@ -26,10 +26,18 @@ module.exports = async function (fastify, opts) {
 
   // This loads all plugins defined in routes
   // define your routes in one of these
-  fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts)
-  })
+  // fastify.register(AutoLoad, {
+  //   dir: path.join(__dirname, 'routes'),
+  //   options: Object.assign({}, opts)
+  // })
+
+  //define o prefixo de cada rota
+  fastify.register(require('./routes/root'));
+  fastify.register(require('./routes/auth'), { prefix: '/auth' });
+  fastify.register(require('./routes/goals'), { prefix: '/goals' });
+  fastify.register(require('./routes/user'), { prefix: '/usuarios' });
+  //adicionar a rota do test.js aqui se for necessário
+
 }
 
 module.exports.options = options

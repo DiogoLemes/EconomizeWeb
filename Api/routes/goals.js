@@ -2,33 +2,33 @@
 
 module.exports = async function (fastify, opts) {
   /* Rota para obter as metas ativas para um usuário específico */
-  fastify.get('/monthGoals/:idUsuario', async function (request, reply) {
+  fastify.get('/active/:idUsuario', async function (request, reply) {
     const { idUsuario } = request.params;
-  const hoje = new Date();
-  try {
-    const metas = await fastify.prisma.metas.findMany({
-      where: {
-        usuario_id: Number(idUsuario),
-        OR: [
-          { data_fim: null },
-          { data_fim: { gte: hoje } }
-        ]
-      },
-      orderBy: { criado_em: 'desc' }
-    });
-    // Atualiza o status das metas
-    await atualizarStatusMetas(fastify, metas);
-    // Filtra metas que ainda não atingiram o valor da meta, prismna não suporta essa condição diretamente
-    const metasAtivas = metas.filter(meta => Number(meta.valor_atual) < Number(meta.valor_meta));
-    console.log('Metas ativas filtradas:', metasAtivas);
-    reply.send(formatarMetasParaBrasilia(metasAtivas));
+    const hoje = new Date();
+    try {
+      const metas = await fastify.prisma.metas.findMany({
+        where: {
+          usuario_id: Number(idUsuario),
+          OR: [
+            { data_fim: null },
+            { data_fim: { gte: hoje } }
+          ]
+        },
+        orderBy: { criado_em: 'desc' }
+      });
+      // Atualiza o status das metas
+      await atualizarStatusMetas(fastify, metas);
+      // Filtra metas que ainda não atingiram o valor da meta, prismna não suporta essa condição diretamente
+      const metasAtivas = metas.filter(meta => Number(meta.valor_atual) < Number(meta.valor_meta));
+      console.log('Metas ativas filtradas:', metasAtivas);
+      reply.send(formatarMetasParaBrasilia(metasAtivas));
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao buscar metas.' });
     }
   })
 
   /* Rota para editar uma meta específica de um usuário */
-  fastify.patch('/editGoals/:idUsuario/:idGoal', async function (request, reply) {
+  fastify.patch('/:idUsuario/:idGoal', async function (request, reply) {
     const { idUsuario, idGoal } = request.params;
     const { nome, valor_meta, valor_atual, tipo, data_inicio, data_fim } = request.body;
 
@@ -58,7 +58,7 @@ module.exports = async function (fastify, opts) {
   })
 
   /* Rota para deletar uma meta específica de um usuário */
-  fastify.delete('/deleteGoals/:idUsuario/:idGoal', async function (request, reply) {
+  fastify.delete('/:idUsuario/:idGoal', async function (request, reply) {
     const { idUsuario, idGoal } = request.params;
     try {
       await fastify.prisma.metas.delete({
@@ -74,7 +74,7 @@ module.exports = async function (fastify, opts) {
   })
   
   /* Rota para adicionar uma nova meta para um usuário específico */
-  fastify.post('/addGoals/:idUsuario', async function (request, reply) {
+  fastify.post('/:idUsuario', async function (request, reply) {
     const { idUsuario } = request.params;
     const { nome, valor_meta, valor_atual, tipo, data_inicio, data_fim} = request.body;
 
@@ -107,7 +107,7 @@ module.exports = async function (fastify, opts) {
   })
 
   /* Rota para obter o histórico de metas de um usuário */
-  fastify.get('/histGoals/:idUsuario', async function (request, reply) {
+  fastify.get('/:idUsuario', async function (request, reply) {
     const { idUsuario } = request.params;
     const hoje = new Date();
     try {
@@ -130,7 +130,7 @@ module.exports = async function (fastify, opts) {
   })
 
   /* Rota para obter uma meta específica de um usuário */
-  fastify.get('/Goal/:idUsuario/:idGoal', async function (request, reply) {
+  fastify.get('/:idUsuario/:idGoal', async function (request, reply) {
     const { idUsuario, idGoal } = request.params;
     try {
       const meta = await fastify.prisma.metas.findFirst({
@@ -149,6 +149,21 @@ module.exports = async function (fastify, opts) {
   })
 
   console.log('fim de rotas...');
+}
+
+function checaMesAno(mes, ano){
+  if (mes === undefined || (typeof mes != "number" && mes != parseInt(mes))) {
+    mes = new Date().getMonth()
+  }
+  console.log("mes: "+mes)
+
+  if (ano === undefined || (typeof ano != "number" && ano != parseInt(ano))){
+    ano = new Date().getFullYear()
+  }
+  console.log("ano: "+ano)
+
+  //retorna inicio e fim do mês
+  return [new Date(ano, mes - 1, 1), new Date(ano, mes, 0, 23, 59, 59)]
 }
 
 async function atualizarStatusMetas(fastify, metas) {
