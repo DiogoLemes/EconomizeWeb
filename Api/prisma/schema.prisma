@@ -132,7 +132,7 @@ model transacoes {
   descricao            String?
   categoria_id         Int?
   valor                Decimal     @db.Decimal(10, 2)
-  data                 DateTime    @db.Date
+  data_trans           DateTime    @db.Date
   tipo                 String
   status_transferencia String?
   criado_em            DateTime?   @default(now()) @db.Timestamp(6)
