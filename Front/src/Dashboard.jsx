@@ -4,7 +4,7 @@ import { useContext } from "react"
 import {AuthContext} from "./UserContext"
 import Header from "./Components/Header"
 import MUICalendar from "./Components/MUICalendar"
-import MUIDonutChart from "./Components/MuiDonutChart"
+import MUIDonutChart from "./Components/MUIDonutChart"
 
 export default function Dashboard() {
 
