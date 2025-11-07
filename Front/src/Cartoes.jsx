@@ -3,10 +3,13 @@ import Sidebar from "./Components/Sidebar"
 import { useContext } from "react"
 import { AuthContext } from "./UserContext"
 import Header from "./Components/Header"
+import {ThemeSetter} from "./Hooks/ThemeSetter"
 
 export default function Cartoes() {
 
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
+
+    ThemeSetter()
 
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)

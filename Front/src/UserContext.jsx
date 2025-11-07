@@ -5,9 +5,9 @@ export const AuthContext = createContext()
 export default function UserContext({children}) {
 
   //fazer um fetch user por Id talvez? Precisaria definir os valores no login ou cadastro e setar aq
-  const [user, setUser] = useState("AAAAAA")
-  const [id, setId] = useState(17)
-  const [email, setEmail] = useState("e@mail.com")
+  const [user, setUser] = useState(undefined)
+  const [id, setId] = useState(0)
+  const [email, setEmail] = useState(undefined)
   const [userPfp, setUserPfp] = useState("src/assets/Foto de Perfil Padrão.svg")
   
   return(

@@ -93,7 +93,7 @@ export default function NovaMeta({onClose}) {
       body: JSON.stringify(novaMetaData)
     }).then(res => {
         if(!res.ok) {
-          console.log(res)
+          //console.log(res)
           return
         }
 

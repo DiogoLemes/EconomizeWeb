@@ -21,36 +21,43 @@ export default function NovaCategoria({onClose}) {
   }
 
   function submitCategoria(){
+    const categoriaNome = document.getElementById("categoriaNome")
     console.log("categoria criada")
+    console.log("Nome: " + categoriaNome)
+    console.log("Receita: " + categoriaReceita)
+    console.log("Despesa: " + categoriaDespesa)
+    console.log("icone: null ")
   }
   
   return (
     <div>
-        <div className="bg-white-div rounded-4xl h-[50%] w-[40%] fixed z-2 top-1/4 left-[30%] p-3 text-black">
-          <div className="bg-theme-light font-lato-bold text-2xl rounded-3xl w-[100%] h-[100%] flex flex-row">
+      <div className="bg-white-div rounded-4xl h-[50%] w-[40%] fixed z-2 top-1/4 left-[30%] p-3 text-black">
+        <div className="bg-theme-light font-lato-bold text-2xl rounded-3xl w-[100%] h-[100%]">
+          <div className=' flex flex-row h-[100%] justify-center'>
             <form className="w-[50%]">
-                <div className="flex flex-col p-4 gap-2">
-                  <span className="text-start">Nova Categoria:</span>
-                  <input type="text" placeholder="Nome da Categoria"
+              <div className="flex flex-col p-4 gap-2">
+                <span className="text-start">Nova Categoria:</span>
+                <input type="text" id="categoriaNome" placeholder="Nome da Categoria"
                   className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
-                  <div className="font-lato-regular text-xl text-start mb-6">
-                    <span className="text-[1rem]">Tipo de Categoria:</span>
-                    <div className=" flex justify-items-start gap-4 mt-4">
-                      <input type="button" value="Despesa" onClick={() => TipoCategoriaAtual("Despesa")} className={categoriaDespesa ? classeDespesaAtiva : classeDespesaInativa} /> 
-                      <input type="button" value="Receita" onClick={() => TipoCategoriaAtual("Receita")} className={categoriaReceita ? classeReceitaAtiva : classeReceitaInativa} /> 
+                <div className="font-lato-regular text-xl text-start mb-6">
+                  <span className="text-[1rem]">Tipo de Categoria:</span>
+                  <div className=" flex justify-items-start gap-4 mt-4">
+                    <input type="button" value="Despesa" onClick={() => TipoCategoriaAtual("Despesa")} className={categoriaDespesa ? classeDespesaAtiva : classeDespesaInativa} /> 
+                    <input type="button" value="Receita" onClick={() => TipoCategoriaAtual("Receita")} className={categoriaReceita ? classeReceitaAtiva : classeReceitaInativa} /> 
                   </div>
-                  </div>
+                </div>
                   <button type="submit" onClick={() => submitCategoria()} className="bg-sidebar-selected-text text-white-div p-2 rounded-xl font-lato-regular text-xl w-[60%] hover:cursor-pointer">Criar Categoria</button>
                 </div>
             </form>
             <div className="p-4 w-[40%] flex flex-col">
-                <span className="text-[1rem] text-start py-2">Ícone da categoria:</span>
-                <div className="rounded-2xl bg-white-div h-[80%] w-[100%]">
-                  {/* botar um map pros icones (inputs tipo botão?) */}
-                </div>
+              <span className="text-[1rem] text-start py-2">Ícone da categoria:</span>
+              <div className="rounded-2xl bg-white-div h-[80%] w-[100%]">
+                {/* botar um map pros icones (inputs tipo botão?) */}
+              </div>
             </div>
-          </div>
-          </div>
+          </div>  
+        </div>
+      </div>
     </div>
   )
 }

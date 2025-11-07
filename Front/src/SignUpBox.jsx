@@ -24,9 +24,11 @@ export default function SignUpBox() {
 
     return (
         <div className="max-w-[50%] w-6/12">
-            <div className="flex flex-wrap justify-evenly w-8/12 h-7/12 border ml-[17.5%] mt-[17.5%] rounded-[2%] border-solid border-[black] p-10">
-                <button id="loginButton" onClick={() => toggleAba(false)} className={`${botaoLogin ? activeButtonClass : inactiveButtonClass}`}>Entrar</button>
-                <button id="signupButton" onClick={() => toggleAba(true)} className={`${botaoCadastro ? activeButtonClass : inactiveButtonClass}`}>Cadastrar</button>
+            <div className="flex flex-col gap-8 w-8/12 h-7/12 border ml-[17.5%] mt-[17.5%] rounded-[2%] border-solid border-[black] p-10">
+                <div className="flex flex-row">
+                    <button id="loginButton" onClick={() => toggleAba(false)} className={`${botaoLogin ? activeButtonClass : inactiveButtonClass}`}>Entrar</button>
+                    <button id="signupButton" onClick={() => toggleAba(true)} className={`${botaoCadastro ? activeButtonClass : inactiveButtonClass}`}>Cadastrar</button>
+                </div>
                 {botaoCadastro ? <SignupForm /> : <LoginForm />}
             </div>
         </div>

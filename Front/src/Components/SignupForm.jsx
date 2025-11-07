@@ -33,7 +33,7 @@ export default function SignupForm() {
             body: JSON.stringify(signupData)
         }).then(res => {
             if(!res.ok) {
-                console.log(res)
+                //console.log(res)
                 return
             }
 
@@ -73,21 +73,26 @@ export default function SignupForm() {
 
     return(
         <div className="flex flex-col">
-            <form className="flex flex-wrap w-full gap-8 mb-4">
-                <div className="flex flex-wrap flex-[0_0_100%]">
-                    <span className="text-black self-start text-left font-lato-bold text-sm flex-[0_0_100%]">Coloque seu nome:</span>
-                    <input id="SignupUserFirstName" placeholder="Seu Nome" type="text" className="flex-[0_0_45%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
-                    <input id="SignupUserLastName" placeholder="Seu Sobrenome" type="text" className="flex-[0_0_45%] ml-[5%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
+            <form className="flex flex-col w-full gap-8 mb-4">
+                <div className="flex flex-col">
+                    <span className="w-full text-black self-start text-left font-lato-bold text-sm">Coloque seu nome:</span>
+                    <div className="flex flex-row place-content-stretch gap-[5%]">
+                        <input id="SignupUserFirstName" placeholder="Seu Nome" type="text" className="w-[45%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
+                        <input id="SignupUserLastName" placeholder="Seu Sobrenome" type="text" className="w-[45%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
+                    </div>
                 </div>
-                <div className="flex flex-wrap flex-[0_0_60%]">
-                    <span className="text-black self-start text-left font-lato-bold text-sm flex-[0_0_100%]">Coloque seu email:</span>
-                    <input id="SignupUserEmail" placeholder="Seu Email" type="email" className="flex-[0_0_100%] font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
+                <div className="flex flex-col gap-5">
+                    <span className="text-black self-start text-left font-lato-bold text-sm h-5 w-full">Coloque seu email:</span>
+                    <input id="SignupUserEmail" placeholder="Seu Email" type="email" className="w-full h-8 font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none"></input>
                 </div>
-                <div className="relative flex-[0_0_60%]"> {/* mudar de relativo pra flex-row e botar 'coloque sua senha:' */}
-                    <input id="SignupUserPassword" placeholder="Sua Senha" type="password" className=" w-full font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"></input>
-                    <button type="button" onClick={() => ShowHidePwd()} className="absolute right-2 top-1/2 -translate-y-2/2">
-                        <img id="PasswordIcon" src="src/assets/eye-password-show.svg" alt="icone senha" className="w-6 h-6 opacity-75"></img>
-                    </button>
+                <div className="flex flex-col gap-5 relative">
+                    <span className="text-black self-start text-left font-lato-bold text-sm h-5 w-full">Coloque sua senha:</span>
+                    <div className="relative w-full">
+                        <input id="SignupUserPassword" placeholder="Sua Senha" type="password"
+                        className="w-full h-8 font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"/>
+                        <img id="PasswordIcon" src="src/assets/eye-password-show.svg" alt="icone senha"
+                        onClick={() => ShowHidePwd()} className="w-6 h-6 absolute right-2 top-1/2 -translate-y-1/2 opacity-75 cursor-pointer"/>
+                    </div>
                 </div>
             </form>
             <div className="flex justify-center my-auto p-4">

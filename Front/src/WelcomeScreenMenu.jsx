@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
-export default function LoginScreenWelcomeMenu() {
+export default function LoginScreenWelcomeMenu({ setIntroSeen }) {
 
-    const navigate = useNavigate(); // Hook do React Router
-
-    const DashboardRedirect = () => {
-        navigate('/dashboard'); // Redireciona para /dashboard
+    const SignupRedirect = () => {
+      document.cookie = "intro-passed=true"
+      setIntroSeen(true)
     };
 
     return (
@@ -16,7 +15,7 @@ export default function LoginScreenWelcomeMenu() {
               O Economize é um site de gerenciamento de finanças focado na experiência do usuário e na segurança de seus dados. Com um design limpo e intuitivo é fácil fazer o que deseja sem se perder ou ficar confuso. Com ferramentas vitais para gerenciar seu dinheiro, metas, despesas e prazos, o Economize se preza por sua simplicidade enquanto mantém suas funcionalidades. Então, vamos conhecer?
             </p>
             <div className="flex self-center">
-              <button type="button" onClick={DashboardRedirect}  className="font-lato-bold bg-logo-primary rounded-4xl w-56 h-16 text-white justify-center">QUERO CONHECER</button>
+              <button type="button" onClick={SignupRedirect}  className="font-lato-bold bg-logo-primary rounded-4xl w-56 h-16 text-white justify-center hover:cursor-pointer">QUERO CONHECER</button>
             </div>
           </div>
         </div>

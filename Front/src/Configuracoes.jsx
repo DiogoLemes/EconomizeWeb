@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import Footer from "./Components/Footer"
 import Sidebar from "./Components/Sidebar"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "./UserContext"
-import Header from "./Components/Header";
+import Header from "./Components/Header"
+import {ThemeSetter} from "./Hooks/ThemeSetter"
 
 export default function Configuracoes() {
 
@@ -12,27 +13,26 @@ export default function Configuracoes() {
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
     
-    const temaAtual = localStorage.getItem("theme")
-    const [theme, setTheme] = useState(temaAtual)
-    // function changeTheme(){                                          //botão reseta na troca de pág mas o tema mantém
-    //     setTheme((prev) => (prev === "light" ? "dark" : "light"))
-    //     if(theme === "dark") {
-    //         localStorage.setItem("theme", "dark")
-    //     }
-    //     else {
-    //         localStorage.setItem("theme", "light")
-    //     }
-    //     console.log(theme)
-    // }   
-    
-    // useEffect(() => {
-    //         const root = window.document.documentElement;
-    //         root.classList.remove("light", "dark");
-    //         root.classList.add(theme);
-    //         localStorage.setItem("theme", theme);
-    //     }, [theme]);
-    
+    const [isDark, setIsDark] = useState(false);
 
+    useEffect(()=> {
+        if(ThemeSetter() == true) {
+            setIsDark(true)
+        } else setIsDark(false)
+    }, [])
+
+    const changeTheme = () => {
+        const newTheme = isDark ? "light" : "dark"
+        setIsDark(!isDark);
+        localStorage.setItem("theme", newTheme)
+
+        if (newTheme === "dark") {
+            document.documentElement.classList.add("dark")
+        }
+         else {
+            document.documentElement.classList.remove("dark")
+        }
+    };
 
     const navigate = useNavigate() // Hook do React Router
 
@@ -44,8 +44,8 @@ export default function Configuracoes() {
         navigate('/perfil') // Redireciona para pagina de perfil
     }
 
-    const inactiveButtonClass = "font-lato-bold border-2 text-gray-700 bg-button-profile-inactive hover:bg-button-active hover:text-black hover:opacity-100 hover:cursor-pointer border-b-gray-outline border-t-0 border-r-0 border-l-0 w-[50%] h-12"
-    const activeButtonClass = "font-lato-bold border-2 text-black bg-button-active hover:cursor-pointer border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
+    const inactiveButtonClass = "font-lato-bold border-2 text-text-theme bg-button-profile-inactive hover:bg-button-active hover:text-text-theme hover:opacity-100 hover:cursor-pointer border-b-gray-outline border-t-0 border-r-0 border-l-0 w-[50%] h-12"
+    const activeButtonClass = "font-lato-bold border-2 text-text-theme bg-button-active hover:cursor-pointer border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
     
     return(
         <div>
@@ -54,9 +54,9 @@ export default function Configuracoes() {
                     <div className="w-[15%]">
                         <Sidebar selected="configuracoes"/>
                     </div>
-                    <div className="w-[85%]">
-                        <div className="font-lato-bold flex flex-col text-black">
-                        <Header text={"Configurações"}/>
+                    <div className="w-[85%] bg-light-bg text-text-theme">
+                        <div className="font-lato-bold flex flex-col">
+                            <Header text={"Configurações"}/>
                             <div className="bg-perfil-bg h-[70vh] w-[50vw] self-center drop-shadow-md mt-10">
                                 <button id="profileButton" onClick={navProfile} className={inactiveButtonClass}>Perfil</button>
                                 <button id="settingsButton" onClick={navConfig} className={activeButtonClass}>Configurações</button>
@@ -66,9 +66,14 @@ export default function Configuracoes() {
                                         <div className="p-4 flex items-center gap-4">
                                             <span>Claro</span>
                                             <label className="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" onChange={()=> changeTheme()} className="sr-only peer"/>
-                                                <div className="w-14 h-8 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:bg-gray-700 transition-all duration-300"></div> {/* background do slider (cinza pra preto)*/}
-                                                <div className="absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 peer-checked:translate-x-6"></div> {/* slider (bolinha q mexe)*/}
+                                                 <input
+                                                    type="checkbox"
+                                                    checked={isDark}
+                                                    onChange={changeTheme}
+                                                    className="sr-only peer"
+                                                    />
+                                                <div className="w-14 h-8 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:bg-button-active transition-all duration-300"></div>
+                                                <div className="absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 peer-checked:translate-x-6"></div>
                                             </label>
                                             <span>Escuro</span>
                                         </div>

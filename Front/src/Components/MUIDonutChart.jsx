@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 
-const data = [
-  { id: 0, label: 'Receitas', value: 400, color: '#2DCF0C' },
-  { id: 1, label: 'Despesas', value: 300, color: '#FD3838' },
-];
 
-const settings = {
-  margin: { right: 5 },
-  width: 200,
-  height: 200,
-  hideLegend: true,
-};
+export default function MUIDonutChart({valorReceitas, valorDespesas}) {
+  const data = [
+    { id: 0, label: 'Receitas', value: 400, color: '#2DCF0C' },
+    { id: 1, label: 'Despesas', value: 300, color: '#FD3838' },
+  ]
+  
+  const settings = {
+    margin: { right: 5 },
+    width: 200,
+    height: 200,
+    hideLegend: true,
+  }
 
-export default function MUIDonutChart() {
+
   return (
     <PieChart
       series={[{ innerRadius: 50, outerRadius: 100, data, arcLabel: 'value' }]}

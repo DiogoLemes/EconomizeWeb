@@ -1,7 +1,12 @@
 import React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from "react"
+import { useContext } from "react"
+import { AuthContext } from "./UserContext"
 
 export default function NovaReceita({onClose}) {
+
+    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
+
     const botaoInativo = "bg-receita-button-inactive p-2 rounded-xl w-50 h-15 hover:cursor-pointer hover:bg-receita-button-active"
     const botaoAtivo = "bg-receita-button-active p-2 rounded-xl w-50 h-15 hover:cursor-pointer"
     
@@ -24,6 +29,23 @@ export default function NovaReceita({onClose}) {
       onClose()
     }
 
+    const [metasAtivas, setMetasAtivas] = useState([]);
+    
+    useEffect(() => {
+      async function fetchDataMetasAtuais() {
+          const res = await fetch(`http://localhost:3000/monthGoals/${id}`);
+          const data = await res.json();
+          setMetasAtivas(data);
+      }
+      fetchDataMetasAtuais();
+    });
+
+    const data = [{"id": 1,"nome_categoria": "Mercado"}, 
+      {"id": 2,"nome_categoria": "Salario"},
+      {"id": 3,"nome_categoria": "Gasolina"}, 
+      {"id": 4,"nome_categoria": "Roupas"}, 
+      {"id": 5,"nome_categoria": "Contas"}]                                 //FAZER MAP DAS METAS PRO SELECT 
+
     return (
       <div>
           <div className="bg-white-div rounded-4xl h-[50%] w-[40%] fixed z-2 top-1/4 left-[30%] p-3 text-black"> {/* tela de categoria */}
@@ -38,7 +60,11 @@ export default function NovaReceita({onClose}) {
                       text-[1.2rem] h-8 font-lato-regular outline-none p-1"/>
                       <select className="bg-white rounded-md border-2 border-input-border 
                       text-[1.2rem] h-8 font-lato-regular outline-none pl-1">
-                        <option>Nome da Categoria</option> {/*testando se select é melhor que input customizado */}
+                        {data.map((nome) => {
+                          return(
+                            <option className="font-lato-regular">{nome.nome_categoria}</option>
+                          )
+                        })}
                       </select>
                    </div>
                     <div className="font-lato-regular text-xl text-start mb-6">
@@ -61,7 +87,11 @@ export default function NovaReceita({onClose}) {
                         className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
                         <select className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
                           <option> Selecione a meta</option>
-                          <option>Meta</option>
+                          {metasAtivas.map((meta) => {
+                            return (
+                              <option className="font-lato-regular">{meta.nome}</option>
+                            )
+                          })}
                         </select>
                       </div>
                       <button type="submit" onClick={() => submitReceita()} className="bg-receita-button-active text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar Receita</button>

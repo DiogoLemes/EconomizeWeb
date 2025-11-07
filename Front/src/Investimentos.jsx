@@ -4,10 +4,13 @@ import { useEffect, useState } from "react"
 import { useContext } from "react"
 import { AuthContext } from "./UserContext"
 import Header from "./Components/Header"
+import {ThemeSetter} from "./Hooks/ThemeSetter"
 
 export default function Investimentos() {
     
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
+
+    ThemeSetter()
 
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
@@ -36,7 +39,6 @@ export default function Investimentos() {
             const data = await res.json();
 
             setHistMetas(data);
-            console.log(histMetas)
         }
 
         fetchDataHistMetas();
@@ -58,7 +60,6 @@ export default function Investimentos() {
                                 {metasAtivas.length == 0 ? <span className="font-lato-bold">Ainda nenhuma meta criada</span> : 
 
                                 metasAtivas.map((meta, index) => {
-                                    //let progresso = (meta.valor_atual / meta.valor_meta) * 100
                                     let progresso = (meta.valor_atual / meta.valor_meta) * 100
                                     let textoTipo
                                     let bgMeta

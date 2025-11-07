@@ -4,10 +4,13 @@ import Sidebar from "./Components/Sidebar"
 import { useContext, useState } from "react";
 import { AuthContext } from "./UserContext";
 import Header from "./Components/Header";
+import {ThemeSetter} from "./Hooks/ThemeSetter"
 
 export default function Perfil() {
 
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
+
+    ThemeSetter()
     
     const [pfpAtual, setPfpAtual] = useState("src/assets/Foto de Perfil Padrão.svg")
     const [toggleDeletar, setToggleDeletar] = useState(false)
@@ -78,8 +81,9 @@ export default function Perfil() {
                                                     file ? URL.createObjectURL(file) : undefined
                                                 )
                                                 setUserPfp(URL.createObjectURL(file))
-                                            }} className="ml-10 text-center self-center font-lato-bold bg-logo-primary rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1">
-                                                <span className="text-center">Alterar foto</span> {/*ver de alinhar o texto no botão */}
+                                            }} 
+                                                className="ml-10 text-center self-center font-lato-bold bg-logo-primary rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1">
+                                                <span className="text-center ">Alterar foto</span> {/*ver de alinhar o texto no botão */}
                                                 <input type="file" id="pfpPicker" accept="image/*" className="opacity-0 absolute w-0 h-0 z-[-1]"></input>
                                             </label>
                                         </div>
@@ -94,7 +98,7 @@ export default function Perfil() {
                                             ) : (
                                                 <div className="flex flex-col w-1/2 ml-[25%] justify-end gap-2">
                                                     <span className="font-lato-bold text-md text-start py-2">Quero apagar minha conta:</span>
-                                                    <input type="button" value="Apagar Conta" onClick={() => setToggleDeletar(true)} className="font-lato-bold bg-delete-button rounded-md w-30 h-10 text-black justify-center hover:cursor-pointer p-1"></input>
+                                                    <input type="button" value="Apagar Conta" onClick={() => setToggleDeletar(true)} className="font-lato-bold bg-delete-button rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1"></input>
                                                 </div>
                                             )}
                                     </div>

@@ -5,10 +5,13 @@ import {AuthContext} from "./UserContext"
 import Header from "./Components/Header"
 import MUICalendar from "./Components/MUICalendar"
 import MUIDonutChart from "./Components/MuiDonutChart"
+import {ThemeSetter} from "./Hooks/ThemeSetter"
 
 export default function Dashboard() {
 
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
+
+    ThemeSetter()
 
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
@@ -31,10 +34,10 @@ export default function Dashboard() {
                 <div className="w-[15%]">
                     <Sidebar selected="dashboard"/>
                 </div>
-                <div className="font-lato-bold flex flex-col text-black w-[85%]">
+                <div className="font-lato-bold flex flex-col text-black w-[85%] bg-light-bg">
                     <Header text={`Bom dia, ${user}`}/>
                     <div className="flex flex-row h-[100%]">
-                        <div className="flex flex-col w-[60%]">
+                        <div className="flex flex-col w-[60%] min-w-[700px]">
                             <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
                             <div className="grid grid-cols-2 place-content-between w-[100%] h-[40%] gap-4 p-5">
                                 {/* quantidade de digitos diferentes muda as dimensoes dos cartões, arrumar isso */}
