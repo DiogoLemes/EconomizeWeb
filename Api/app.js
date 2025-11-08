@@ -37,8 +37,8 @@ module.exports = async function (fastify, opts) {
   fastify.register(require('./routes/goals'), { prefix: '/goals' });
   fastify.register(require('./routes/transactions'), { prefix: '/transactions' });
   fastify.register(require('./routes/user'), { prefix: '/usuarios' });
-  //adicionar a rota do test.js aqui se for necessário
-
+  fastify.register(require('./routes/category'), { prefix: '/categories' });
+  fastify.register(require('./routes/dash'), { prefix: '/dashboard' });
 }
 
 module.exports.options = options

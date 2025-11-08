@@ -132,10 +132,10 @@ model transacoes {
   descricao            String?
   categoria_id         Int?
   valor                Decimal     @db.Decimal(10, 2)
-  data_trans           DateTime    @db.Date
   tipo                 String
   status_transferencia String?
   criado_em            DateTime?   @default(now()) @db.Timestamp(6)
+  data_trans           DateTime    @db.Date
   categorias           categorias? @relation(fields: [categoria_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   usuarios             usuarios    @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
@@ -147,6 +147,8 @@ model usuarios {
   senha_hash    String
   foto_perfil   String?
   data_criacao  DateTime?       @default(now()) @db.Timestamp(6)
+  saldo         Decimal         @default(0) @db.Decimal
+  despesa       Decimal         @default(0) @db.Decimal
   cartoes       cartoes[]
   categorias    categorias[]
   configuracoes configuracoes[]
