@@ -4,65 +4,10 @@ const axios = require('axios');
 
 module.exports = async function (fastify, opts) {
   fastify.get('/institutions', async (request, reply) => {
-    const belvo = new Belvo(
-      process.env.BELVO_SECRET_ID,
-      process.env.BELVO_SECRET_PASSWORD,
-      process.env.BELVO_URL || 'https://sandbox.belvo.com'
-    );
-    try {
-      await belvo.connect();
-      const institutions = await belvo.institutions.list();
-      return institutions;
-    } catch (error) {
-      console.error('Erro Belvo:', error);
-      reply.code(500).send({ error: error.message });
-    }
-  });
-};
+    const SECRET_ID = process.env.BELVO_SECRET_ID;
+    const SECRET_PASSWORD = process.env.BELVO_SECRET_PASSWORD
+    const LINK_ID = process.env.BELVO_LINK_ID;
+    const authHeader = 'Basic ' + Buffer.from(`${SECRET_ID}:${SECRET_PASSWORD}`).toString('base64');
 
-module.exports = async function (fastify, opts) {
-  fastify.get('/cartoes', async (request, reply) => {
-    try {
-      // Autenticação básica
-      const auth = Buffer.from(
-        `${process.env.BELVO_SECRET_ID}:${process.env.BELVO_SECRET_PASSWORD}`
-      ).toString('base64');
-
-      // 1. Criar link
-      const linkRes = await axios.post(
-        `${process.env.BELVO_URL || 'https://sandbox.belvo.com'}/api/links/`,
-        {
-          institution: 'erebor_br_retail',
-          username: 'user123',
-          password: 'pass123',
-          sandbox: true
-        },
-        {
-          headers: {
-            Authorization: `Basic ${auth}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      const linkId = linkRes.data.id;
-      
-      // 2. Listar contas
-      const accountsRes = await axios.get(
-        `${process.env.BELVO_URL || 'https://sandbox.belvo.com'}/api/transactions/?link=${linkId}`,
-        {
-          headers: {
-            Authorization: `Basic ${auth}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      console.log('Contas retornadas:', accountsRes);
-      // Filtra cartões de crédito
-      const cartoes = (accountsRes.data.results || []).filter(acc => acc.type === 'credit_card');
-      return cartoes;
-    } catch (error) {
-      console.error('Erro Belvo:', error.response?.data || error.message);
-      reply.code(500).send({ error: error.message });
-    }
-  });
+  });  
 };
