@@ -1,17 +1,147 @@
 @import "tailwindcss";
-/* @font-face {
-  font-family: Dx-Restcal; 
-  src: url("src\fonts\Dx-Restcal-Free Font\DxRestcal-Medium.otf") format("otf");
-  font-style: medium;
-} */ /* talvez essa fonte não funcione (suporte do tailwind)*/
+ 
+@font-face {
+  font-family: "Lato-Black";
+  src: url("../src/assets/fonts/Lato-Black.ttf");
+  font-style: normal;
+  font-weight: black;
+}  
+@font-face {
+  font-family: "Lato-Black-Italic";
+  src: url("../src/assets/fonts/Lato-BlackItalic.ttf");
+  font-style: italic;
+  font-weight: black;
+}  
+@font-face {
+  font-family: "Lato-Bold";
+  src: url("../src/assets/fonts/Lato-Bold.ttf");  
+  font-style: normal;
+  font-weight: bold;
+}  
+@font-face {
+  font-family: "Lato-Bold-Italic";
+  src: url("../src/assets/fonts/Lato-BoldItalic.ttf");
+  font-style: italic;
+  font-weight: bold;
+}  
+@font-face {
+  font-family: "Lato-Italic";
+  src: url("../src/assets/fonts/Lato-Italic.ttf");
+  font-style: italic;
+  font-weight: medium;
+}  
+@font-face {
+  font-family: "Lato-Light";
+  src: url("../src/assets/fonts/Lato-Light.ttf");
+  font-style: normal;
+  font-weight: light;
+}
+@font-face {
+  font-family: "Lato-Light-Italic";
+  src: url("../src/assets/fonts/Lato-LightItalic.ttf");
+  font-style: italic;
+  font-weight: light;
+}  
+@font-face {
+  font-family: "Lato-Regular";
+  src: url("../src/assets/fonts/Lato-Regular.ttf");
+  font-style: normal;
+  font-weight: medium;
+}  
+@font-face {
+  font-family: "Lato-Thin";
+  src: url("../src/assets/fonts/Lato-Thin.ttf");
+  font-style: normal;
+  font-weight: thin;
+}  
+@font-face {
+  font-family: "Lato-Thin-Italic";
+  src: url("../src/assets/fonts/Lato-ThinItalic.ttf");
+  font-style: italic;
+  font-weight: thin;
+}  
 
 @theme {
-  /* --font-dxrestcal: Dx-Restcal, "sans serif"; */
+  --font-lato-black: "Lato-Black", "sans-sarif";
+  --font-lato-black-i: "Lato-Black-Italic", "sans-sarif";
+  --font-lato-bold: "Lato-Bold", "sans-sarif";
+  --font-lato-bold-i: "Lato-Bold-Italic", "sans-sarif";
+  --font-lato-italic: "Lato-Italic", "sans-sarif";
+  --font-lato-light: "Lato-Light", "sans-sarif";
+  --font-lato-light-i: "Lato-Light-Italic", "sans-sarif";
+  --font-lato-regular: "Lato-Regular", "sans-sarif";
+  --font-lato-thin: "Lato-Thin", "sans-sarif";
+  --font-lato-thin-i: "Lato-Thin-Italic", "sans-sarif";
+
   --color-logo-primary: #2F27CE;
   --text-logo-primary: #2F27CE;
+  --color-light-bg: #FFFFFF;
+  
+  --color-text-theme: #000000;
   --text-white-text: #FBFBFE;
   --color-white-div: #FBFBFE;
+
   --color-sidebar-button: #E4E7F5;
   --color-sidebar-text: #082431;
   --color-sidebar-selected-text: #433BFF;
+  --color-sidebar-bg: #F1F2F7;
+
+  --color-meta-bg: #FFEED9;
+  --color-meta-button-inactive: #FFD29D;
+  --color-meta-button-active: #FFB151;
+  --color-meta-text-bg: #FFD29D;
+  --color-meta-text: #FF8D00;
+
+  --color-receita-bg: #D1FAE5;
+  --color-receita-text-bg: #A7F3D0;
+  --color-receita-text: #047857;
+  --color-receita-highlight: #00CB9E;
+  --color-receita-button-active: #2DCF0C;
+  --color-receita-button-inactive: #50A96E;
+
+  --color-despesa-bg: #FFD0D0;
+  --color-despesa-button-inactive: #DB7A7A;
+  --color-despesa-button-active: #FD3838;
+  --color-despesa-text-bg: #DB7A7A;
+  --color-despesa-text: #A30000;
+
+
+  --color-categoria-bg: #DEDCFF;
+  --color-categoria-text-bg: #C9C6FF;
+  --color-categoria-text: #3A00E3;
+
+  --color-button-active: #E3E3FF;
+
+  --color-input-border: #B3B3B3;
+  
+  --color-cartoes-bg: #D9D9D9;
+  --color-perfil-bg: #FBFBFE;
+  --color-button-profile-inactive: #F7F7F7;
+  --color-delete-button: #FF0000;
+  
+  --color-gray-outline: #525252;
+
+  --color-google-button-hover: #E4E4E6;
+
+  --color-footer-bg: #6F6ADD;
+
+  --color-theme-light: #DEDCFF;
+}
+
+.dark{
+  --text-white-text: #000000;
+  --color-white-div: #555555;
+  --color-text-theme: #FFFFFF;
+
+  --color-light-bg: #292929;
+
+  --color-sidebar-button: #000000;
+  --color-sidebar-text: #e7e7e7;
+  --color-sidebar-selected-text: #433BFF;
+  --color-sidebar-bg: #252425;
+
+  --color-perfil-bg: #424242;
+
+  --color-button-profile-inactive: #424242;
+  --color-button-active: #5050a8;
 }
