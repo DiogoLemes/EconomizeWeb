@@ -32,7 +32,7 @@ export default function NovaDespesa({onClose}) {
       
     useEffect(() => {  
       async function fetchDataMetasAtuais() {
-          const res = await fetch(`http://localhost:3000/monthGoals/${id}`);
+          const res = await fetch(`http://localhost:3000/goals/active/${id}`);
           const data = await res.json();
           setMetasAtivas(data);
         }

@@ -23,7 +23,7 @@ export default function Investimentos() {
     useEffect(() => {
         
         async function fetchDataMetasAtuais() {
-            const res = await fetch(`http://localhost:3000/monthGoals/${id}`);
+            const res = await fetch(`http://localhost:3000/goals/active/${id}`);
             const data = await res.json();
 
             setMetasAtivas(data);
@@ -35,7 +35,7 @@ export default function Investimentos() {
     useEffect(() => {
         
         async function fetchDataHistMetas() {
-            const res = await fetch(`http://localhost:3000/histGoals/${id}`);
+            const res = await fetch(`http://localhost:3000/goals/${id}`);
             const data = await res.json();
 
             setHistMetas(data);

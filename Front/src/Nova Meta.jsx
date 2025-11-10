@@ -85,7 +85,7 @@ export default function NovaMeta({onClose}) {
       data_fim: dataPrazoFinal
     }
 
-    fetch(`http://localhost:3000/addGoals/${id}`, {
+    fetch(`http://localhost:3000/goals/${id}`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
