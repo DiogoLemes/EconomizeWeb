@@ -1,7 +1,7 @@
 'use strict'
 const bcrypt = require('bcrypt');
 module.exports = async function (fastify, opts) {
-  fastify.post('/auth/register', async (request, reply) => {
+  fastify.post('/register', async (request, reply) => {
     const { nome, email, senha } = request.body;
     if (!nome || !email || !senha) {
       return reply.code(400).send({ error: 'Nome, email e senha são obrigatórios.' });
@@ -26,7 +26,7 @@ module.exports = async function (fastify, opts) {
     }
   });
 
-  fastify.post('/auth/login', async (request, reply) => {
+  fastify.post('/login', async (request, reply) => {
     const { email, senha } = request.body;
     if (!email || !senha) {
       return reply.code(400).send({ error: 'Email e senha são obrigatórios.' });

@@ -1,5 +1,6 @@
 const fp = require('fastify-plugin');
-const { PrismaClient } = require('@prisma/client');
+
+const { PrismaClient } = require('../generated/prisma');
 
 async function prismaPlugin(fastify, options) {
   const prisma = new PrismaClient();
