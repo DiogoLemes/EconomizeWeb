@@ -118,9 +118,9 @@ module.exports = async function (fastify, opts) {
         orderBy: { criado_em: 'desc' }
       });
       await atualizarStatusMetas(fastify, metas);
-      // Filtra metas que passaram do prazo ou atingiram a meta
+      // Filtra metas que passaram do prazo, atingiram a meta ou não têm meta
       const metasHistoricas = metas.filter(meta =>
-      (meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
+        (meta.data_fim != null && meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
       );
       reply.send(formatarMetasParaBrasilia(metasHistoricas));
     } catch (error) {
