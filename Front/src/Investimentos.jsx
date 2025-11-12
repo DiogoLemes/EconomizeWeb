@@ -30,7 +30,7 @@ export default function Investimentos() {
         }
 
         fetchDataMetasAtuais();
-    });
+    }, []);
 
     useEffect(() => {
         
@@ -42,7 +42,7 @@ export default function Investimentos() {
         }
 
         fetchDataHistMetas();
-    });
+    }, []);
 
         
     return(

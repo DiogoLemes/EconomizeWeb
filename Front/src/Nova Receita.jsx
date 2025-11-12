@@ -38,7 +38,7 @@ export default function NovaReceita({onClose}) {
           setMetasAtivas(data);
       }
       fetchDataMetasAtuais();
-    });
+    }, []);
 
     const data = [{"id": 1,"nome_categoria": "Mercado"}, 
       {"id": 2,"nome_categoria": "Salario"},
