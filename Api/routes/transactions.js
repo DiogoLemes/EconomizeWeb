@@ -1,5 +1,5 @@
 'use strict'
-const { getMonthTransactions } = require('../schemas/getMonthTransactions')
+const { getMonthTransactions } = require('../schemas/transactions/getMonthTransactions')
 
 module.exports = async function (fastify, opts) {
 

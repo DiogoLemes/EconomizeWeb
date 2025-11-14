@@ -1,7 +1,7 @@
 module.exports = {
     getMonthTransactions: {
       description: 'Rota para obter as transações do mês e ano específico. Por padrão retorna do mês atual',
-      tags: ['default'],
+      tags: ['Transactions'],
       summary: 'Obtém transações com base no ID e filtros de query',
       params: {
         type: 'object',
