@@ -20,7 +20,7 @@ export default function Perfil() {
     setUser(loggedInUsername)   //bad setState call error
     setEmail(userEmail)         //bad setState call error
     
-    const [primeiroNome, setPrimeiroNome] = useState(user.split(" ")[0])
+    const [primeiroNome, setPrimeiroNome] = useState(user.split(" ")[0] || "")
     const [segundoNome, setSegundoNome] = useState(user.split(" ")[1] || "")
     const [emailAtual, setEmailAtual] = useState(userEmail)
     const [emailNovo, setEmailNovo] = useState('')

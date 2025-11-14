@@ -23,26 +23,26 @@ export default function Investimentos() {
     useEffect(() => {
         
         async function fetchDataMetasAtuais() {
-            const res = await fetch(`http://localhost:3000/monthGoals/${id}`);
+            const res = await fetch(`http://localhost:3000/goals/active/${id}`);
             const data = await res.json();
 
             setMetasAtivas(data);
         }
 
         fetchDataMetasAtuais();
-    });
+    }, []);
 
     useEffect(() => {
         
         async function fetchDataHistMetas() {
-            const res = await fetch(`http://localhost:3000/histGoals/${id}`);
+            const res = await fetch(`http://localhost:3000/goals/${id}`);
             const data = await res.json();
 
             setHistMetas(data);
         }
 
         fetchDataHistMetas();
-    });
+    }, []);
 
         
     return(
@@ -138,7 +138,7 @@ export default function Investimentos() {
                                     switch(meta.tipo){
                                         case 1:
                                             bgMeta = "bg-categoria-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
-                                            tipoMeta = "bg-categoria-text text-categoria-text rounded-md p-1"
+                                            tipoMeta = "bg-categoria-text-bg text-categoria-text rounded-md p-1"
                                             progressoMeta = `h-3 w-full rounded-full overflow-hidden appearance-none bg-categoria-text-bg [&::-moz-progress-bar]:bg-categoria-text
                                                             [&::-webkit-progress-bar]:bg-categoria-text-bg [&::-webkit-progress-value]:bg-categoria-text`
                                             textoMeta = "text-categoria-text"

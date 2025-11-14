@@ -23,8 +23,6 @@ export default function SignupForm() {
             senha: userPassword.value
         }
 
-        //console.log(signupData)
-
         const data = await fetch('http://localhost:3000/auth/register', {
             method: 'POST',
             headers: {
@@ -52,24 +50,23 @@ export default function SignupForm() {
         sessionStorage.setItem("loggedUsername", signupUserName)
         sessionStorage.setItem("userId", signupUserId)
         sessionStorage.setItem("userEmail", signupUserEmail)
-        localStorage.setItem("theme", "light") //tema padrão do site
         
         navigate('/dashboard') // Redireciona para /dashboard
     }
 
     function ShowHidePwd() {
-            const icon = document.getElementById('PasswordIcon')
-            const pwd = document.getElementById('SignupUserPassword')
-            if(pwd.type == "password") {
-                pwd.type = "text"
-                icon.src = "src/assets/eye-password-hide.svg"
-            }
-            else {
-                pwd.type = "password"
-                icon.src = "src/assets/eye-password-show.svg"
-            }
-            
+        const icon = document.getElementById('PasswordIcon')
+        const pwd = document.getElementById('SignupUserPassword')
+        if(pwd.type == "password") {
+            pwd.type = "text"
+            icon.src = "src/assets/eye-password-hide.svg"
         }
+        else {
+            pwd.type = "password"
+            icon.src = "src/assets/eye-password-show.svg"
+        }
+        
+    }
 
     return(
         <div className="flex flex-col">
@@ -87,6 +84,15 @@ export default function SignupForm() {
                 </div>
                 <div className="flex flex-col gap-5 relative">
                     <span className="text-black self-start text-left font-lato-bold text-sm h-5 w-full">Coloque sua senha:</span>
+                    <div className="relative w-full">
+                        <input id="SignupUserPassword" placeholder="Sua Senha" type="password"
+                        className="w-full h-8 font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"/>
+                        <img id="PasswordIcon" src="src/assets/eye-password-show.svg" alt="icone senha"
+                        onClick={() => ShowHidePwd()} className="w-6 h-6 absolute right-2 top-1/2 -translate-y-1/2 opacity-75 cursor-pointer"/>
+                    </div>
+                </div>
+                <div className="flex flex-col gap-5 relative">
+                    <span className="text-black self-start text-left font-lato-bold text-sm h-5 w-full">Confirme sua senha:</span>
                     <div className="relative w-full">
                         <input id="SignupUserPassword" placeholder="Sua Senha" type="password"
                         className="w-full h-8 font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"/>

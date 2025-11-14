@@ -55,6 +55,9 @@ export default function NovaMeta({onClose}) {
   }
   
   function submitMeta(){
+    if(localStorage.getItem("empty dashboard") == true) {
+      localStorage.setItem("empty dashboard", false) //avisa o dash que não está mais vazio
+    }
     const nomeMeta = document.getElementById("nomeMeta")
     const tipoCategoriaMeta = tipoMeta
     const dataPrazoMeta = document.getElementById("dataPrazoMeta")
@@ -85,7 +88,7 @@ export default function NovaMeta({onClose}) {
       data_fim: dataPrazoFinal
     }
 
-    fetch(`http://localhost:3000/addGoals/${id}`, {
+    fetch(`http://localhost:3000/goals/${id}`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -100,7 +103,7 @@ export default function NovaMeta({onClose}) {
         return res.json()
       })
 
-      onClose()
+    onClose()
   }
 
   return (

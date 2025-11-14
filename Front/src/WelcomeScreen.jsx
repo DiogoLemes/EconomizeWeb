@@ -8,9 +8,10 @@ import { useState, useEffect } from "react";
     const [introSeen, setIntroSeen] = useState(false);
 
     useEffect(() => {
-    let introCookie = document.cookie
-    if(introCookie == "intro-passed=true") {setIntroSeen(true)}
-  }, []);
+      let introCookie = document.cookie
+      if(introCookie == "intro-passed=true") {setIntroSeen(true)}
+      localStorage.setItem("empty dashboard", true)
+    }, []);
 
 
     return (

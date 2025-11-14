@@ -27,7 +27,7 @@ module.exports = async function (fastify, opts) {
         }
 
         try {
-            // Confirma que o usuário sexiste antes de tentar atualizar
+            // Confirma que o usuário existe antes de tentar atualizar
             const existe = await fastify.prisma.usuarios.findUnique({ where: { id: Number(idUsuario) }, select: { id: true } });
             if (!existe) return reply.code(404).send({ error: 'Usuário não encontrado.' });
 

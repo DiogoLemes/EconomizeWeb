@@ -30,20 +30,25 @@ export default function NovaDespesa({onClose}) {
 
   const [metasAtivas, setMetasAtivas] = useState([]);
       
-    useEffect(() => {  
-      async function fetchDataMetasAtuais() {
-          const res = await fetch(`http://localhost:3000/monthGoals/${id}`);
-          const data = await res.json();
-          setMetasAtivas(data);
-        }
-      fetchDataMetasAtuais();
-    });
+  useEffect(() => {  
+    async function fetchDataMetasAtuais() {
+        const res = await fetch(`http://localhost:3000/goals/active/${id}`);
+        const data = await res.json();
+        setMetasAtivas(data);
+      }
+    fetchDataMetasAtuais();
+  }, []);
 
-  const data = [{"id": 1,"nome_categoria": "Mercado"}, 
-    {"id": 2,"nome_categoria": "Salario"},
-    {"id": 3,"nome_categoria": "Gasolina"}, 
-    {"id": 4,"nome_categoria": "Roupas"}, 
-    {"id": 5,"nome_categoria": "Contas"}]                             //FAZER MAP DAS METAS PRO SELECT 
+  const [categorias, setCategorias] = useState([])
+  
+  useEffect(() => {  
+    async function fetchDataCategorias() {
+        const res = await fetch(`http://localhost:3000/categories/${id}`);
+        const data = await res.json();
+        setCategorias(data);
+      }
+    fetchDataCategorias();
+  }, []);
   
   return (
     <div>
@@ -59,9 +64,10 @@ export default function NovaDespesa({onClose}) {
                       text-[1.2rem] h-8 font-lato-regular outline-none p-1"/>
                       <select className="bg-white rounded-md border-2 border-input-border 
                       text-[1.2rem] h-8 font-lato-regular outline-none pl-1">
-                        {data.map((nome) => {
+                        <option className="font-lato-regular">Selecione uma categoria</option>
+                        {categorias.filter((categoria) => categoria.tipo === "Despesa").map((categoria) => {
                           return(
-                            <option className="font-lato-regular">{nome.nome_categoria}</option>
+                            <option className="font-lato-regular">{categoria.nome}</option>
                           )
                         })}
                       </select>
@@ -82,7 +88,7 @@ export default function NovaDespesa({onClose}) {
                       </div>
                       {/* Campo de valor e dropdown pra selecionar a meta */}
                       <div className="flex w-[100%] justify-items-start gap-4 mt-4">
-                        <input type="text" placeholder="Valor"
+                        <input type="text" placeholder="Valor (R$)"
                         className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
                         <select className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
                           <option> Selecione a meta</option>
