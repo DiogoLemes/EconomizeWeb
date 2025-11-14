@@ -11,7 +11,7 @@ module.exports = async function (fastify, opts) {
           usuario_id: Number(idUsuario),
           OR: [
             { data_fim: null },
-            { data_fim: { gte: hoje } }
+            { data_fim: { gt: hoje } }
           ]
         },
         orderBy: { criado_em: 'desc' }
