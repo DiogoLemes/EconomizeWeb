@@ -7,14 +7,30 @@ const AutoLoad = require('@fastify/autoload')
 const options = {}
 
 module.exports = async function (fastify, opts) {
-  // Place here your custom code!
 
   await fastify.register(require('@fastify/cors'), {
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
   })
 
-  // Do not touch the following lines
+  //Swagger
+  fastify.register(require('@fastify/swagger'), {
+    openapi: {
+      info: {
+        title: 'Minha API com Fastify',
+        description: 'Documentação gerada automaticamente com Swagger',
+        version: '1.0.0',
+      },
+    },
+  });
+  
+  fastify.register(require('@fastify/swagger-ui'), {
+    routePrefix: '/docs', // endpoint onde a doc ficará acessível
+    uiConfig: {
+      docExpansion: 'list',
+      deepLinking: false,
+    },
+  });
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
@@ -23,13 +39,6 @@ module.exports = async function (fastify, opts) {
     dir: path.join(__dirname, 'plugins'),
     options: Object.assign({}, opts)
   })
-
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  // fastify.register(AutoLoad, {
-  //   dir: path.join(__dirname, 'routes'),
-  //   options: Object.assign({}, opts)
-  // })
 
   //define o prefixo de cada rota
   fastify.register(require('./routes/root'));

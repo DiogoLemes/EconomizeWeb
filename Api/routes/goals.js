@@ -11,7 +11,7 @@ module.exports = async function (fastify, opts) {
           usuario_id: Number(idUsuario),
           OR: [
             { data_fim: null },
-            { data_fim: { gte: hoje } }
+            { data_fim: { gt: hoje } }
           ]
         },
         orderBy: { criado_em: 'desc' }
@@ -100,7 +100,7 @@ module.exports = async function (fastify, opts) {
 
       reply.code(201).send(formatarMetasParaBrasilia([meta]));
     } catch (error) {
-      console.log('Erro em /addGoals:', error);
+      console.log('Erro ao adicionar meta:', error);
       reply.code(500).send({ error: 'Erro ao criar meta.' });
     }
     
@@ -118,9 +118,9 @@ module.exports = async function (fastify, opts) {
         orderBy: { criado_em: 'desc' }
       });
       await atualizarStatusMetas(fastify, metas);
-      // Filtra metas que passaram do prazo ou atingiram a meta
+      // Filtra metas que passaram do prazo, atingiram a meta ou não têm meta
       const metasHistoricas = metas.filter(meta =>
-      (meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
+        (meta.data_fim != null && meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
       );
       reply.send(formatarMetasParaBrasilia(metasHistoricas));
     } catch (error) {
@@ -149,21 +149,6 @@ module.exports = async function (fastify, opts) {
   })
 
   console.log('fim de rotas...');
-}
-
-function checaMesAno(mes, ano){
-  if (mes === undefined || (typeof mes != "number" && mes != parseInt(mes))) {
-    mes = new Date().getMonth()
-  }
-  console.log("mes: "+mes)
-
-  if (ano === undefined || (typeof ano != "number" && ano != parseInt(ano))){
-    ano = new Date().getFullYear()
-  }
-  console.log("ano: "+ano)
-
-  //retorna inicio e fim do mês
-  return [new Date(ano, mes - 1, 1), new Date(ano, mes, 0, 23, 59, 59)]
 }
 
 async function atualizarStatusMetas(fastify, metas) {

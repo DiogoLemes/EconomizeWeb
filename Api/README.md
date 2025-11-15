@@ -1,23 +1,13 @@
-# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
-This project was bootstrapped with Fastify-CLI.
+# How to run
+**Prerequisite: [Node](https://nodejs.org/en/download) installed**
 
-## Available Scripts
+1. `cd Api`
+2. `npm install`
+3. `npm run dev`
 
-In the project directory, you can run:
+# How to run (Docker)
+**Prerequisite: Docker installed. Links: [Windows](https://docs.docker.com/desktop/setup/install/windows-install/) / [Linux](https://docs.docker.com/engine/install/)**
 
-### `npm run dev`
-
-To start the app in dev mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `npm start`
-
-For production mode
-
-### `npm run test`
-
-Run the test cases.
-
-## Learn More
-
-To learn Fastify, check out the [Fastify documentation](https://fastify.dev/docs/latest/).
+1. `cd Api`
+2. `docker build -t proj:back .`
+3. `docker run -p [PORT]:3000 proj:back`

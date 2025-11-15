@@ -1,4 +1,5 @@
 'use strict'
+const { getProximasFaturas } = require('../schemas/dashboard/getProximasFaturas')
 
 module.exports = async function (fastify, opts) {
     fastify.get('/:idUsuario/saldo', async function (request, reply) {
@@ -112,7 +113,12 @@ module.exports = async function (fastify, opts) {
     });
 
     // Faturas que vencem nos próximos N meses
-    fastify.get('/:idUsuario/faturas/proximos', async function (request, reply) {
+    fastify.get('/:idUsuario/faturas/proximos', {
+        schema: getProximasFaturas,
+        handler: handlerProximasFaturas
+    });
+
+    async function handlerProximasFaturas(request, reply) {
         const { idUsuario } = request.params;
         const monthsParam = Number(request.query.months) || 3;
         if (isNaN(monthsParam) || monthsParam <= 0) return reply.code(400).send({ error: 'Parâmetro months inválido.' });
@@ -137,7 +143,8 @@ module.exports = async function (fastify, opts) {
             console.error('Erro ao buscar faturas proximas:', error);
             reply.code(500).send({ error: 'Erro ao buscar faturas proximas.' });
         }
-    });
+    }
+
 
     // Pegar o valor total de despesa do usuário
     fastify.get('/:idUsuario/despesa', async function (request, reply) {
