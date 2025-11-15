@@ -26,6 +26,7 @@ export default function NovaDespesa({onClose}) {
 
   function submitDespesa(){
     console.log("despesa criada")
+    onClose()
   }
 
   const [metasAtivas, setMetasAtivas] = useState([]);
@@ -99,7 +100,7 @@ export default function NovaDespesa({onClose}) {
                           })}
                         </select>
                       </div>
-                      <button type="submit" onClick={() => submitdespesa()} className="bg-despesa-button-active text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar despesa</button>
+                      <button type="button" onClick={() => submitdespesa()} className="bg-despesa-button-active text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar despesa</button>
                     </div>
                   </div>
                 </form>

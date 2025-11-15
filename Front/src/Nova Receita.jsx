@@ -100,7 +100,7 @@ export default function NovaReceita({onClose}) {
                         })}
                       </select>
                     </div>
-                    <button type="submit" onClick={() => submitReceita()} className="bg-receita-button-active text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar Receita</button>
+                    <button type="button" onClick={() => submitReceita()} className="bg-receita-button-active text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar Receita</button>
                   </div>
                 </div>
               </form>
