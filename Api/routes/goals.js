@@ -11,7 +11,7 @@ module.exports = async function (fastify, opts) {
           usuario_id: Number(idUsuario),
           OR: [
             { data_fim: null },
-            { data_fim: { gt: hoje } }
+            { data_fim: { gte: hoje } }
           ]
         },
         orderBy: { criado_em: 'desc' }
@@ -113,7 +113,8 @@ module.exports = async function (fastify, opts) {
     try {
       const metas = await fastify.prisma.metas.findMany({
         where: {
-          usuario_id: Number(idUsuario)
+          usuario_id: Number(idUsuario),
+          data_fim: { lt: hoje } 
         },
         orderBy: { criado_em: 'desc' }
       });
