@@ -1,25 +1,19 @@
-import './App.css'
-import WelcomeScreen from './WelcomeScreen'
-import Footer from './Footer'
-import Dashboard from './Dashboard'
+import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Transacoes from './Transacoes.jsx'
 
 function App() {
-
   return (
-    <>
-      <div className="flex flex-wrap">
-        {/* <WelcomeScreen/> */}
-        <div className='flex-[0_0_12%]'>
-          
-        </div>
-        <div className='flex-[0_0_88%]'>
-          {/* <Dashboard/> */}
-        </div>
-        <div className='flex-[0_0_100%]'>
-          {/* <Footer/> */}
-        </div>
-      </div>
-    </>
+    <Routes>
+      {/* Rota para a página de transações */}
+      <Route path="/transacoes" element={<Transacoes />} />
+      
+      {/* Você pode adicionar suas outras rotas aqui */}
+      {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+
+      {/* Rota padrão: redireciona para /transacoes */}
+      <Route path="/" element={<Navigate to="/transacoes" replace />} />
+    </Routes>
   )
 }
 

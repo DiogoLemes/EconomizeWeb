@@ -1,8 +1,8 @@
-import NovaCategoria from "./Nova Categoria"
-import NovaMeta from "./Nova Meta"
-import NovaDespesa from "./Nova Despesa"
-import NovaReceita from "./Nova Receita"
-import BotoesPopup from "./BotoesPopup"
+import NovaCategoria from "./Nova Categoria.jsx"
+import NovaMeta from "./Nova Meta.jsx"
+import NovaDespesa from "./Nova Despesa.jsx"
+import NovaReceita from "./Nova Receita.jsx"
+import BotoesPopup from "./BotoesPopup.jsx"
 import { useState } from "react"
 
 
@@ -17,13 +17,13 @@ export default function PopupMenu ({onClose}) {
             case 'BotoesPopup':
                 return <BotoesPopup trocarComponente={trocarComponente}/>
             case 'NovaCategoria':
-                return <NovaCategoria/>
+                return <NovaCategoria onClose={onClose}/>
             case 'NovaDespesa':
-                return <NovaDespesa/>
+                return <NovaDespesa onClose={onClose}/>
             case 'NovaReceita':
-                return <NovaReceita/>
+                return <NovaReceita onClose={onClose}/>
             case 'NovaMeta':
-                return <NovaMeta/>
+                return <NovaMeta onClose={onClose}/>
             default:
                 return <BotoesPopup trocarComponente={trocarComponente}/>
         }
@@ -31,11 +31,20 @@ export default function PopupMenu ({onClose}) {
 
     return (
         <div>
-            <div className="bg-black opacity-30 backdrop-blur-2xl w-screen h-screen fixed inset-0 z-1"/>
-            <button onClick={onClose} className="text-4xl text-white fixed z-2 top-[20%] left-[72%] hover:cursor-pointer">
-                <img src="\src\assets\botão fechar.png" alt="fechar" className="w-8 h-8"/>
-            </button>
-            {renderComponente()}
+            {/* FUNDO PRETO - Mude de z-1 para z-40 */}
+            <div className="bg-black opacity-30 w-screen h-screen fixed inset-0 z-40" />
+
+            {/* FUNDO DESFOCADO - Mude de z-1 para z-40 */}
+            <div className="w-screen h-screen fixed inset-0 z-40 backdrop-blur-[2px]">
+                
+                {/* BOTÃO FECHAR - Mude de z-2 para z-50 */}
+                <button onClick={onClose} className="text-4xl text-white fixed z-50 top-[20%] left-[72%] hover:cursor-pointer">
+                    <img src="\src\assets\botão fechar.png" alt="fechar" className="w-8 h-8" />
+                </button>
+
+                {/* COMPONENTE (BotoesPopup, etc.) */}
+                {renderComponente()}
+            </div>
         </div>
     )
 }
