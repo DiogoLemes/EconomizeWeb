@@ -21,7 +21,8 @@ module.exports = async function (fastify, opts) {
       // Filtra metas que ainda não atingiram o valor da meta, prismna não suporta essa condição diretamente
       const metasAtivas = metas.filter(meta => Number(meta.valor_atual) < Number(meta.valor_meta));
       console.log('Metas ativas filtradas:', metasAtivas);
-      reply.send(formatarMetasParaBrasilia(metasAtivas));
+      const metasAjustadas = ajustaHorarioMetas(metasAtivas)
+      reply.send(formatarMetasParaBrasilia(metasAjustadas));
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao buscar metas.' });
     }
@@ -97,7 +98,6 @@ module.exports = async function (fastify, opts) {
         }
       });
       await atualizarStatusMetas(fastify, [meta]);
-
       reply.code(201).send(formatarMetasParaBrasilia([meta]));
     } catch (error) {
       console.log('Erro ao adicionar meta:', error);
@@ -123,12 +123,32 @@ module.exports = async function (fastify, opts) {
       const metasHistoricas = metas.filter(meta =>
         (meta.data_fim != null && meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
       );
-      reply.send(formatarMetasParaBrasilia(metasHistoricas));
+      const metasAjustadas = ajustaHorarioMetas(metasHistoricas)
+      reply.send(formatarMetasParaBrasilia(metasAjustadas));
     } catch (error) {
       console.error('Erro em histGoals:', error);
       reply.code(500).send({ error: 'Erro ao buscar metas.' });
     }
   })
+
+  function ajustaHorarioMetas(metas) {
+    return metas.map((item) => {
+      if (item.data_fim instanceof Date) {
+        const novaData = new Date(item.data_fim);
+        novaData.setHours(23, 59, 59, 999); // 23:59:59.999
+
+        // Apenas para exibir no console
+        // console.log("Original:", item.data_fim);
+        console.log("Ajustada:", novaData);
+
+        return {
+          ...item,
+          data_fim: novaData
+        };
+      }
+      return item;
+    });
+  }
 
   /* Rota para obter uma meta específica de um usuário */
   fastify.get('/:idUsuario/:idGoal', async function (request, reply) {
