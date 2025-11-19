@@ -79,7 +79,7 @@ export default function NovaCategoria({onClose}) {
                     <input type="button" value="Receita" onClick={() => TipoCategoriaAtual("Receita")} className={categoriaReceita ? classeReceitaAtiva : classeReceitaInativa} /> 
                   </div>
                 </div>
-                <button type="button" onClick={() => submitCategoria()} className="bg-sidebar-selected-text text-white-div p-2 rounded-xl font-lato-regular text-xl w-[60%] hover:cursor-pointer">Criar Categoria</button>
+                <button type="button" onClick={() => submitCategoria()} className="bg-sidebar-selected-text text-white-text p-2 rounded-xl font-lato-regular text-xl w-[60%] hover:cursor-pointer">Criar Categoria</button>
               </div>
             </form>
             <div className="p-4 w-[40%] flex flex-col">

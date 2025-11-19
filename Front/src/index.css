@@ -75,10 +75,10 @@
 
   --color-logo-primary: #2F27CE;
   --text-logo-primary: #2F27CE;
-  --color-light-bg: #FFFFFF;
+  --color-theme-bg: #FFFFFF;
   
   --color-text-theme: #000000;
-  --text-white-text: #FBFBFE;
+  --color-white-text: #FBFBFE;
   --color-white-div: #FBFBFE;
 
   --color-sidebar-button: #E4E7F5;
@@ -132,9 +132,9 @@
   --color-white-div: #555555;
   --color-text-theme: #FFFFFF;
 
-  --color-light-bg: #292929;
+  --color-theme-bg: #292929;
 
-  --color-sidebar-button: #000000;
+  --color-sidebar-button: #181616;
   --color-sidebar-text: #e7e7e7;
   --color-sidebar-selected-text: #433BFF;
   --color-sidebar-bg: #252425;

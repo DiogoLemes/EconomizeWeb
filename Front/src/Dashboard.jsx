@@ -86,7 +86,7 @@ export default function Dashboard() {
         //     const data = await res.json()
         //     console.log("data Cartao = ", data.Cartao)
 
-        //     let CartaoValor = data.Cartao ?? "Erro" //default pra 0 se der erro
+        //     let CartaoValor = data.Cartao ?? "Erro" //mostra Erro caso não consiga carregar
         //     if(CartaoValor == data.Cartao){
         //         CartaoValor = Number(CartaoValor)
         //     } else {CartaoValor = "Erro"}
@@ -100,12 +100,12 @@ export default function Dashboard() {
         // }
 
         async function fetchProxGastos() {
-            const res = await fetch(`http://localhost:3000/dashboard/${id}/ProxGastos`)
+            const res = await fetch(`http://localhost:3000/dashboard/${id}/faturas/proximos`)
             const data = await res.json()
-            console.log("data ProxGastos = ", data.ProxGastos)
+            console.log("data ProxGastos = ", data.faturas)
 
-            let ProxGastosValor = data.despesas ?? "Erro" //default pra 0 se der erro
-            if(ProxGastosValor == data.despesas){
+            let ProxGastosValor = data.faturas ?? "Erro" //mostra Erro caso não consiga carregar
+            if(ProxGastosValor == data.faturas){
                 ProxGastosValor = Number(ProxGastosValor)
             } else {ProxGastosValor = "Erro"}
 
@@ -114,7 +114,7 @@ export default function Dashboard() {
             currency: "BRL",
             })
 
-            setProxGastos(ProxGastosFinal)
+            setProximosGastos(ProxGastosFinal)
         }
 
         fetchSaldo()
@@ -145,7 +145,7 @@ export default function Dashboard() {
                     <div className="w-[15%]">
                         <Sidebar selected="dashboard"/>
                     </div>
-                    <div className="font-lato-bold flex flex-col text-black w-[85%] bg-light-bg">
+                    <div className="font-lato-bold flex flex-col text-text-theme w-[85%] bg-theme-bg">
                         <Header text={`Bom dia, ${user}`}/>
                         <div className="flex flex-row h-[100%]">
                             <div className="flex flex-col w-[60%] min-w-[700px]">
@@ -194,7 +194,7 @@ export default function Dashboard() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-[40%] flex flex-col justify-evenly">
+                            <div className="w-[40%] flex flex-col justify-evenly text-black">
                                 <MUICalendar/>
                                 <div className="bg-theme-light w-80 h-85 mx-auto rounded-3xl p-5">
                                     <div className="h-5 flex justify-evenly">

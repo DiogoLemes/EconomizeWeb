@@ -25,9 +25,9 @@ export default function Perfil() {
     const [emailAtual, setEmailAtual] = useState(userEmail)
     const [emailNovo, setEmailNovo] = useState('')
         
-    const inactiveButtonClass = "font-lato-bold text-gray-700 bg-button-profile-inactive hover:bg-button-active hover:text-black hover:opacity-100 hover:cursor-pointer border-2 border-b-gray-outline border-t-0 border-r-0 border-l-0 w-[50%] h-12"
-    const activeButtonClass = "font-lato-bold text-black bg-button-active hover:cursor-pointer border-2 border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
-    const inputFieldClass = "outline-2 outline-input-border rounded text-black opacity-75 p-1 font-lato-bold"
+    const inactiveButtonClass = "font-lato-bold text-text-theme bg-button-profile-inactive hover:bg-button-active hover:text-text-theme hover:opacity-100 hover:cursor-pointer border-2 border-b-gray-outline border-t-0 border-r-0 border-l-0 w-[50%] h-12"
+    const activeButtonClass = "font-lato-bold text-text-theme bg-button-active hover:cursor-pointer border-2 border-b-logo-primary border-t-0 border-r-0 border-l-0 w-[50%] h-12"
+    const inputFieldClass = "outline-2 outline-input-border rounded text-black p-1 font-lato-bold bg-white"
     const inputButtonClass = "col-start-2 font-lato-bold bg-logo-primary rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1"
 
     const navigate = useNavigate() // Hook do React Router
@@ -53,10 +53,10 @@ export default function Perfil() {
                 <div className="w-[15%]">
                     <Sidebar selected="perfil"/>
                 </div>
-                <div className="w-[85%]">
-                    <div className="flex flex-col text-black">
+                <div className="w-[85%] bg-theme-bg">
+                    <div className="flex flex-col text-text-theme">
                         <Header text={"Perfil"}/>
-                        <div className="bg-perfil-bg h-[70vh] w-[50vw] self-center drop-shadow-md mt-10">
+                        <div className="bg-perfil-bg h-[70vh] w-[50vw] self-center drop-shadow-md mt-10 text-text-theme">
                             <button id="profileButton" className={activeButtonClass}>Perfil</button>
                             <button id="settingsButton" onClick={navConfig} className={inactiveButtonClass}>Configurações</button>
                             <form className="mx-auto px-[5%] h-[80%]">

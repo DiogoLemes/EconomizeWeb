@@ -20,10 +20,10 @@ export default function Cartoes() {
                         <div className="w-[15%]">
                             <Sidebar selected="cartoes"/>
                         </div>
-                        <div className="w-[85%]">
-                            <div className="font-lato-bold flex flex-col text-black">
+                        <div className="w-[85%] bg-theme-bg">
+                            <div className="font-lato-bold flex flex-col text-text-theme">
                                 <Header text={"Cartões"}/>
-                                <div className="bg-cartoes-bg rounded-2xl h-[60vh] w-[50vw] self-center mt-10">
+                                <div className="bg-cartoes-bg rounded-2xl h-[60vh] w-[50vw] self-center mt-10 text-black">
                                     <div className="flex flex-row font-lato-bold text-2xl p-8 justify-between">
                                         <span>Nome</span>
                                         <span>Número</span>

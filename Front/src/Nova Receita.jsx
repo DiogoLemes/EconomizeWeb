@@ -52,7 +52,7 @@ export default function NovaReceita({onClose}) {
   }, []);
 
   return (
-    <div>
+    <div className='z-2'>
         <div className="bg-white-div rounded-4xl h-[50%] w-[40%] fixed z-2 top-1/4 left-[30%] p-3 text-black"> {/* tela de categoria */}
           <div className="bg-receita-bg font-lato-bold text-2xl rounded-3xl w-[100%] h-[100%] flex">
             <div className="flex flex-col justify-center self-center">

@@ -9,7 +9,7 @@ export default function NovaMeta({onClose}) {
   
   const tipoMetaInativo = "bg-meta-button-inactive p-2 rounded-xl w-30 hover:cursor-pointer hover:bg-meta-button-active"
   const tipoMetaAtivo = "bg-meta-button-active p-2 rounded-xl w-30 hover:cursor-pointer"
-  const valorMetaClasse = "bg-white-div rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
+  const valorMetaClasse = "bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
   const [tipoMeta, setTipoMeta] = useState(0)
   const [metaPoupanca, setMetaPoupanca] = useState(false)
   const [metaCompra, setMetaCompra] = useState(false)
@@ -126,8 +126,8 @@ export default function NovaMeta({onClose}) {
                     </div>
                     <div className='flex flex-row w-100%'>
                       <span className='my-auto'>Prazo: </span>
-                      <input id="dataPrazoMeta" type="date" className="ml-2 bg-white-div rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
-                      <input id="boolSemPrazoMeta" type='checkbox' className='ml-2 bg-white-div rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1 w-5'/>
+                      <input id="dataPrazoMeta" type="date" className="ml-2 bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
+                      <input id="boolSemPrazoMeta" type='checkbox' className='ml-2 bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1 w-5'/>
                       <span className='my-auto ml-2'>Sem prazo</span>
                     </div>
                     <input id="valorMeta" type="number" pattern="\d*" placeholder="Valor (R$)" className={valorMetaClasse}/>

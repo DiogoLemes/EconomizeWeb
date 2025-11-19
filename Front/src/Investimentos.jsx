@@ -51,8 +51,8 @@ export default function Investimentos() {
                 <div className="w-[15%]">
                     <Sidebar selected="investimentos"/>
                 </div>
-                <div className="w-[85%]">
-                    <div className="font-lato-bold flex flex-col text-black">
+                <div className="w-[85%] bg-theme-bg">
+                    <div className="font-lato-bold flex flex-col text-text-theme">
                     <Header text={"Investimentos"}/>
                         <div className="flex flex-row justify-between p-4 w-[90%] gap-10">
                             <div className="border-gray-outline/50 border-1 border-dashed rounded-md flex flex-col text-start p-2 w-[50%] gap-4 overflow-y-scroll h-180">
@@ -61,6 +61,8 @@ export default function Investimentos() {
 
                                 metasAtivas.map((meta, index) => {
                                     let progresso = (meta.valor_atual / meta.valor_meta) * 100
+                                    const meta_data_dia = meta.data_fim === null ? null : meta.data_fim.split(",")[0]
+
                                     let textoTipo
                                     let bgMeta
                                     let tipoMeta
@@ -106,17 +108,17 @@ export default function Investimentos() {
                                     return (
                                         <div key={index} className={bgMeta}>
                                             <div className="flex justify-between">
-                                                <span className="text-xl">{meta.nome}</span>
+                                                <span className="text-xl text-black">{meta.nome}</span>
                                                 <span className={tipoMeta}>{textoTipo}</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-sm">R$ {meta.valor_atual} / {meta.valor_meta}</span>
+                                                <span className="text-sm text-black">R$ {meta.valor_atual} / {meta.valor_meta}</span>
                                                 <span className={textoMeta}>{progresso.toFixed(0)}%</span>
                                             </div>
                                             <progress value={progresso / 100} className={progressoMeta} />
                                             <div className="flex justify-between">
-                                                <span className="text-sm">Prazo: {meta.data_fim == null ? '-' : meta.data_fim}</span>
-                                                <span className="text-sm">Continue assim</span>
+                                                <span className="text-sm text-black">Prazo: {meta.data_fim === null ? '-' : meta_data_dia}</span>
+                                                <span className="text-sm text-black">Continue assim</span>
                                             </div>
                                         </div>
                                     )
@@ -129,6 +131,8 @@ export default function Investimentos() {
                                 histMetas.map((meta, index) => {
                                     
                                     let progresso = (meta.valor_atual / meta.valor_meta) * 100
+                                    const meta_data_dia = meta.data_fim === null ? null : meta.data_fim.split(",")[0]
+                                    
                                     let textoTipo
                                     let bgMeta
                                     let tipoMeta
@@ -175,17 +179,17 @@ export default function Investimentos() {
                                     return (
                                         <div key={index} className={bgMeta}>
                                             <div className="flex justify-between">
-                                                <span className="text-xl">{meta.nome}</span>
+                                                <span className="text-xl text-black">{meta.nome}</span>
                                                 <span className={tipoMeta}>{textoTipo}</span>
                                             </div>
                                             <div className="flex justify-between">
-                                                <span className="text-sm">R$ {meta.valor_atual} / {meta.valor_meta}</span>
+                                                <span className="text-sm text-black">R$ {meta.valor_atual} / {meta.valor_meta}</span>
                                                 <span className={textoMeta}>{progresso.toFixed(0)}%</span>
                                             </div>
                                             <progress value={progresso / 100} className={progressoMeta} />
                                             <div className="flex justify-between">
-                                                <span className="text-sm">Prazo: {meta.data_fim == null ? '-' : meta.data_fim}</span>
-                                                <span className="text-sm">Continue assim</span>
+                                                <span className="text-sm text-black">Prazo: {meta.data_fim == null ? '-' : meta_data_dia}</span>
+                                                <span className="text-sm text-black">Continue assim</span>
                                             </div>
                                         </div>
                                     )

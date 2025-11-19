@@ -3,7 +3,7 @@ import { useState } from "react"
 export default function LoginScreenWelcomeMenu({ setIntroSeen }) {
 
     const SignupRedirect = () => {
-      document.cookie = "intro-passed=true"
+      document.cookie = "intro-passed=true; max-age=31536000;"
       setIntroSeen(true)
     };
 

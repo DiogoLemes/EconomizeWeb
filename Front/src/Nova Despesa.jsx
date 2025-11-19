@@ -100,7 +100,7 @@ export default function NovaDespesa({onClose}) {
                           })}
                         </select>
                       </div>
-                      <button type="button" onClick={() => submitdespesa()} className="bg-despesa-button-active text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar despesa</button>
+                      <button type="button" onClick={() => submitDespesa()} className="bg-despesa-button-active text-black p-2 rounded-xl font-lato-regular text-xl w-[40%] hover:cursor-pointer">Criar despesa</button>
                     </div>
                   </div>
                 </form>
