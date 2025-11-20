@@ -39,10 +39,30 @@ export default function LoginForm() {
         const loginUserEmail = data.email
         setEmail(loginUserEmail)
 
-
         sessionStorage.setItem("loggedUsername", loginUsername)
         sessionStorage.setItem("userId", loginUserId)
         sessionStorage.setItem("userEmail", loginUserEmail)
+
+        //verifica se o usuario que será logado tem categorias ou metas criadas (conta criada mas nenhum item criado) e mostra a dash adequada
+        const categoriaRes = await fetch(`http://localhost:3000/categories/${loginUserId}`)
+        const categoriasData = await categoriaRes.json()
+        const metasAtivasRes = await fetch(`http://localhost:3000/goals/active/${loginUserId}`)
+        const metasAtivasData = await metasAtivasRes.json()
+        const metasHistRes = await fetch(`http://localhost:3000/goals/${loginUserId}`)
+        const metasHistData = await metasHistRes.json()
+        console.log("categorias: ",categoriasData)
+        console.log("categorias data length: ",categoriasData.length)
+        console.log("categorias: ",metasAtivasData)
+        console.log("categorias data length: ",metasAtivasData.length)
+        console.log("categorias: ",metasHistData)
+        console.log("categorias data length: ",metasHistData.length)
+        if(categoriasData.length == 0 && metasAtivasData.length == 0 && metasHistData.length == 0) {
+            localStorage.setItem("empty dashboard", true)
+        }
+        else {
+            localStorage.setItem("empty dashboard", false)
+        }
+        console.log("emptyDashboard: ",localStorage.getItem("emptyDashboard"))
 
         navigate('/dashboard') // Redireciona para /dashboard
     }

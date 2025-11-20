@@ -55,7 +55,8 @@ export default function NovaMeta({onClose}) {
   }
   
   function submitMeta(){
-    if(localStorage.getItem("empty dashboard") == true) {
+    const emptyDash = localStorage.getItem("empty dashboard")
+    if(emptyDash === "true") {
       localStorage.setItem("empty dashboard", false) //avisa o dash que não está mais vazio
     }
     const nomeMeta = document.getElementById("nomeMeta")

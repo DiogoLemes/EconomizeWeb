@@ -17,65 +17,85 @@ module.exports = async function (fastify, opts) {
             reply.code(500).send({ error: 'Erro ao buscar saldo.' });
         }
     });
-
-    fastify.patch('/:idUsuario/saldo', async function (request, reply) {
+    // Pegar o valor total de despesa do usuário
+    fastify.get('/:idUsuario/despesa', async function (request, reply) {
         const { idUsuario } = request.params;
-        const { valor } = request.body || {};
+        try {
+            const usuario = await fastify.prisma.usuarios.findUnique({
+                where: { id: Number(idUsuario) },
+                select: { despesa: true }
+            });
+            if (!usuario) return reply.code(404).send({ error: 'Usuário não encontrado.' });
+
+            reply.send({ despesa: usuario.despesa });
+        } catch (error) {
+            console.error('Erro ao buscar despesa do usuário:', error);
+            reply.code(500).send({ error: 'Erro ao buscar despesa.' });
+        }
+    });
+
+    // Criar transação (receita) e ajustar saldo do usuário
+    fastify.post('/:idUsuario/saldo', async function (request, reply) {
+        const { idUsuario } = request.params;
+        const { titulo, descricao, categoria_id, tipo,valor, data_trans } = request.body || {};
+
+        if (!titulo || valor === undefined || valor === null) {
+            return reply.code(400).send({ error: 'Campos obrigatórios: titulo, valor.' });
+        }
 
         const valorNum = Number(valor);
         if (!isFinite(valorNum) || valorNum <= 0) {
             return reply.code(400).send({ error: 'Valor inválido.' });
         }
 
-        try {
-            // Confirma que o usuário existe antes de tentar atualizar
-            const existe = await fastify.prisma.usuarios.findUnique({ where: { id: Number(idUsuario) }, select: { id: true } });
-            if (!existe) return reply.code(404).send({ error: 'Usuário não encontrado.' });
 
-            const usuario = await fastify.prisma.usuarios.update({
-                where: { id: Number(idUsuario) },
-                data: { saldo: { increment: valorNum } },
-                select: { saldo: true }
-            });
-
-            const saldoOut = usuario.saldo && usuario.saldo.toString ? usuario.saldo.toString() : usuario.saldo;
-            reply.send({ saldo: saldoOut });
-        } catch (error) {
-            console.error('Erro ao adicionar saldo:', error);
-            reply.code(500).send({ error: 'Erro ao adicionar saldo.' });
-        }
-    });
-
-    // Adicionar despesa
-    fastify.patch('/:idUsuario/despesa', async function (request, reply) {
-        const { idUsuario } = request.params;
-        const { valor } = request.body || {};
-
-        if (valor === undefined || valor === null) {
-            return reply.code(400).send({ error: 'Campo obrigatório: valor.' });
-        }
-
-        if (isNaN(Number(valor)) || Number(valor) <= 0) {
-            return reply.code(400).send({ error: 'Valor inválido.' });
-        }
+        const dataTransDate = data_trans ? new Date(data_trans) : new Date();
 
         try {
-            // Incrementa o total de despesas no registro do usuário
-            const usuarioAtualizado = await fastify.prisma.usuarios.update({
-                where: { id: Number(idUsuario) },
+  
+            const transacao = await fastify.prisma.transacoes.create({
                 data: {
-                    despesa: { increment: Number(valor) }
-                },
-                select: { id: true, despesa: true }
+                    usuario_id: Number(idUsuario),
+                    titulo: String(titulo),
+                    descricao: descricao ? String(descricao) : null,
+                    categoria_id: categoria_id !== undefined && categoria_id !== null ? Number(categoria_id) : null,
+                    valor: valorNum,
+                    tipo: String(tipo),
+                    status_transferencia: '1',
+                    data_trans: dataTransDate,
+                    criado_em: dataTransDate
+                }
             });
 
-            
-            reply.code(200).send({ usuario_id: usuarioAtualizado.id, despesa: usuarioAtualizado.despesa });
+            if (tipo === 'receita') {
+                const usuarioAtualizado = await fastify.prisma.usuarios.update({
+                    where: { id: Number(idUsuario) },
+                    data: { saldo: { increment: valorNum } },
+                    select: { id: true, saldo: true }
+                });
+
+                const saldoOut = usuarioAtualizado.saldo && usuarioAtualizado.saldo.toString ? usuarioAtualizado.saldo.toString() : usuarioAtualizado.saldo;
+
+                reply.code(201).send({ transacao, saldo: saldoOut });
+            } else {
+                const usuarioAtualizado = await fastify.prisma.usuarios.update({
+                    where: { id: Number(idUsuario) },
+                    data: { despesa: { increment: valorNum } },
+                    select: { id: true, despesa: true }
+                });
+
+                const despesaOut = usuarioAtualizado.despesa && usuarioAtualizado.despesa.toString ? usuarioAtualizado.despesa.toString() : usuarioAtualizado.despesa;
+
+                reply.code(201).send({ transacao, despesa: despesaOut });
+            }
+
+
         } catch (error) {
-            console.error('Erro ao atualizar despesa do usuário:', error);
-            reply.code(500).send({ error: 'Erro ao registrar despesa.' });
+            console.error('Erro ao criar transacao (receita):', error);
+            reply.code(500).send({ error: 'Erro ao criar transacao.' });
         }
     });
+
     // Função auxiliar para gerar formatos de mês/ano
     function formatsForMonthYear(year, month) {
         const mm = String(month).padStart(2, '0');
@@ -144,22 +164,4 @@ module.exports = async function (fastify, opts) {
             reply.code(500).send({ error: 'Erro ao buscar faturas proximas.' });
         }
     }
-
-
-    // Pegar o valor total de despesa do usuário
-    fastify.get('/:idUsuario/despesa', async function (request, reply) {
-        const { idUsuario } = request.params;
-        try {
-            const usuario = await fastify.prisma.usuarios.findUnique({
-                where: { id: Number(idUsuario) },
-                select: { despesa: true }
-            });
-            if (!usuario) return reply.code(404).send({ error: 'Usuário não encontrado.' });
-
-            reply.send({ despesa: usuario.despesa });
-        } catch (error) {
-            console.error('Erro ao buscar despesa do usuário:', error);
-            reply.code(500).send({ error: 'Erro ao buscar despesa.' });
-        }
-    });
 }

@@ -26,8 +26,6 @@ export default function NovaCategoria({onClose}) {
 
   const [categoriaNome, setCategoriaNome] = useState("")
   function submitCategoria(){
-    console.log("Nome: " + categoriaNome)
-
     const categoriaTipo = categoriaReceita ? "Receita" : "Despesa"
 
     const novaCategoriaData = {
@@ -51,8 +49,9 @@ export default function NovaCategoria({onClose}) {
 
         return res.json()
       })
-
-    if(localStorage.getItem("empty dashboard") == true) {
+      
+      const dashVazia = localStorage.getItem("empty dashboard")
+    if(dashVazia === "true") {
       localStorage.setItem("empty dashboard", false) //avisa o dash que não está mais vazio
     }
 

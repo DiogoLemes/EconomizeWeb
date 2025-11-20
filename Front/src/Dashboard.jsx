@@ -9,14 +9,18 @@ import {ThemeSetter} from "./Hooks/ThemeSetter"
 import { useEffect, useState } from "react"
 
 export default function Dashboard() {
-    
+    //CSS
     const classeCards = "bg-white-div rounded-2xl border-theme-light border-1 shadow-md h-[6em] w-[20em] flex flex-row justify-between"
 
-    const emptyDashboard = localStorage.getItem("empty dashboard")
-    
-    ThemeSetter()
-    
+    //UseContext de dados do usuário
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
+    
+    ThemeSetter() //verifica tema do usuario salvo no localStorage
+
+    //tela de dash vazia
+    const [emptyDashboard, setEmptyDashboard] = useState(localStorage.getItem("empty dashboard"))
+    
+    //define (set) o header
     useEffect(() => {
         const loggedInUsername = sessionStorage.getItem("loggedUsername")
         const loggedInUserId = sessionStorage.getItem("userId")
@@ -24,12 +28,27 @@ export default function Dashboard() {
         setUser(loggedInUsername)
     }, [])
     
+    //regula hora da mensagem de bom dia
+    const diaAtual = new Date()
+    const horaAtual = diaAtual.getHours()
+    let msgHora
+    if(horaAtual > 6 && horaAtual< 12){
+        msgHora = "Bom Dia"
+    }
+    else if(horaAtual >= 12 && horaAtual < 18){
+        msgHora = "Boa Tarde"
+    }
+    else {
+        msgHora = "Boa Noite"
+    }
 
+    //dados dos cards
     const [saldo, setSaldo] = useState()
     const [despesas, setDespesas] = useState(0)
-    const [cartao, setCartao] = useState(0)
+    const [cartao, setCartao] = useState("Indisponível")
     const [proximosGastos, setProximosGastos] = useState(0)
 
+    //pega os dados do usuário para os cards
     useEffect(() => {
         if (!id) return // não roda se id for 0 ou undefined
         
@@ -123,30 +142,41 @@ export default function Dashboard() {
         fetchProxGastos()
     }, [id])
     
-    if(emptyDashboard == true) {
+    if(emptyDashboard === "true") { //retorna tela vazia se não houver categorias ou metas criadas
         return (
-            <div className="font-lato-bold flex flex-col text-black">
-            <div className="flex flex-row p-2">
-                <span className="text-4xl mx-auto"> Bom dia, Nome de Usuário</span>
-                <span className="font-lato-regular mr-16">Nome usuário</span>
-            </div>
-            <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
-            <span className="self-start ml-8 text-2xl mt-12">Você não possui despesas!</span>
-            <img src="\src\assets\undraw_processing.svg" alt="processing_icon" className="w-[25%] h-[25%] mx-auto"/>
-            <span className="self-start ml-8 text-2xl mt-4">Clique aqui para começar!</span> {/*trocar para fixed e ajustar na pagina*/}
-            <img src="\src\assets\Arrow.svg" alt="Seta apontando para botão à esquerda" className="ml-8 w-36 h-18"/>
-        </div>
-        )
-    }
-    else {
-        return(
             <div className="flex flex-col">
-            <div className="flex flex-row h-[90vh]">
+                <div className="flex flex-row h-[90vh]">
                     <div className="w-[15%]">
                         <Sidebar selected="dashboard"/>
                     </div>
                     <div className="font-lato-bold flex flex-col text-text-theme w-[85%] bg-theme-bg">
                         <Header text={`Bom dia, ${user}`}/>
+                         <div className="font-lato-bold flex flex-col text-black">
+                            <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
+                            <span className="self-start ml-8 text-2xl mt-12">Você não possui despesas!</span>
+                            <img src="\src\assets\undraw_processing.svg" alt="processing_icon" className="w-[50%] h-[50%] mx-auto"/>
+                            <div className="fixed top-[60%]">
+                                <span className="self-start ml-8 text-2xl mt-4">Clique aqui e crie uma categoria e uma despesa!</span>
+                                <img src="\src\assets\Arrow.svg" alt="Seta apontando para botão à esquerda" className="ml-8 w-36 h-18"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <Footer/>
+                </div>
+            </div>
+        )
+    }
+    else {
+        return(
+            <div className="flex flex-col">
+                <div className="flex flex-row h-[90vh]">
+                    <div className="w-[15%]">
+                        <Sidebar selected="dashboard"/>
+                    </div>
+                    <div className="font-lato-bold flex flex-col text-text-theme w-[85%] bg-theme-bg">
+                        <Header text={`${msgHora}, ${user}`}/>
                         <div className="flex flex-row h-[100%]">
                             <div className="flex flex-col w-[60%] min-w-[700px]">
                                 <span className="self-start ml-8 text-lg mt-12">Dashboard</span>

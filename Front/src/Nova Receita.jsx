@@ -24,32 +24,58 @@ export default function NovaReceita({onClose}) {
     }
   }
   
-  function submitReceita(){
-    console.log("receita criada")
-    onClose()
-  }
-
   const [metasAtivas, setMetasAtivas] = useState([]);
   
   useEffect(() => {
     async function fetchDataMetasAtuais() {
-        const res = await fetch(`http://localhost:3000/goals/active/${id}`);
-        const data = await res.json();
-        setMetasAtivas(data);
+      const res = await fetch(`http://localhost:3000/goals/active/${id}`);
+      const data = await res.json();
+      setMetasAtivas(data);
     }
     fetchDataMetasAtuais();
   }, []);
-
+  
   const [categorias, setCategorias] = useState([])
-    
+  
   useEffect(() => {  
     async function fetchDataCategorias() {
-        const res = await fetch(`http://localhost:3000/categories/${id}`);
-        const data = await res.json();
-        setCategorias(data);
-      }
+      const res = await fetch(`http://localhost:3000/categories/${id}`);
+      const data = await res.json();
+      setCategorias(data);
+    }
     fetchDataCategorias();
   }, []);
+  
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("")
+
+  function submitReceita(){
+    const valorReceita = document.getElementById("valorReceita").value
+    const nomeReceita = document.getElementById("nomeReceita").value
+    const novaReceitaData = {
+      titulo: nomeReceita,
+      //descricao: null
+      categoria_id: Number(categoriaSelecionada),
+      tipo: "Receita",
+      valor: valorReceita,
+      data_trans: new Date()
+    }
+
+    fetch(`http://localhost:3000/dashboard/${id}/saldo`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(novaReceitaData)
+    }).then(res => {
+        if(!res.ok) {
+          //console.log(res)
+          return
+        }
+
+        return res.json()
+      })
+    onClose()
+  }
 
   return (
     <div className='z-2'>
@@ -60,15 +86,15 @@ export default function NovaReceita({onClose}) {
               <form className="w-[70%] align-middle mx-[auto] h-[90%]">
                 <div className="flex flex-col p-4">
                   <div className='flex flex-col gap-4'>
-                    <input type="text" placeholder="Nome da Receita"
+                    <input id="nomeReceita" type="text" placeholder="Nome da Receita"
                     className="bg-white rounded-md border-2 border-input-border 
                     text-[1.2rem] h-8 font-lato-regular outline-none p-1"/>
-                    <select className="bg-white rounded-md border-2 border-input-border 
-                    text-[1.2rem] h-8 font-lato-regular outline-none pl-1">
-                      <option className="font-lato-regular">Selecione uma categoria</option>
+                    <select onChange={(e) => setCategoriaSelecionada(e.target.value)}
+                    className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none pl-1">
+                      <option value="" className="font-lato-regular">Selecione uma categoria</option>
                         {categorias.filter((categoria) => categoria.tipo === "Receita").map((categoria) => {
                           return(
-                            <option className="font-lato-regular">{categoria.nome}</option>
+                            <option value={categoria.id} className="font-lato-regular">{categoria.nome}</option>
                           )
                         })}
                     </select>
@@ -89,7 +115,7 @@ export default function NovaReceita({onClose}) {
                     </div>
                     {/* Campo de valor e dropdown pra selecionar a meta */}
                     <div className="flex w-[100%] justify-items-start gap-4 mt-4">
-                      <input type="text" placeholder="Valor (R$)"
+                      <input id="valorReceita" type="text" placeholder="Valor (R$)"
                       className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
                       <select className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
                         <option> Selecione a meta</option>
