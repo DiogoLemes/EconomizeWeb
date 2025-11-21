@@ -24,27 +24,27 @@ export default function NovaReceita({onClose}) {
     }
   }
   
-  const [metasAtivas, setMetasAtivas] = useState([]);
+  const [metasAtivas, setMetasAtivas] = useState([])
   
   useEffect(() => {
     async function fetchDataMetasAtuais() {
-      const res = await fetch(`http://localhost:3000/goals/active/${id}`);
-      const data = await res.json();
-      setMetasAtivas(data);
+      const res = await fetch(`http://localhost:3000/goals/active/${id}`)
+      const data = await res.json()
+      setMetasAtivas(data)
     }
-    fetchDataMetasAtuais();
-  }, []);
+    fetchDataMetasAtuais()
+  }, [])
   
   const [categorias, setCategorias] = useState([])
   
   useEffect(() => {  
     async function fetchDataCategorias() {
-      const res = await fetch(`http://localhost:3000/categories/${id}`);
-      const data = await res.json();
-      setCategorias(data);
+      const res = await fetch(`http://localhost:3000/categories/${id}`)
+      const data = await res.json()
+      setCategorias(data)
     }
-    fetchDataCategorias();
-  }, []);
+    fetchDataCategorias()
+  }, [])
   
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("")
 
@@ -55,7 +55,7 @@ export default function NovaReceita({onClose}) {
       titulo: nomeReceita,
       //descricao: null
       categoria_id: Number(categoriaSelecionada),
-      tipo: "Receita",
+      tipo: "receita",
       valor: valorReceita,
       data_trans: new Date()
     }

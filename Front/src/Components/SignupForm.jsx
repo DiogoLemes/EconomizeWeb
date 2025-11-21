@@ -52,6 +52,7 @@ export default function SignupForm() {
         sessionStorage.setItem("userEmail", signupUserEmail)
 
         localStorage.setItem("empty dashboard", true)
+        localStorage.setItem("isLoggedIn", true)
         
         navigate('/dashboard') // Redireciona para /dashboard
     }

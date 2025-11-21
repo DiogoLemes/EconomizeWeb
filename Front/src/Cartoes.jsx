@@ -1,15 +1,17 @@
 import Footer from "./Components/Footer"
 import Sidebar from "./Components/Sidebar"
+import Header from "./Components/Header"
 import { useContext } from "react"
 import { AuthContext } from "./UserContext"
-import Header from "./Components/Header"
-import {ThemeSetter} from "./Hooks/ThemeSetter"
+import {ThemeSetter} from "./Functions/ThemeSetter"
+import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Cartoes() {
 
-    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
-
+    HomeRedirect()
     ThemeSetter()
+    
+    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
 
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
