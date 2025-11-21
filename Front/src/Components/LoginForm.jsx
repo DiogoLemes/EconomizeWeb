@@ -43,6 +43,8 @@ export default function LoginForm() {
         sessionStorage.setItem("userId", loginUserId)
         sessionStorage.setItem("userEmail", loginUserEmail)
 
+        localStorage.setItem("isLoggedIn", true)
+
         //verifica se o usuario que será logado tem categorias ou metas criadas (conta criada mas nenhum item criado) e mostra a dash adequada
         const categoriaRes = await fetch(`http://localhost:3000/categories/${loginUserId}`)
         const categoriasData = await categoriaRes.json()

@@ -1,11 +1,14 @@
 import Footer from "./Components/Footer"
 import Sidebar from "./Components/Sidebar"
 import Header from "./Components/Header"
-import Button from '@mui/material/Button';
-import {ThemeSetter} from "./Hooks/ThemeSetter"
+import {ThemeSetter} from "./Functions/ThemeSetter"
+import {PageUnload} from "./Functions/PageUnload"
+import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Transacoes() {
 
+    HomeRedirect()
+    PageUnload()
     ThemeSetter()
 
     return(

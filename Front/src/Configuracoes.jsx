@@ -4,9 +4,14 @@ import Sidebar from "./Components/Sidebar"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "./UserContext"
 import Header from "./Components/Header"
-import {ThemeSetter} from "./Hooks/ThemeSetter"
+import {ThemeSetter} from "./Functions/ThemeSetter"
+import {PageUnload} from "./Functions/PageUnload"
+import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Configuracoes() {
+
+    HomeRedirect()
+    PageUnload()
 
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
     

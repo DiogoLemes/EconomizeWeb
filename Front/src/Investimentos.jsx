@@ -1,16 +1,20 @@
 import Footer from "./Components/Footer"
 import Sidebar from "./Components/Sidebar"
-import { useEffect, useState } from "react"
-import { useContext } from "react"
-import { AuthContext } from "./UserContext"
 import Header from "./Components/Header"
-import {ThemeSetter} from "./Hooks/ThemeSetter"
+import { useContext } from "react"
+import { useEffect, useState } from "react"
+import { AuthContext } from "./UserContext"
+import {ThemeSetter} from "./Functions/ThemeSetter"
+import {PageUnload} from "./Functions/PageUnload"
+import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Investimentos() {
     
-    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
-
+    HomeRedirect()
+    PageUnload()
     ThemeSetter()
+    
+    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
 
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)

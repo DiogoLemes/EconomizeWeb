@@ -28,6 +28,7 @@ export default function Header({text}) {
 
     const Logout = () => {
         sessionStorage.clear()
+        localStorage.removeItem("isLoggedIn")
         navigate('/') //navega pra tela de bem vindo
     }
   

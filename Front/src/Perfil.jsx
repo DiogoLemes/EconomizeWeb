@@ -1,27 +1,37 @@
-import { useNavigate } from "react-router-dom";
 import Footer from "./Components/Footer"
 import Sidebar from "./Components/Sidebar"
+import Header from "./Components/Header";
+import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "./UserContext";
-import Header from "./Components/Header";
-import {ThemeSetter} from "./Hooks/ThemeSetter"
+import {ThemeSetter} from "./Functions/ThemeSetter"
+import {PageUnload} from "./Functions/PageUnload"
+import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Perfil() {
 
-    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
-
+    HomeRedirect()
+    PageUnload()
     ThemeSetter()
+
+    const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
     
     const [pfpAtual, setPfpAtual] = useState("src/assets/Foto de Perfil Padrão.svg")
     const [toggleDeletar, setToggleDeletar] = useState(false)
     
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     const userEmail = sessionStorage.getItem("userEmail")
-    setUser(loggedInUsername)   //bad setState call error
-    setEmail(userEmail)         //bad setState call error
+    setUser(loggedInUsername)
+    setEmail(userEmail)
     
-    const [primeiroNome, setPrimeiroNome] = useState(user.split(" ")[0] || "")
-    const [segundoNome, setSegundoNome] = useState(user.split(" ")[1] || "")
+    let userNameDisplay
+    if(loggedInUsername == null || loggedInUsername == undefined) {
+        userNameDisplay = ""
+    }
+    else userNameDisplay = loggedInUsername
+
+    const [primeiroNome, setPrimeiroNome] = useState(userNameDisplay.split(" ")[0])
+    const [segundoNome, setSegundoNome] = useState(userNameDisplay.split(" ")[1])
     const [emailAtual, setEmailAtual] = useState(userEmail)
     const [emailNovo, setEmailNovo] = useState('')
         

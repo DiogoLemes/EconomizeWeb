@@ -4,8 +4,8 @@ import { PieChart } from '@mui/x-charts/PieChart';
 
 export default function MUIDonutChart({valorReceitas, valorDespesas}) {
   const data = [
-    { id: 0, label: 'Receitas', value: 400, color: '#2DCF0C' },
-    { id: 1, label: 'Despesas', value: 300, color: '#FD3838' },
+    { id: 0, label: 'Receitas', value: valorReceitas, color: '#2DCF0C' },
+    { id: 1, label: 'Despesas', value: valorDespesas, color: '#FD3838' },
   ]
   
   const settings = {

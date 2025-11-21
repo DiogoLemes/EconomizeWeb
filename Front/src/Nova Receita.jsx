@@ -55,7 +55,7 @@ export default function NovaReceita({onClose}) {
       titulo: nomeReceita,
       //descricao: null
       categoria_id: Number(categoriaSelecionada),
-      tipo: "Receita",
+      tipo: "receita",
       valor: valorReceita,
       data_trans: new Date()
     }

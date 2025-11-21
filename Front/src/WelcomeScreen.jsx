@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 
     useEffect(() => {
       let introCookie = document.cookie
-      console.log(document.cookie)
       if(introCookie.split(";")[0] == "intro-passed=true") {setIntroSeen(true)}
       localStorage.setItem("empty dashboard", true)
     }, []);

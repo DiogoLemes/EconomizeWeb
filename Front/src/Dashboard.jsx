@@ -1,21 +1,26 @@
-import Footer from "./Components/Footer"
-import Sidebar from "./Components/Sidebar"
 import { useContext } from "react"
 import {AuthContext} from "./UserContext"
+import Footer from "./Components/Footer"
+import { useEffect, useState } from "react"
+import Sidebar from "./Components/Sidebar"
 import Header from "./Components/Header"
 import MUICalendar from "./Components/MUICalendar"
 import MUIDonutChart from "./Components/MUIDonutChart"
-import {ThemeSetter} from "./Hooks/ThemeSetter"
-import { useEffect, useState } from "react"
+import {ThemeSetter} from "./Functions/ThemeSetter"
+import {PageUnload} from "./Functions/PageUnload"
+import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Dashboard() {
+    
+    HomeRedirect() //redireciona o usuario para a tela de login/cadastro se entrar na url sem passar pelo login
+    PageUnload() //adiciona evento que limpa dados do sessionStorage quando usuario fecha site
+    ThemeSetter() //verifica tema do usuario salvo no localStorage
+    
     //CSS
     const classeCards = "bg-white-div rounded-2xl border-theme-light border-1 shadow-md h-[6em] w-[20em] flex flex-row justify-between"
 
     //UseContext de dados do usuário
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
-    
-    ThemeSetter() //verifica tema do usuario salvo no localStorage
 
     //tela de dash vazia
     const [emptyDashboard, setEmptyDashboard] = useState(localStorage.getItem("empty dashboard"))
@@ -43,10 +48,14 @@ export default function Dashboard() {
     }
 
     //dados dos cards
-    const [saldo, setSaldo] = useState()
+    const [saldo, setSaldo] = useState(0)
     const [despesas, setDespesas] = useState(0)
     const [cartao, setCartao] = useState("Indisponível")
     const [proximosGastos, setProximosGastos] = useState(0)
+
+    //dados do grafico de donut
+    const [muiChartReceitas, setMuiChartReceitas] = useState(0)
+    const [muiChartDespesas, setMuiChartDespesas] = useState(0)
 
     //pega os dados do usuário para os cards
     useEffect(() => {
@@ -74,16 +83,17 @@ export default function Dashboard() {
             })
 
             setSaldo(saldoFinal)
+            setMuiChartReceitas(Number(saldoValor))
             
         }
 
         async function fetchDespesas() {
-            const res = await fetch(`http://localhost:3000/dashboard/${id}/faturas/mes`)
+            const res = await fetch(`http://localhost:3000/dashboard/${id}/despesa`)
             const data = await res.json()
             console.log("data despesas = ", data)
 
-            let despesaValor = data.faturas ?? "Erro"
-            if(despesaValor == data.faturas)
+            let despesaValor = data.despesa ?? "Erro"
+            if(despesaValor == data.despesa)
             {
                 despesaValor = Number(despesaValor)
             }
@@ -98,6 +108,7 @@ export default function Dashboard() {
             })
 
             setDespesas(despesaFinal)
+            setMuiChartDespesas(Number(despesaValor))
         }
 
         // async function fetchCartao() {
@@ -238,7 +249,7 @@ export default function Dashboard() {
                                         </div>
                                     </div>
                                     <div className="h-70 flex justify-center">
-                                        <MUIDonutChart/>
+                                        <MUIDonutChart valorReceitas={Number(muiChartReceitas)} valorDespesas={Number(muiChartDespesas)}/>
                                     </div>
                                 </div>
                             </div>
