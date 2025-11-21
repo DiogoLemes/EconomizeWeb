@@ -137,9 +137,8 @@ module.exports = async function (fastify, opts) {
         const novaData = new Date(item.data_fim);
         novaData.setHours(23, 59, 59, 999); // 23:59:59.999
 
-        // Apenas para exibir no console
         // console.log("Original:", item.data_fim);
-        console.log("Ajustada:", novaData);
+        // console.log("Ajustada:", novaData);
 
         return {
           ...item,
