@@ -4,13 +4,11 @@ import Header from "./Components/Header"
 import { useContext } from "react"
 import { AuthContext } from "./UserContext"
 import {ThemeSetter} from "./Functions/ThemeSetter"
-import {PageUnload} from "./Functions/PageUnload"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Cartoes() {
 
     HomeRedirect()
-    PageUnload()
     ThemeSetter()
     
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)

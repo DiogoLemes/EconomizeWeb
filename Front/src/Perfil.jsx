@@ -1,17 +1,15 @@
 import Footer from "./Components/Footer"
 import Sidebar from "./Components/Sidebar"
-import Header from "./Components/Header";
-import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { AuthContext } from "./UserContext";
+import Header from "./Components/Header"
+import { useNavigate } from "react-router-dom"
+import { useContext, useState } from "react"
+import { AuthContext } from "./UserContext"
 import {ThemeSetter} from "./Functions/ThemeSetter"
-import {PageUnload} from "./Functions/PageUnload"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Perfil() {
 
     HomeRedirect()
-    PageUnload()
     ThemeSetter()
 
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
@@ -86,7 +84,7 @@ export default function Perfil() {
                                             <span className="font-lato-bold text-md text-start py-2">Foto de Perfil:</span>
                                             {pfpAtual && (<img src={userPfp} id="userPfp" className="w-25 h-25 ml-10 self-center rounded-[50%]"/>)}
                                             <label htmlFor="pfpPicker" onChange={(e) => {
-                                                const file = e.target.files?.[0];
+                                                const file = e.target.files?.[0]
                                                 setPfpAtual(
                                                     file ? URL.createObjectURL(file) : undefined
                                                 )

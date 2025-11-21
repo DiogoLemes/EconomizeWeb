@@ -5,20 +5,18 @@ import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "./UserContext"
 import Header from "./Components/Header"
 import {ThemeSetter} from "./Functions/ThemeSetter"
-import {PageUnload} from "./Functions/PageUnload"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Configuracoes() {
 
     HomeRedirect()
-    PageUnload()
 
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
     
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
     
-    const [isDark, setIsDark] = useState(false);
+    const [isDark, setIsDark] = useState(false)
 
     useEffect(()=> {
         if(ThemeSetter() == true) {
@@ -28,7 +26,7 @@ export default function Configuracoes() {
 
     const changeTheme = () => {
         const newTheme = isDark ? "light" : "dark"
-        setIsDark(!isDark);
+        setIsDark(!isDark)
         localStorage.setItem("theme", newTheme)
 
         if (newTheme === "dark") {
@@ -37,7 +35,7 @@ export default function Configuracoes() {
          else {
             document.documentElement.classList.remove("dark")
         }
-    };
+    }
 
     const navigate = useNavigate() // Hook do React Router
 

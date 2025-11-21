@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { PieChart } from '@mui/x-charts/PieChart';
+import * as React from 'react'
+import { PieChart } from '@mui/x-charts/PieChart'
 
 
 export default function MUIDonutChart({valorReceitas, valorDespesas}) {
@@ -21,5 +21,5 @@ export default function MUIDonutChart({valorReceitas, valorDespesas}) {
       series={[{ innerRadius: 50, outerRadius: 100, data, arcLabel: 'value' }]}
       {...settings}
     />
-  );
+  )
 }

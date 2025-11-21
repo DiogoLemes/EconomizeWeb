@@ -1,17 +1,17 @@
-import WelcomeScreenIntro from "./WelcomeScreenIntro";
-import WelcomeScreenMenu from "./WelcomeScreenMenu";
+import WelcomeScreenIntro from "./WelcomeScreenIntro"
+import WelcomeScreenMenu from "./WelcomeScreenMenu"
 import SignUpBox from './SignUpBox'
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 
   export default function WelcomeScreen() {
     
-    const [introSeen, setIntroSeen] = useState(false);
+    const [introSeen, setIntroSeen] = useState(false)
 
     useEffect(() => {
       let introCookie = document.cookie
       if(introCookie.split(";")[0] == "intro-passed=true") {setIntroSeen(true)}
       localStorage.setItem("empty dashboard", true)
-    }, []);
+    }, [])
 
 
     return (
