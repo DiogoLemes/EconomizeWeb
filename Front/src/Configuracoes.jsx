@@ -54,7 +54,7 @@ export default function Configuracoes() {
                     <div className="w-[15%]">
                         <Sidebar selected="configuracoes"/>
                     </div>
-                    <div className="w-[85%] bg-light-bg text-text-theme">
+                    <div className="w-[85%] bg-theme-bg text-text-theme">
                         <div className="font-lato-bold flex flex-col">
                             <Header text={"Configurações"}/>
                             <div className="bg-perfil-bg h-[70vh] w-[50vw] self-center drop-shadow-md mt-10">
