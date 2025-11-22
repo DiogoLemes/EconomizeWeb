@@ -48,7 +48,13 @@ export default function Investimentos() {
         fetchDataHistMetas();
     }, []);
 
-        
+    function removeHorasData(meta) {
+        if (meta && meta.data_fim) {
+            return meta.data_fim.split(",")[0]; // Extrai apenas a data
+        }
+        return "-";
+    }
+
     return(
         <div className="flex flex-col">
             <div className="flex flex-row h-[90vh]">
@@ -121,7 +127,7 @@ export default function Investimentos() {
                                             </div>
                                             <progress value={progresso / 100} className={progressoMeta} />
                                             <div className="flex justify-between">
-                                                <span className="text-sm text-black">Prazo: {meta.data_fim === null ? '-' : meta_data_dia}</span>
+                                                <span className="text-sm text-black">Prazo: {meta.data_fim == null ? '-' : removeHorasData(meta)}</span>
                                                 <span className="text-sm text-black">Continue assim</span>
                                             </div>
                                         </div>
@@ -192,7 +198,7 @@ export default function Investimentos() {
                                             </div>
                                             <progress value={progresso / 100} className={progressoMeta} />
                                             <div className="flex justify-between">
-                                                <span className="text-sm text-black">Prazo: {meta.data_fim == null ? '-' : meta_data_dia}</span>
+                                                <span className="text-sm text-black">Prazo: {meta.data_fim == null ? '-' : removeHorasData(meta)}</span>
                                                 <span className="text-sm text-black">Continue assim</span>
                                             </div>
                                         </div>
