@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import PopupMenu from './PopupMenu'
+import { useState } from 'react';
+import PopupMenu from './PopupMenu';
 import { useNavigate } from 'react-router'
 
 export default function Sidebar({selected}) {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false)
     
     const selectedTab = selected

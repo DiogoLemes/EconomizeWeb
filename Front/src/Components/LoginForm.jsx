@@ -52,12 +52,19 @@ export default function LoginForm() {
         const metasAtivasData = await metasAtivasRes.json()
         const metasHistRes = await fetch(`http://localhost:3000/goals/${loginUserId}`)
         const metasHistData = await metasHistRes.json()
+        console.log("categorias: ",categoriasData)
+        console.log("categorias data length: ",categoriasData.length)
+        console.log("categorias: ",metasAtivasData)
+        console.log("categorias data length: ",metasAtivasData.length)
+        console.log("categorias: ",metasHistData)
+        console.log("categorias data length: ",metasHistData.length)
         if(categoriasData.length == 0 && metasAtivasData.length == 0 && metasHistData.length == 0) {
             localStorage.setItem("empty dashboard", true)
         }
         else {
             localStorage.setItem("empty dashboard", false)
         }
+        console.log("emptyDashboard: ",localStorage.getItem("emptyDashboard"))
 
         navigate('/dashboard') // Redireciona para /dashboard
     }
@@ -94,7 +101,7 @@ export default function LoginForm() {
                     <button type="button" onClick={ShowHidePwd} className="absolute right-2 top-1/2 -translate-y-[95%]">
                         <img id="PasswordIcon" src="src\assets\eye-password-show.svg" alt="icone senha" className="w-6 h-6 opacity-75 mb-1"></img>
                     </button>
-                    <button type="button" onClick={()=> console.log("esqueci minha senha")} className="text-sm underline hover:cursor-pointer">Esqueci minha Senha</button>
+                    <button onClick={console.log("esqueci minha senha")} className="text-sm underline">Esqueci minha Senha</button>
                 </div> {/*acho que não vai dar tempo de fazer o botão de esqueci a senha tbm */}
             </form>
             <div className="flex justify-center mb-auto mx-auto p-4">

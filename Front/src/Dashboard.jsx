@@ -7,11 +7,13 @@ import Header from "./Components/Header"
 import MUICalendar from "./Components/MUICalendar"
 import MUIDonutChart from "./Components/MUIDonutChart"
 import {ThemeSetter} from "./Functions/ThemeSetter"
+import {PageUnload} from "./Functions/PageUnload"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Dashboard() {
     
     HomeRedirect() //redireciona o usuario para a tela de login/cadastro se entrar na url sem passar pelo login
+    PageUnload() //adiciona evento que limpa dados do sessionStorage quando usuario fecha site
     ThemeSetter() //verifica tema do usuario salvo no localStorage
     
     //CSS
@@ -75,7 +77,7 @@ export default function Dashboard() {
                 saldoValor = "Erro"
             }
 
-            const saldoFinal = saldoValor.toLocaleString("pt-BR", {
+            const saldoFinal = saldoValor.toLocaleString("pt-BR", {             //Intl ou toLocaleString?
             style: "currency",
             currency: "BRL",
             })
@@ -109,7 +111,7 @@ export default function Dashboard() {
             setMuiChartDespesas(Number(despesaValor))
         }
 
-        // async function fetchCartao() {                                                       //não implementado devido à falta de tempo
+        // async function fetchCartao() {
         //     const res = await fetch(`http://localhost:3000/dashboard/${id}/Cartao`)
         //     const data = await res.json()
         //     console.log("data Cartao = ", data.Cartao)
