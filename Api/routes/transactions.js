@@ -53,12 +53,7 @@ module.exports = async function (fastify, opts) {
   })
 
   // Rota para obter as transações do mês
-  fastify.get('/month/:idUsuario', {
-    schema: getMonthTransactions, //importa o schema definido em outro arquivo
-    handler: handlerTransacoesMes //executa função da rota
-  })
-
-  async function handlerTransacoesMes (request, reply) {
+  fastify.get('/month/:idUsuario', { schema: getMonthTransactions }, async function (request, reply) {
     const { idUsuario } = request.params;
     const { mes, ano } = request.query; // ex: /transacoes/month/100?mes=11&ano=2025
     var inicioMes, fimMes = checaMesAno(mes, ano)
@@ -81,7 +76,7 @@ module.exports = async function (fastify, opts) {
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao buscar transações do mês.' });
     }
-  }
+  })
 
   // Rota para obter todas transações de um usuário
   fastify.get('/:idUsuario', async function (request, reply) {
