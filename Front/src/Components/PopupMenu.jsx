@@ -15,7 +15,7 @@ export default function PopupMenu ({onClose}) {
     const renderComponente = () => {
         switch(componenteAtual) {
             case 'BotoesPopup':
-                return <BotoesPopup trocarComponente={trocarComponente}/>
+                return <BotoesPopup TrocarComponente={trocarComponente}/>
             case 'NovaCategoria':
                 return <NovaCategoria onClose={onClose}/>
             case 'NovaDespesa':
@@ -25,7 +25,7 @@ export default function PopupMenu ({onClose}) {
             case 'NovaMeta':
                 return <NovaMeta onClose={onClose}/>
             default:
-                return <BotoesPopup trocarComponente={trocarComponente}/>
+                return <BotoesPopup TrocarComponente={trocarComponente}/>
         }
     }
 

@@ -51,29 +51,62 @@ export default function NovaReceita({onClose}) {
   function submitReceita(){
     const valorReceita = document.getElementById("valorReceita").value
     const nomeReceita = document.getElementById("nomeReceita").value
-    const novaReceitaData = {
-      titulo: nomeReceita,
-      //descricao: null
-      categoria_id: Number(categoriaSelecionada),
-      tipo: "receita",
-      valor: valorReceita,
-      data_trans: new Date()
+    const selectReceitaMeta = document.getElementById("selectMeta").value
+    if(selectReceitaMeta == 0){
+      const novaReceitaData = {
+        titulo: nomeReceita,
+        //descricao: null
+        categoria_id: Number(categoriaSelecionada),
+        tipo: "receita",
+        valor: valorReceita,
+        data_trans: new Date()
+      }
+  
+      fetch(`http://localhost:3000/dashboard/${id}/saldo`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novaReceitaData)
+      }).then(res => {
+          if(!res.ok) {
+            //console.log(res)
+            return
+          }
+  
+          return res.json()
+        })
     }
+    else {
+      const receitaEditMetaData = {
+        //nome: metasAtivas[selectReceitaMeta - 1].nome,
+        //valor_meta: metasAtivas[selectReceitaMeta - 1].valor_meta,
+        valor_atual: (Number(metasAtivas[selectReceitaMeta - 1].valor_atual) + Number(valorReceita)).toString()
+        //tipo: metasAtivas[selectReceitaMeta - 1].tipo,
+        //data_inicio: metasAtivas[selectReceitaMeta - 1].data_inicio,
+        //data_fim: metasAtivas[selectReceitaMeta - 1].data_fim
+      }
 
-    fetch(`http://localhost:3000/dashboard/${id}/saldo`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(novaReceitaData)
-    }).then(res => {
-        if(!res.ok) {
-          //console.log(res)
-          return
-        }
+      console.log("receita edit meta: ", receitaEditMetaData)
+      console.log("edit meta id: ", metasAtivas[selectReceitaMeta - 1].id)
+      console.log("meta correspondente: ", metasAtivas[selectReceitaMeta - 1])
+      console.log("meta JSON stringify: ", JSON.stringify(receitaEditMetaData))
 
-        return res.json()
-      })
+      fetch(`http://localhost:3000/goals/${id}/${metasAtivas[selectReceitaMeta - 1].id}`, { //não funcionando ainda por algum motivo
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(receitaEditMetaData)
+      }).then(res => {
+          if(!res.ok) {
+            //console.log(res)
+            return
+          }
+  
+          return res.json()
+        })
+    }
     onClose()
   }
 
@@ -104,7 +137,7 @@ export default function NovaReceita({onClose}) {
                     <div className="flex w-[100%] justify-items-start gap-4 mt-4">
                       <input type="button" value="Sim" onClick={() => toggleRecorrente(true)} className={`${recorrenteSim ? botaoAtivo : botaoInativo}`} /> 
                       <input type="button" value="Não" onClick={() => toggleRecorrente(false)} className={`${recorrenteNao ? botaoAtivo : botaoInativo}`} />
-                      <span className='w-[40%] my-auto'>A cada:</span>
+                      <span className='w-[40%] my-auto'>A cada:</span> {/*não implementado devido à falta de tempo */}
                       <input type="number" size="5" 
                       className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1 w-[50%]"/>
                       <select className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
@@ -117,11 +150,11 @@ export default function NovaReceita({onClose}) {
                     <div className="flex w-[100%] justify-items-start gap-4 mt-4">
                       <input id="valorReceita" type="text" placeholder="Valor (R$)"
                       className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1"/>
-                      <select className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
-                        <option> Selecione a meta</option>
-                        {metasAtivas.map((meta) => {
+                      <select id="selectMeta" className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
+                        <option value={0}> Selecione a meta</option>
+                        {metasAtivas.map((meta, index) => {
                           return (
-                            <option className="font-lato-regular">{meta.nome}</option>
+                            <option value={index + 1} className="font-lato-regular">{meta.nome}</option>
                           )
                         })}
                       </select>

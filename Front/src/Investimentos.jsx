@@ -69,7 +69,6 @@ export default function Investimentos() {
 
                                 metasAtivas.map((meta, index) => {
                                     let progresso = (meta.valor_atual / meta.valor_meta) * 100
-                                    const meta_data_dia = meta.data_fim === null ? null : meta.data_fim.split(",")[0]
 
                                     let textoTipo
                                     let bgMeta
@@ -114,7 +113,7 @@ export default function Investimentos() {
                                     }
 
                                     return (
-                                        <div key={index} className={bgMeta}>
+                                        <div key={index} value={index + 1} className={bgMeta}>
                                             <div className="flex justify-between">
                                                 <span className="text-xl text-black">{meta.nome}</span>
                                                 <span className={tipoMeta}>{textoTipo}</span>
@@ -139,7 +138,6 @@ export default function Investimentos() {
                                 histMetas.map((meta, index) => {
                                     
                                     let progresso = (meta.valor_atual / meta.valor_meta) * 100
-                                    const meta_data_dia = meta.data_fim === null ? null : meta.data_fim.split(",")[0]
                                     
                                     let textoTipo
                                     let bgMeta

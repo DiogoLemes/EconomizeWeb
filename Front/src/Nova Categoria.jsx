@@ -82,7 +82,7 @@ export default function NovaCategoria({onClose}) {
               </div>
             </form>
             <div className="p-4 w-[40%] flex flex-col">
-              <span className="text-[1rem] text-start py-2">Ícone da categoria:</span>
+              <span className="text-[1rem] text-start py-2">Ícone da categoria:</span> {/*não implementado devido à falta de tempo */}
               <div className="rounded-2xl bg-white-div h-[80%] w-[100%]">
                 {/* botar um grid pros icones (checkmark boxes?) */}
               </div>

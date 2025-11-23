@@ -82,13 +82,13 @@ export default function Configuracoes() {
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span>Idioma:</span>
+                                        <span>Idioma:</span> {/*não implementado devido à falta de tempo */}
                                         <select className="p-4 w-[25%]">
                                             <option>Pt-Br</option>
                                         </select>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span>Fonte:</span>
+                                        <span>Fonte:</span> {/*não implementado devido à falta de tempo */}
                                         <select className="p-4 w-[25%]">
                                             <option>Lato</option>
                                         </select>

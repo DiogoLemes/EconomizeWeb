@@ -43,16 +43,29 @@ export default function Perfil() {
         navigate('/configuracoes') // Redireciona para pagina de config
     }
 
-    function AlterarDadosUsuario(){
+    function AlterarDadosUsuario(){ {/*não implementado devido à falta de tempo */}
         // setEmail(emailNovo)
         // const nomeInteiro = primeiroNome + " " + segundoNome
         // setUser(nomeInteiro)
         // console.log(email)
         // console.log(user)
-        console.log(primeiroNome)
-        console.log(segundoNome)
-        console.log(emailAtual)
-        console.log(emailNovo)
+        // console.log(primeiroNome)
+        // console.log(segundoNome)
+        // console.log(emailAtual)
+        // console.log(emailNovo)
+        console.log("não implementado devido à falta de tempo ")
+    }
+
+    function deletarUsuario() {
+        fetch(`http://localhost:3000/usuarios/${id}`, {
+        method: 'DELETE'
+        }).then(res => {
+            if(!res.ok) {
+                console.log(res)
+                return
+            }
+            navigate("/")
+        })
     }
 
     return(
@@ -99,7 +112,7 @@ export default function Perfil() {
                                                 <div className="flex flex-col w-1/2 ml-[25%] justify-end gap-2">
                                                     <span className="font-lato-bold text-md text-start py-2">Você tem certeza?</span>
                                                     <div className="flex flex-row gap-4">
-                                                        <input type="button" value="Sim" onClick={()=> console.log("conta deletada")} className="font-lato-bold bg-logo-primary rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1"></input>
+                                                        <input type="button" value="Sim" onClick={()=> deletarUsuario()} className="font-lato-bold bg-logo-primary rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1"></input>
                                                         <input type="button" value="Não" onClick={() => setToggleDeletar(false)} className="font-lato-bold bg-black rounded-md w-30 h-10 text-white justify-center hover:cursor-pointer p-1"></input>
                                                     </div>
                                                 </div>

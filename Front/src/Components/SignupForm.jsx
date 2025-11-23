@@ -10,7 +10,7 @@ export default function SignupForm() {
     
     const navigate = useNavigate() // Hook do React Router
 
-    async function checkSubmitSignup() {
+    async function ValidarEnvioCadastro() {
         const userFirstName = document.getElementById('SignupUserFirstName')
         const userLastName = document.getElementById('SignupUserLastName')
         const userEmail = document.getElementById('SignupUserEmail')
@@ -40,10 +40,8 @@ export default function SignupForm() {
         
         const signupUserId = data.id
         setId(signupUserId)
-
         const signupUserName = data.nome
         setUser(signupUserName)
-
         const signupUserEmail = data.email
         setEmail(signupUserEmail)
 
@@ -57,7 +55,7 @@ export default function SignupForm() {
         navigate('/dashboard') // Redireciona para /dashboard
     }
 
-    function ShowHidePwd() {
+    function TrocarVisSenha() {
         const icon = document.getElementById('PasswordIcon')
         const pwd = document.getElementById('SignupUserPassword')
         if(pwd.type == "password") {
@@ -68,7 +66,6 @@ export default function SignupForm() {
             pwd.type = "password"
             icon.src = "src/assets/eye-password-show.svg"
         }
-        
     }
 
     return(
@@ -91,7 +88,7 @@ export default function SignupForm() {
                         <input id="SignupUserPassword" placeholder="Sua Senha" type="password"
                         className="w-full h-8 font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"/>
                         <img id="PasswordIcon" src="src/assets/eye-password-show.svg" alt="icone senha"
-                        onClick={() => ShowHidePwd()} className="w-6 h-6 absolute right-2 top-1/2 -translate-y-1/2 opacity-75 cursor-pointer"/>
+                        onClick={() => TrocarVisSenha()} className="w-6 h-6 absolute right-2 top-1/2 -translate-y-1/2 opacity-75 cursor-pointer"/>
                     </div>
                 </div>
                 <div className="flex flex-col gap-5 relative">
@@ -100,12 +97,12 @@ export default function SignupForm() {
                         <input id="SignupUserPassword" placeholder="Sua Senha" type="password"
                         className="w-full h-8 font-lato-bold border-b-2 border-gray-outline text-black opacity-75 outline-none pr-10"/>
                         <img id="PasswordIcon" src="src/assets/eye-password-show.svg" alt="icone senha"
-                        onClick={() => ShowHidePwd()} className="w-6 h-6 absolute right-2 top-1/2 -translate-y-1/2 opacity-75 cursor-pointer"/>
+                        onClick={() => TrocarVisSenha()} className="w-6 h-6 absolute right-2 top-1/2 -translate-y-1/2 opacity-75 cursor-pointer"/>
                     </div>
                 </div>
             </form>
             <div className="flex justify-center my-auto p-4">
-                <button type="button" onClick={checkSubmitSignup} className="font-lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center hover:cursor-pointer">CADASTRAR</button>
+                <button type="button" onClick={() => ValidarEnvioCadastro()} className="font-lato-bold bg-logo-primary rounded-full w-56 h-16 text-white justify-center hover:cursor-pointer">CADASTRAR</button>
             </div>
         </div>
     )
