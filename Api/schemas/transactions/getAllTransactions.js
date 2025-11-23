@@ -1,21 +1,14 @@
 module.exports = {
-  getMonthTransactions: {
-    description: 'Rota para obter as transações do mês e ano específico. Por padrão retorna do mês atual',
+  getAllTransactions: {
+    description: 'Rota para obter todas as transações de um usuário',
     tags: ['Transactions'],
-    summary: 'Obtém transações com base no ID e filtros de query',
+    summary: 'Obtém as transações com base no ID do usuário',
     params: {
       type: 'object',
       properties: {
-        idUsuario: { type: 'string', description: 'ID do usuario' },
+        idUsuario: { type: 'string', description: 'ID do usuario' }
       },
       required: ['idUsuario'],
-    },
-    querystring: {
-      type: 'object',
-      properties: {
-        mes: { type: 'number', description: 'Mês (Opcional)' },
-        ano: { type: 'number', description: 'Ano (Opcional)' },
-      },
     },
     response: {
       200: {
@@ -27,7 +20,7 @@ module.exports = {
           titulo: { type: 'string' },
           descricao: { type: 'string' },
           categoria_id: { type: 'number' },
-          valor: { type: 'number' },
+          valor: { type: 'string' },
           tipo: { type: 'string' },
           status_transferencia: { type: 'string' },
           criado_em: { type: 'string', format: 'date' },

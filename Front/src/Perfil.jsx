@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "./UserContext";
 import {ThemeSetter} from "./Functions/ThemeSetter"
-import {PageUnload} from "./Functions/PageUnload"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Perfil() {
 
     HomeRedirect()
-    PageUnload()
     ThemeSetter()
 
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)

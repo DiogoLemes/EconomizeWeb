@@ -9,6 +9,7 @@ export default function Header({text}) {
   
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
 
+    //codigo de mostrar itens do header do componente MUI
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {

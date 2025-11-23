@@ -5,13 +5,11 @@ import { useContext } from "react"
 import { useEffect, useState } from "react"
 import { AuthContext } from "./UserContext"
 import {ThemeSetter} from "./Functions/ThemeSetter"
-import {PageUnload} from "./Functions/PageUnload"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Investimentos() {
     
     HomeRedirect()
-    PageUnload()
     ThemeSetter()
     
     const {user, setUser, id, setId, email, setEmail, userPfp, setUserPfp} = useContext(AuthContext)
@@ -21,38 +19,38 @@ export default function Investimentos() {
     const loggedInUserId = sessionStorage.getItem("userId")
     setId(loggedInUserId)
 
-    const [metasAtivas, setMetasAtivas] = useState([]);
-    const [histMetas, setHistMetas] = useState([]);
+    const [metasAtivas, setMetasAtivas] = useState([])
+    const [histMetas, setHistMetas] = useState([])
 
     useEffect(() => {
         
         async function fetchDataMetasAtuais() {
-            const res = await fetch(`http://localhost:3000/goals/active/${id}`);
-            const data = await res.json();
+            const res = await fetch(`http://localhost:3000/goals/active/${id}`)
+            const data = await res.json()
 
-            setMetasAtivas(data);
+            setMetasAtivas(data)
         }
 
-        fetchDataMetasAtuais();
-    }, []);
+        fetchDataMetasAtuais()
+    }, [])
 
     useEffect(() => {
         
         async function fetchDataHistMetas() {
-            const res = await fetch(`http://localhost:3000/goals/${id}`);
-            const data = await res.json();
+            const res = await fetch(`http://localhost:3000/goals/${id}`)
+            const data = await res.json()
 
-            setHistMetas(data);
+            setHistMetas(data)
         }
 
-        fetchDataHistMetas();
-    }, []);
+        fetchDataHistMetas()
+    }, [])
 
     function removeHorasData(meta) {
         if (meta && meta.data_fim) {
-            return meta.data_fim.split(",")[0]; // Extrai apenas a data
+            return meta.data_fim.split(",")[0] // Extrai apenas a data
         }
-        return "-";
+        return "-"
     }
 
     return(
@@ -86,7 +84,7 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-categoria-text-bg [&::-webkit-progress-value]:bg-categoria-text`
                                             textoMeta = "text-categoria-text"
                                             textoTipo = "Poupança"
-                                            break;
+                                            break
                                         case 2:
                                             bgMeta = "bg-receita-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2"
                                             tipoMeta = "bg-receita-text-bg text-receita-text rounded-md p-1"
@@ -94,7 +92,7 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-receita-text-bg [&::-webkit-progress-value]:bg-receita-text`
                                             textoMeta = "text-receita-text"
                                             textoTipo = "Compra"
-                                            break;
+                                            break
                                         case 3:
                                             bgMeta = "bg-meta-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2"
                                             tipoMeta = "bg-meta-text-bg text-meta-text rounded-md p-1"
@@ -102,7 +100,7 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-meta-text-bg [&::-webkit-progress-value]:bg-meta-text`
                                             textoMeta = "text-meta-text"
                                             textoTipo = "Viagem"
-                                            break;
+                                            break
                                         case 4:
                                             bgMeta = "bg-despesa-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2"
                                             tipoMeta = "bg-despesa-text-bg text-despesa-text rounded-md p-1"
@@ -110,9 +108,9 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-despesa-text-bg [&::-webkit-progress-value]:bg-despesa-text`
                                             textoMeta = "text-despesa-text"
                                             textoTipo = "Emergência"
-                                            break;
+                                            break
                                         default:
-                                            break;
+                                            break
                                     }
 
                                     return (
@@ -157,7 +155,7 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-categoria-text-bg [&::-webkit-progress-value]:bg-categoria-text`
                                             textoMeta = "text-categoria-text"
                                             textoTipo = "Poupança"
-                                            break;
+                                            break
                                         case 2:
                                             bgMeta = "bg-receita-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
                                             tipoMeta = "bg-receita-text-bg text-receita-text rounded-md p-1"
@@ -165,7 +163,7 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-receita-text-bg [&::-webkit-progress-value]:bg-receita-text`
                                             textoMeta = "text-receita-text"
                                             textoTipo = "Compra"
-                                            break;
+                                            break
                                         case 3:
                                             bgMeta = "bg-meta-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
                                             tipoMeta = "bg-meta-text-bg text-meta-text rounded-md p-1"
@@ -173,7 +171,7 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-meta-text-bg [&::-webkit-progress-value]:bg-meta-text`
                                             textoMeta = "text-meta-text"
                                             textoTipo = "Viagem"
-                                            break;
+                                            break
                                         case 4:
                                             bgMeta = "bg-despesa-bg rounded-xl p-4 font-lato-bold flex flex-col gap-2 opacity-50"
                                             tipoMeta = "bg-despesa-text-bg text-despesa-text rounded-md p-1" 
@@ -181,9 +179,9 @@ export default function Investimentos() {
                                                             [&::-webkit-progress-bar]:bg-despesa-text-bg [&::-webkit-progress-value]:bg-despesa-text`
                                             textoMeta = "text-despesa-text"
                                             textoTipo = "Emergência"
-                                            break;
+                                            break
                                         default:
-                                            break;
+                                            break
                                     }
 
                                     return (

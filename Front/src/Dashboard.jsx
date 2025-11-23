@@ -7,13 +7,11 @@ import Header from "./Components/Header"
 import MUICalendar from "./Components/MUICalendar"
 import MUIDonutChart from "./Components/MUIDonutChart"
 import {ThemeSetter} from "./Functions/ThemeSetter"
-import {PageUnload} from "./Functions/PageUnload"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
 export default function Dashboard() {
     
     HomeRedirect() //redireciona o usuario para a tela de login/cadastro se entrar na url sem passar pelo login
-    PageUnload() //adiciona evento que limpa dados do sessionStorage quando usuario fecha site
     ThemeSetter() //verifica tema do usuario salvo no localStorage
     
     //CSS
