@@ -255,7 +255,7 @@ export default function Dashboard() {
                                     </div>
                                     <div className={classeCards}>
                                         <div className="flex flex-col p-2 gap-6">
-                                            <span className="font-lato-regular text-start">Despesas Mensais</span>
+                                            <span className="font-lato-regular text-start">Despesas</span>
                                             <span className="text-xl text-left">{despesas}</span>
                                         </div>
                                         <img src="\src\assets\Icone Despesas.svg" alt="ícone despesas" className="p-4" />

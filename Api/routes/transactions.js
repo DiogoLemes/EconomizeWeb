@@ -71,7 +71,6 @@ module.exports = async function (fastify, opts) {
         where: {
           usuario_id: Number(idUsuario),
           OR: [
-            // { data_trans: null },
             { data_trans: { gte: inicioMes, lte: fimMes } }
           ]
         },
