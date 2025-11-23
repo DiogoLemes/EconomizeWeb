@@ -51,13 +51,19 @@ export default function NovaDespesa({onClose}) {
   function submitDespesa(){
     const valorDespesa = document.getElementById("valorDespesa").value
     const nomeDespesa = document.getElementById("nomeDespesa").value
+    const frequencia = document.getElementById("frequencia").value
+    const periodicidade = document.getElementById("periodicidade").value
+
     const novaDespesaData = {
       titulo: nomeDespesa,
       //descricao: null
       categoria_id: Number(categoriaSelecionada),
       tipo: "despesa",
       valor: valorDespesa,
-      data_trans: new Date()
+      data_trans: new Date(),
+      recorrente: recorrenteSim,
+      frequencia: frequencia,
+      periodicidade: periodicidade
     }
 
     fetch(`http://localhost:3000/dashboard/${id}/saldo`, {
@@ -105,9 +111,9 @@ export default function NovaDespesa({onClose}) {
                         <input type="button" value="Sim" onClick={() => toggleRecorrente(true)} className={`${recorrenteSim ? botaoAtivo : botaoInativo}`} /> 
                         <input type="button" value="Não" onClick={() => toggleRecorrente(false)} className={`${recorrenteNao ? botaoAtivo : botaoInativo}`} />
                         <span className='w-[40%] my-auto'>A cada:</span>
-                        <input type="number" size="5" 
+                        <input id="frequencia" type="number" size="5" 
                         className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 p-1 w-[50%]"/>
-                        <select className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
+                        <select id="periodicidade" className="bg-white rounded-md border-2 border-input-border text-[1.2rem] h-8 font-lato-regular outline-none my-4 pl-1">
                           <option>Dias</option>
                           <option>Semanas</option>
                           <option>Meses</option>

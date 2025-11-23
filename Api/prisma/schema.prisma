@@ -133,6 +133,8 @@ model transacoes {
   valor                Decimal     @db.Decimal(10, 2)
   tipo                 String
   status_transferencia String?
+  frequencia           Int?
+  periodicidade        String?
   criado_em            DateTime?   @default(now()) @db.Timestamp(6)
   data_trans           DateTime    @db.Date
   categorias           categorias? @relation(fields: [categoria_id], references: [id], onDelete: Cascade, onUpdate: NoAction)

@@ -37,7 +37,7 @@ module.exports = async function (fastify, opts) {
     // Criar transação (receita) e ajustar saldo do usuário
     fastify.post('/:idUsuario/saldo', async function (request, reply) {
         const { idUsuario } = request.params;
-        const { titulo, descricao, categoria_id, tipo,valor, data_trans } = request.body || {};
+        const { titulo, descricao, categoria_id, tipo,valor, data_trans, recorrente, frequencia, periodicidade } = request.body || {};
 
         if (!titulo || valor === undefined || valor === null) {
             return reply.code(400).send({ error: 'Campos obrigatórios: titulo, valor.' });
@@ -48,11 +48,16 @@ module.exports = async function (fastify, opts) {
             return reply.code(400).send({ error: 'Valor inválido.' });
         }
 
-
         const dataTransDate = data_trans ? new Date(data_trans) : new Date();
 
+        let frequenciaVar = Number(frequencia)
+        let periodicidadeVar = String(periodicidade)
+        if (!recorrente || isNaN(frequenciaVar)  || frequenciaVar == 0){
+            frequenciaVar = null
+            periodicidadeVar = null
+        }
+
         try {
-  
             const transacao = await fastify.prisma.transacoes.create({
                 data: {
                     usuario_id: Number(idUsuario),
@@ -63,7 +68,9 @@ module.exports = async function (fastify, opts) {
                     tipo: String(tipo),
                     status_transferencia: '1',
                     data_trans: dataTransDate,
-                    criado_em: dataTransDate
+                    criado_em: dataTransDate,
+                    frequencia: frequenciaVar,
+                    periodicidade: periodicidadeVar
                 }
             });
 
@@ -88,8 +95,6 @@ module.exports = async function (fastify, opts) {
 
                 reply.code(201).send({ transacao, despesa: despesaOut });
             }
-
-
         } catch (error) {
             console.error('Erro ao criar transacao (receita):', error);
             reply.code(500).send({ error: 'Erro ao criar transacao.' });
@@ -109,23 +114,58 @@ module.exports = async function (fastify, opts) {
         ];
     }
 
+    function diffDays(diaAtual, diaFinal) {
+        const diffTime = Math.abs(diaFinal - diaAtual);
+        const diffInDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+        return diffInDays + 1
+    }
+
     // Faturas que vencem no mês vigente
     fastify.get('/:idUsuario/faturas/mes', async function (request, reply) {
         const { idUsuario } = request.params;
         const hoje = new Date();
-        const year = hoje.getFullYear();
-        const month = hoje.getMonth() + 1;
-        const patterns = formatsForMonthYear(year, month);
+        const fimMes = new Date(hoje.getFullYear(), hoje.getMonth()+1, 0, 23, 59, 59);
 
         try {
-            const faturas = await fastify.prisma.faturas.findMany({
+            const faturas = await fastify.prisma.transacoes.findMany({
                 where: {
                     usuario_id: Number(idUsuario),
-                    OR: patterns.map(p => ({ mes_ano: { contains: p } }))
+                    frequencia: { not: null },
+                    OR : [
+                        { data_trans: { gte: hoje, lte: fimMes } }
+                    ]
                 },
                 orderBy: { criado_em: 'asc' }
             });
-            reply.send(faturas);
+
+            let gastosMes = 0;
+
+            //calcula os gastos diários
+            faturas.forEach(fatura => {
+                console.log(fatura)
+                let dias = diffDays(hoje, fimMes) //dias = diaFinal - diaAtual + 1
+                let freq = Number(fatura.frequencia)
+                for (let i = freq; i < dias; i += freq){
+                    gastosMes += Number(fatura.valor)
+                }
+            });
+
+            //mesmo calculo pra semanas
+            faturas.forEach(fatura => {
+                let dias = diffDays(hoje, fimMes) //dias = diaFinal - diaAtual + 1
+                let freq = Number(fatura.frequencia)
+
+                if (fatura.periodicidade == "Semana"){
+                    for (let i = freq; i*7 < dias; i += freq){
+                        gastosMes += Number(fatura.valor)
+                    }
+                }
+            });
+
+            //mês não conta pq o cálculo é só pro atual
+
+            console.log(gastosMes)
+            reply.code(200).send(JSON.stringify({ fatura_mes: gastosMes, }));
         } catch (error) {
             console.error('Erro ao buscar faturas do mês:', error);
             reply.code(500).send({ error: 'Erro ao buscar faturas.' });
