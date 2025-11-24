@@ -79,12 +79,12 @@ export default function NovaReceita({onClose}) {
     }
     else {
       const receitaEditMetaData = {
-        //nome: metasAtivas[selectReceitaMeta - 1].nome,
-        //valor_meta: metasAtivas[selectReceitaMeta - 1].valor_meta,
+        // nome: metasAtivas[selectReceitaMeta - 1].nome,
+        // valor_meta: metasAtivas[selectReceitaMeta - 1].valor_meta,
         valor_atual: (Number(metasAtivas[selectReceitaMeta - 1].valor_atual) + Number(valorReceita)).toString()
-        //tipo: metasAtivas[selectReceitaMeta - 1].tipo,
-        //data_inicio: metasAtivas[selectReceitaMeta - 1].data_inicio,
-        //data_fim: metasAtivas[selectReceitaMeta - 1].data_fim
+      //   tipo: metasAtivas[selectReceitaMeta - 1].tipo,
+      //   data_inicio: metasAtivas[selectReceitaMeta - 1].data_inicio,
+      //   data_fim: metasAtivas[selectReceitaMeta - 1].data_fim
       }
 
       console.log("receita edit meta: ", receitaEditMetaData)
@@ -92,7 +92,7 @@ export default function NovaReceita({onClose}) {
       console.log("meta correspondente: ", metasAtivas[selectReceitaMeta - 1])
       console.log("meta JSON stringify: ", JSON.stringify(receitaEditMetaData))
 
-      fetch(`http://localhost:3000/goals/${id}/${metasAtivas[selectReceitaMeta - 1].id}`, { //não funcionando ainda por algum motivo
+      fetch(`http://localhost:3000/goals/${id}/${metasAtivas[selectReceitaMeta - 1].id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

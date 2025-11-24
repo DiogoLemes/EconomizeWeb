@@ -9,11 +9,6 @@ import MUIDonutChart from "./Components/MUIDonutChart"
 import {ThemeSetter} from "./Functions/ThemeSetter"
 import {HomeRedirect} from "./Functions/HomeRedirect"
 
-
-//COISAS PRA FAZER
-//Arrumar o fetch proximos gastos
-
-
 export default function Dashboard() {
     
     HomeRedirect() //redireciona o usuario para a tela de login/cadastro se entrar na url sem passar pelo login
@@ -50,11 +45,18 @@ export default function Dashboard() {
         msgHora = "Boa Noite"
     }
 
+    const formatarValor = (valor) => {
+        return valor.toLocaleString('pt-BR', { 
+            style: 'currency', 
+            currency: 'BRL' 
+        })
+    }
+
     //dados dos cards
     const [saldo, setSaldo] = useState(0)
     const [despesas, setDespesas] = useState(0)
     const [cartao, setCartao] = useState("Indisponível")
-    const [proximosGastos, setProximosGastos] = useState("indisponivel") //TROCAR ISSO PRA 0 QUANDO O GIL UPAR O CODIGO
+    const [proximosGastos, setProximosGastos] = useState(0)
 
     //dados do grafico de donut
     const [muiChartReceitas, setMuiChartReceitas] = useState(0)
@@ -79,10 +81,7 @@ export default function Dashboard() {
                 saldoValor = "Erro"
             }
 
-            const saldoFinal = saldoValor.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            })
+            const saldoFinal = formatarValor(saldoValor)
 
             setSaldo(saldoFinal)
             setMuiChartReceitas(Number(saldoValor))
@@ -103,10 +102,7 @@ export default function Dashboard() {
                 despesaValor = "Erro"
             }
 
-            const despesaFinal = despesaValor.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            })
+            const despesaFinal = formatarValor(despesaValor)
 
             setDespesas(despesaFinal)
             setMuiChartDespesas(Number(despesaValor))
@@ -122,36 +118,30 @@ export default function Dashboard() {
         //         CartaoValor = Number(CartaoValor)
         //     } else {CartaoValor = "Erro"}
 
-        //     const CartaoFinal = CartaoValor.toLocaleString("pt-BR", {
-        //     style: "currency",
-        //     currency: "BRL",
-        //     })
+        //     const CartaoFinal = formatarValor(CartaoValor)
 
         //     setCartao(CartaoFinal)
         // }
 
-        // async function fetchProxGastos() {
-        //     const res = await fetch(`http://localhost:3000/dashboard/${id}/faturas/proximos`) //preciso arrumar
-        //     const data = await res.json()
-        //    // console.log("data ProxGastos = ", data.faturas)
+        async function fetchProxGastos() {
+            const res = await fetch(`http://localhost:3000/dashboard/${id}/faturas/mes`)
+            const data = await res.json()
+            console.log("data ProxGastos = ", data.fatura_mes)
 
-        //     let ProxGastosValor = data.faturas ?? "Erro" //mostra Erro caso não consiga carregar
-        //     if(ProxGastosValor == data.faturas){
-        //         ProxGastosValor = Number(ProxGastosValor)
-        //     } else {ProxGastosValor = "Erro"}
+            let ProxGastosValor = data.fatura_mes ?? "Erro" //mostra Erro caso não consiga carregar
+            if(ProxGastosValor == data.fatura_mes){
+                ProxGastosValor = Number(ProxGastosValor)
+            } else {ProxGastosValor = "Erro"}
 
-        //     const ProxGastosFinal = ProxGastosValor.toLocaleString("pt-BR", {
-        //     style: "currency",
-        //     currency: "BRL",
-        //     })
+            const ProxGastosFinal = formatarValor(ProxGastosValor)
 
-        //     setProximosGastos(ProxGastosFinal)
-        // }
+            setProximosGastos(ProxGastosFinal)
+        }
 
         fetchSaldo()
         fetchDespesas()
         //fetchCartao()
-        //fetchProxGastos()
+        fetchProxGastos()
     }, [id])
 
     //pega as transações de maior valor para a parte do "Para onde seu dinheiro foi"
@@ -195,15 +185,10 @@ export default function Dashboard() {
         fetchDataMetasAtuais()
     }, [])
 
-    const formatarValor = (valor) => {
-        return parseFloat(valor).toLocaleString('pt-BR', { 
-            style: 'currency', 
-            currency: 'BRL' 
-        })
-    }
+    
 
     function formatarTipoMaiusculo(string) {
-      if (!string) return ""
+      if (!string) { return "" }
       return string.charAt(0).toUpperCase() + string.slice(1)
     }
     
@@ -280,10 +265,10 @@ export default function Dashboard() {
                                     <div className="flex flex-col gap-5 overflow-y-scroll max-h-60">
                                         {maioresTransacoes.map((transacao) => {
                                             return (
-                                                <div className="flex justify-between items-center mb-2 font-lato-regular">
-                                                    <span className="text-md font-lato-regular">{transacao.titulo}</span>
-                                                    <span className="text-md font-lato-regular">{formatarTipoMaiusculo(transacao.tipo)}</span>
-                                                    <span className="text-md font-lato-regular">{formatarValor(transacao.valor)}</span>
+                                                <div className="justify-between grid grid-cols-3 items-center mb-2 font-lato-regular">
+                                                    <span className="text-md text-start font-lato-regular">{transacao.titulo}</span>
+                                                    <span className="text-md text-center font-lato-regular">{formatarTipoMaiusculo(transacao.tipo)}</span>
+                                                    <span className="text-md text-end font-lato-regular">{formatarValor(transacao.valor)}</span>
                                                 </div>
                                             )
                                         })}

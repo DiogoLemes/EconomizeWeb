@@ -64,6 +64,7 @@ export default function Perfil() {
                 console.log(res)
                 return
             }
+            localStorage.removeItem("isLoggedIn")
             navigate("/")
         })
     }
