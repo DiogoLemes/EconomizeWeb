@@ -2,7 +2,7 @@ module.exports = {
     getActiveGoals: {
       description: 'Rota para obter as metas ativas de um usuário',
       tags: ['Goals'],
-      summary: 'Obtém as metas com base no ID do usuário',
+      summary: 'Obtém as metas ativas com base no ID do usuário',
       params: {
         type: 'object',
         properties: {
@@ -13,7 +13,7 @@ module.exports = {
       response: {
         200: {
           description: 'Resposta com sucesso',
-          type: 'object',
+          type: 'array',
           properties: {
             id: { type: 'number' },
             usuario_id: { type: 'number' },

@@ -14,7 +14,7 @@ module.exports = {
       response: {
         200: {
           description: 'Resposta com sucesso',
-          type: 'object',
+          type: 'array',
           properties: {
             id: { type: 'number' },
             usuario_id: { type: 'number' },

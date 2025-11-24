@@ -1,8 +1,15 @@
 'use strict'
 
+const { createGoal } = require("../schemas/goals/createGoal");
+const { deleteGoal } = require("../schemas/goals/deleteGoal");
+const { editGoal } = require("../schemas/goals/editGoal");
+const { getActiveGoals } = require("../schemas/goals/getActiveGoals");
+const { getGoal } = require("../schemas/goals/getGoal");
+const { getHistoricGoals } = require("../schemas/goals/getHistoricGoals");
+
 module.exports = async function (fastify, opts) {
   /* Rota para obter as metas ativas para um usuário específico */
-  fastify.get('/active/:idUsuario', async function (request, reply) {
+  fastify.get('/active/:idUsuario', { schema: getActiveGoals}, async function (request, reply) {
     const { idUsuario } = request.params;
     const hoje = new Date();
     try {
@@ -18,18 +25,19 @@ module.exports = async function (fastify, opts) {
       });
       // Atualiza o status das metas
       await atualizarStatusMetas(fastify, metas);
-      // Filtra metas que ainda não atingiram o valor da meta, prismna não suporta essa condição diretamente
+      // Filtra metas que ainda não atingiram o valor da meta, prisma não suporta essa condição diretamente
       const metasAtivas = metas.filter(meta => Number(meta.valor_atual) < Number(meta.valor_meta));
       console.log('Metas ativas filtradas:', metasAtivas);
       const metasAjustadas = ajustaHorarioMetas(metasAtivas)
-      reply.send(formatarMetasParaBrasilia(metasAjustadas));
+      reply.code(200).send(formatarMetasParaBrasilia(metasAjustadas));
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao buscar metas.' });
     }
   })
 
   /* Rota para editar uma meta específica de um usuário */
-  fastify.patch('/:idUsuario/:idGoal', async function (request, reply) {
+  // fastify.patch('/:idUsuario/:idGoal', async function (request, reply) {
+  fastify.patch('/:idUsuario/:idGoal', { schema: editGoal}, async function (request, reply) {
     const { idUsuario, idGoal } = request.params;
     const { nome, valor_meta, valor_atual, tipo, data_inicio, data_fim } = request.body;
 
@@ -51,7 +59,7 @@ module.exports = async function (fastify, opts) {
         data: dataToUpdate
       });
       await atualizarStatusMetas(fastify, [meta]);
-      reply.send(formatarMetasParaBrasilia([meta]));
+      reply.code(204).send(formatarMetasParaBrasilia([meta]));
 
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao editar meta.' });
@@ -59,7 +67,7 @@ module.exports = async function (fastify, opts) {
   })
 
   /* Rota para deletar uma meta específica de um usuário */
-  fastify.delete('/:idUsuario/:idGoal', async function (request, reply) {
+  fastify.delete('/:idUsuario/:idGoal', { schema: deleteGoal}, async function (request, reply) {
     const { idUsuario, idGoal } = request.params;
     try {
       await fastify.prisma.metas.delete({
@@ -68,15 +76,16 @@ module.exports = async function (fastify, opts) {
           usuario_id: Number(idUsuario)
         }
       });
-      reply.send({ success: true });
+      reply.code(204).send({ success: true });
     } catch (error) {
+      console.log(error)
       reply.code(500).send({ error: 'Erro ao deletar meta.' });
     }
   })
   
   /* Rota para adicionar uma nova meta para um usuário específico */
-  fastify.post('/:idUsuario', async function (request, reply) {
-    const { idUsuario } = request.params;
+  fastify.post('/:idUsuario', { schema: createGoal }, async function (request, reply) {
+      const { idUsuario } = request.params;
     const { nome, valor_meta, valor_atual, tipo, data_inicio, data_fim} = request.body;
 
     if (!nome || !valor_meta || !tipo || !data_inicio) {
@@ -107,7 +116,7 @@ module.exports = async function (fastify, opts) {
   })
 
   /* Rota para obter o histórico de metas de um usuário */
-  fastify.get('/:idUsuario', async function (request, reply) {
+  fastify.get('/:idUsuario', { schema: getHistoricGoals }, async function (request, reply) {
     const { idUsuario } = request.params;
     const hoje = new Date();
     try {
@@ -124,33 +133,15 @@ module.exports = async function (fastify, opts) {
         (meta.data_fim != null && meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
       );
       const metasAjustadas = ajustaHorarioMetas(metasHistoricas)
-      reply.send(formatarMetasParaBrasilia(metasAjustadas));
+      reply.code(200).send(formatarMetasParaBrasilia(metasAjustadas));
     } catch (error) {
       console.error('Erro em histGoals:', error);
       reply.code(500).send({ error: 'Erro ao buscar metas.' });
     }
   })
 
-  function ajustaHorarioMetas(metas) {
-    return metas.map((item) => {
-      if (item.data_fim instanceof Date) {
-        const novaData = new Date(item.data_fim);
-        novaData.setHours(23, 59, 59, 999); // 23:59:59.999
-
-        // console.log("Original:", item.data_fim);
-        // console.log("Ajustada:", novaData);
-
-        return {
-          ...item,
-          data_fim: novaData
-        };
-      }
-      return item;
-    });
-  }
-
   /* Rota para obter uma meta específica de um usuário */
-  fastify.get('/:idUsuario/:idGoal', async function (request, reply) {
+  fastify.get('/:idUsuario/:idGoal', { schema: getGoal }, async function (request, reply) {
     const { idUsuario, idGoal } = request.params;
     try {
       const meta = await fastify.prisma.metas.findFirst({
@@ -162,13 +153,28 @@ module.exports = async function (fastify, opts) {
       if (!meta) {
         return reply.code(404).send({ error: 'Meta não encontrada.' });
       }
-      reply.send(formatarMetasParaBrasilia([meta]));
+      reply.code(200).send(formatarMetasParaBrasilia([meta]));
     } catch (error) {
       reply.code(500).send({ error: 'Erro ao buscar meta.' });
     }
   })
 
   console.log('fim de rotas...');
+}
+
+function ajustaHorarioMetas(metas) {
+  return metas.map((item) => {
+    if (item.data_fim instanceof Date) {
+      const novaData = new Date(item.data_fim);
+      novaData.setHours(23, 59, 59, 999); // 23:59:59.999
+
+      return {
+        ...item,
+        data_fim: novaData
+      };
+    }
+    return item;
+  });
 }
 
 async function atualizarStatusMetas(fastify, metas) {
