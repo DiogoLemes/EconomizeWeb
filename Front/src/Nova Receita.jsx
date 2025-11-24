@@ -87,11 +87,6 @@ export default function NovaReceita({onClose}) {
       //   data_fim: metasAtivas[selectReceitaMeta - 1].data_fim
       }
 
-      console.log("receita edit meta: ", receitaEditMetaData)
-      console.log("edit meta id: ", metasAtivas[selectReceitaMeta - 1].id)
-      console.log("meta correspondente: ", metasAtivas[selectReceitaMeta - 1])
-      console.log("meta JSON stringify: ", JSON.stringify(receitaEditMetaData))
-
       fetch(`http://localhost:3000/goals/${id}/${metasAtivas[selectReceitaMeta - 1].id}`, {
         method: 'PATCH',
         headers: {

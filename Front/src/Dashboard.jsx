@@ -56,7 +56,7 @@ export default function Dashboard() {
     const [saldo, setSaldo] = useState(0)
     const [despesas, setDespesas] = useState(0)
     const [cartao, setCartao] = useState("Indisponível")
-    const [proximosGastos, setProximosGastos] = useState(0)
+    const [faturaMes, setFaturaMes] = useState(0)
 
     //dados do grafico de donut
     const [muiChartReceitas, setMuiChartReceitas] = useState(0)
@@ -123,25 +123,24 @@ export default function Dashboard() {
         //     setCartao(CartaoFinal)
         // }
 
-        async function fetchProxGastos() {
+        async function fetchFaturaMes() {
             const res = await fetch(`http://localhost:3000/dashboard/${id}/faturas/mes`)
             const data = await res.json()
-            console.log("data ProxGastos = ", data.fatura_mes)
 
-            let ProxGastosValor = data.fatura_mes ?? "Erro" //mostra Erro caso não consiga carregar
-            if(ProxGastosValor == data.fatura_mes){
-                ProxGastosValor = Number(ProxGastosValor)
-            } else {ProxGastosValor = "Erro"}
+            let faturaMesValor = data.fatura_mes ?? "Erro" //mostra Erro caso não consiga carregar
+            if(faturaMesValor == data.fatura_mes){
+                faturaMesValor = Number(faturaMesValor)
+            } else {faturaMesValor = "Erro"}
 
-            const ProxGastosFinal = formatarValor(ProxGastosValor)
+            const FaturaMesFinal = formatarValor(faturaMesValor)
 
-            setProximosGastos(ProxGastosFinal)
+            setFaturaMes(FaturaMesFinal)
         }
 
         fetchSaldo()
         fetchDespesas()
         //fetchCartao()
-        fetchProxGastos()
+        fetchFaturaMes()
     }, [id])
 
     //pega as transações de maior valor para a parte do "Para onde seu dinheiro foi"
@@ -255,7 +254,7 @@ export default function Dashboard() {
                                     <div className={classeCards}>
                                         <div className="flex flex-col p-2 gap-6">
                                             <span className="font-lato-regular text-start">Próximos Gastos</span>
-                                            <span className="text-xl text-left">{proximosGastos}</span>
+                                            <span className="text-xl text-left">{faturaMes}</span>
                                         </div>
                                         <img src="\src\assets\Icone Prox.svg" alt="ícone próximos gastos" className="p-4" />
                                     </div>
