@@ -1,6 +1,6 @@
-import SignupForm from "./Components/SignupForm"
+import SignupForm from "./Components/SignupForm";
 import LoginForm from "./Components/LoginForm"
-import { useState } from "react"
+import { useState } from "react";
 
 
 export default function SignUpBox() {

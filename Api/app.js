@@ -10,7 +10,8 @@ module.exports = async function (fastify, opts) {
 
   await fastify.register(require('@fastify/cors'), {
     origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'Content-Type', 'Authorization', 'X-Custom-Header']
   })
 
   //Swagger

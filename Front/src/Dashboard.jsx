@@ -45,11 +45,18 @@ export default function Dashboard() {
         msgHora = "Boa Noite"
     }
 
+    const formatarValor = (valor) => {
+        return valor.toLocaleString('pt-BR', { 
+            style: 'currency', 
+            currency: 'BRL' 
+        })
+    }
+
     //dados dos cards
     const [saldo, setSaldo] = useState(0)
     const [despesas, setDespesas] = useState(0)
     const [cartao, setCartao] = useState("Indisponível")
-    const [proximosGastos, setProximosGastos] = useState(0)
+    const [faturaMes, setFaturaMes] = useState(0)
 
     //dados do grafico de donut
     const [muiChartReceitas, setMuiChartReceitas] = useState(0)
@@ -63,7 +70,6 @@ export default function Dashboard() {
 
             const res = await fetch(`http://localhost:3000/dashboard/${id}/saldo`)
             const data = await res.json()
-            console.log("data saldo = ", data)
 
             let saldoValor = data.saldo ?? "Erro" //mostra Erro caso não consiga carregar
             if(saldoValor == data.saldo)
@@ -75,10 +81,7 @@ export default function Dashboard() {
                 saldoValor = "Erro"
             }
 
-            const saldoFinal = saldoValor.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            })
+            const saldoFinal = formatarValor(saldoValor)
 
             setSaldo(saldoFinal)
             setMuiChartReceitas(Number(saldoValor))
@@ -88,7 +91,6 @@ export default function Dashboard() {
         async function fetchDespesas() {
             const res = await fetch(`http://localhost:3000/dashboard/${id}/despesa`)
             const data = await res.json()
-            console.log("data despesas = ", data)
 
             let despesaValor = data.despesa ?? "Erro"
             if(despesaValor == data.despesa)
@@ -100,16 +102,13 @@ export default function Dashboard() {
                 despesaValor = "Erro"
             }
 
-            const despesaFinal = despesaValor.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            })
+            const despesaFinal = formatarValor(despesaValor)
 
             setDespesas(despesaFinal)
             setMuiChartDespesas(Number(despesaValor))
         }
 
-        // async function fetchCartao() {                                                       //não implementado devido à falta de tempo
+        // async function fetchCartao() {
         //     const res = await fetch(`http://localhost:3000/dashboard/${id}/Cartao`)
         //     const data = await res.json()
         //     console.log("data Cartao = ", data.Cartao)
@@ -119,37 +118,78 @@ export default function Dashboard() {
         //         CartaoValor = Number(CartaoValor)
         //     } else {CartaoValor = "Erro"}
 
-        //     const CartaoFinal = CartaoValor.toLocaleString("pt-BR", {
-        //     style: "currency",
-        //     currency: "BRL",
-        //     })
+        //     const CartaoFinal = formatarValor(CartaoValor)
 
         //     setCartao(CartaoFinal)
         // }
 
-        async function fetchProxGastos() {
+        async function fetchFaturaMes() {
             const res = await fetch(`http://localhost:3000/dashboard/${id}/faturas/mes`)
             const data = await res.json()
-            console.log("data ProxGastos = ", data.faturas)
 
-            let ProxGastosValor = data.faturas ?? "Erro" //mostra Erro caso não consiga carregar
-            if(ProxGastosValor == data.faturas){
-                ProxGastosValor = Number(ProxGastosValor)
-            } else {ProxGastosValor = "Erro"}
+            let faturaMesValor = data.fatura_mes ?? "Erro" //mostra Erro caso não consiga carregar
+            if(faturaMesValor == data.fatura_mes){
+                faturaMesValor = Number(faturaMesValor)
+            } else {faturaMesValor = "Erro"}
 
-            const ProxGastosFinal = ProxGastosValor.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            })
+            const FaturaMesFinal = formatarValor(faturaMesValor)
 
-            setProximosGastos(ProxGastosFinal)
+            setFaturaMes(FaturaMesFinal)
         }
 
         fetchSaldo()
         fetchDespesas()
-        // fetchCartao()
-        fetchProxGastos()
+        //fetchCartao()
+        fetchFaturaMes()
     }, [id])
+
+    //pega as transações de maior valor para a parte do "Para onde seu dinheiro foi"
+    const [dataAtual, setDataAtual] = useState(new Date())
+    const [transacoesData, setTransacoesData] = useState([])
+    const [maioresTransacoes, setMaioresTransacoes] = useState([])
+
+    useEffect(() => {
+        async function fetchTransacoes() {
+            if (!id) return
+
+            const mes = dataAtual.getMonth() + 1
+            const ano = dataAtual.getFullYear()
+
+            const res = await fetch(`http://localhost:3000/transactions/month/${id}?mes=${mes}&ano=${ano}`)
+            const data = await res.json()
+            setTransacoesData(data)
+        }
+        fetchTransacoes()
+
+    }, [])
+
+    useEffect(() => {
+        const transacoesCrescentes = [...transacoesData].sort(
+            (a, b) => Number(b.valor) - Number(a.valor)
+        )
+        setMaioresTransacoes(transacoesCrescentes.splice(0, 3))
+    }, [transacoesData])
+
+    //metas para a parte do "Para onde seu dinheiro foi"
+    const [metasAtivas, setMetasAtivas] = useState([])
+
+    useEffect(() => {
+        
+        async function fetchDataMetasAtuais() {
+            const res = await fetch(`http://localhost:3000/goals/active/${id}`)
+            const data = await res.json()
+
+            setMetasAtivas(data)
+        }
+        fetchDataMetasAtuais()
+    }, [])
+
+    
+
+    function formatarTipoMaiusculo(string) {
+      if (!string) { return "" }
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    }
     
     if(emptyDashboard === "true") { //retorna tela vazia se não houver categorias ou metas criadas
         return (
@@ -190,7 +230,6 @@ export default function Dashboard() {
                             <div className="flex flex-col w-[60%] min-w-[700px]">
                                 <span className="self-start ml-8 text-lg mt-12">Dashboard</span>
                                 <div className="grid grid-cols-2 place-content-between w-[100%] h-[40%] gap-4 p-5">
-                                    {/* quantidade de digitos diferentes muda as dimensoes dos cartões, arrumar isso */}
                                     <div className={classeCards}>
                                         <div className="flex flex-col p-2 gap-6">
                                             <span className="font-lato-regular text-start">Saldo</span>
@@ -215,21 +254,36 @@ export default function Dashboard() {
                                     <div className={classeCards}>
                                         <div className="flex flex-col p-2 gap-6">
                                             <span className="font-lato-regular text-start">Próximos Gastos</span>
-                                            <span className="text-xl text-left">{proximosGastos}</span>
+                                            <span className="text-xl text-left">{faturaMes}</span>
                                         </div>
                                         <img src="\src\assets\Icone Prox.svg" alt="ícone próximos gastos" className="p-4" />
                                     </div>
                                 </div>
                                 <div className="flex flex-col ml-8 mt-4">
                                     <span className="text-start text-lg mb-5">Para onde seu dinheiro foi?</span>
-                                    <div className="flex flex-col">
-                                        <div className="flex justify-between items-center mb-2 font-lato-regular">
-                                            <span className="text-md text-start">Mercado</span>
-                                            <span className="text-md text-end">R$450.00 / R$500.00</span> {/*fazer map com dados?*/}
-                                        </div>
-                                        <progress value={0.5} className="h-3 w-full rounded-full overflow-hidden appearance-none bg-theme-light
-                                            [&::-webkit-progress-bar]:bg-theme-light [&::-webkit-progress-value]:bg-receita-highlight
-                                            [&::-moz-progress-bar]:bg-receita-highlight" />
+                                    <div className="flex flex-col gap-5 overflow-y-scroll max-h-60">
+                                        {maioresTransacoes.map((transacao) => {
+                                            return (
+                                                <div className="justify-between grid grid-cols-3 items-center mb-2 font-lato-regular">
+                                                    <span className="text-md text-start font-lato-regular">{transacao.titulo}</span>
+                                                    <span className="text-md text-center font-lato-regular">{formatarTipoMaiusculo(transacao.tipo)}</span>
+                                                    <span className="text-md text-end font-lato-regular">{formatarValor(transacao.valor)}</span>
+                                                </div>
+                                            )
+                                        })}
+                                        {metasAtivas.map((meta) => {
+                                            return(
+                                                <div>
+                                                    <div className="flex justify-between items-center mb-2 font-lato-regular">
+                                                        <span className="text-md text-start">{meta.nome}</span>
+                                                        <span className="text-md text-end">{meta.valor_atual} / {formatarValor(meta.valor_meta)}</span>
+                                                    </div>
+                                                    <progress value={meta.valor_atual / meta.valor_meta} className="h-3 w-full rounded-full overflow-hidden appearance-none bg-theme-light
+                                                        [&::-webkit-progress-bar]:bg-theme-light [&::-webkit-progress-value]:bg-receita-highlight
+                                                        [&::-moz-progress-bar]:bg-receita-highlight" />
+                                                </div>
+                                            )
+                                        })}                                            
                                     </div>
                                 </div>
                             </div>

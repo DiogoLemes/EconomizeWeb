@@ -1,5 +1,5 @@
 'use strict'
-const { createTransaction } = require('../schemas/transactions/createTransaction');
+//const { createTransaction } = require('../schemas/transactions/createTransaction');
 const { getAllTransactions } = require('../schemas/transactions/getAllTransactions');
 const { getMonthTransactions } = require('../schemas/transactions/getMonthTransactions');
 const { getTransaction } = require('../schemas/transactions/getTransaction');

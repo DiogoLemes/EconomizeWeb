@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../UserContext'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router'
 
 export default function Header({text}) {
@@ -19,7 +19,7 @@ export default function Header({text}) {
         setAnchorEl(null)
     }
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const navPerfil = () => {
         navigate('/perfil')
     }

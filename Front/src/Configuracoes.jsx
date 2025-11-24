@@ -16,7 +16,7 @@ export default function Configuracoes() {
     const loggedInUsername = sessionStorage.getItem("loggedUsername")
     setUser(loggedInUsername)
     
-    const [isDark, setIsDark] = useState(false)
+    const [isDark, setIsDark] = useState(false);
 
     useEffect(()=> {
         if(ThemeSetter() == true) {
@@ -26,7 +26,7 @@ export default function Configuracoes() {
 
     const changeTheme = () => {
         const newTheme = isDark ? "light" : "dark"
-        setIsDark(!isDark)
+        setIsDark(!isDark);
         localStorage.setItem("theme", newTheme)
 
         if (newTheme === "dark") {
@@ -35,7 +35,7 @@ export default function Configuracoes() {
          else {
             document.documentElement.classList.remove("dark")
         }
-    }
+    };
 
     const navigate = useNavigate() // Hook do React Router
 
@@ -82,13 +82,13 @@ export default function Configuracoes() {
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span>Idioma:</span>
+                                        <span>Idioma:</span> {/*não implementado devido à falta de tempo */}
                                         <select className="p-4 w-[25%]">
                                             <option>Pt-Br</option>
                                         </select>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span>Fonte:</span>
+                                        <span>Fonte:</span> {/*não implementado devido à falta de tempo */}
                                         <select className="p-4 w-[25%]">
                                             <option>Lato</option>
                                         </select>

@@ -5,7 +5,7 @@ export default function LoginScreenWelcomeMenu({ setIntroSeen }) {
     const SignupRedirect = () => {
       document.cookie = "intro-passed=true; max-age=31536000;"
       setIntroSeen(true)
-    }
+    };
 
     localStorage.setItem("theme", "light") //tema padrão do site
 

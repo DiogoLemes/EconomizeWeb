@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar'
+import * as React from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 export default function BasicDateCalendar() {
   return (
@@ -10,5 +10,5 @@ export default function BasicDateCalendar() {
             <DateCalendar />
         </LocalizationProvider>
     </div>
-  )
+  );
 }
