@@ -84,7 +84,7 @@ module.exports = async function (fastify, opts) {
   })
   
   /* Rota para adicionar uma nova meta para um usuário específico */
-  fastify.post('/:idUsuario', { schema: createGoal }, async function (request, reply) {
+  fastify.post('/:idUsuario', async function (request, reply) {
       const { idUsuario } = request.params;
     const { nome, valor_meta, valor_atual, tipo, data_inicio, data_fim} = request.body;
 
