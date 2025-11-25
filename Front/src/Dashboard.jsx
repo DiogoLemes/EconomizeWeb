@@ -34,16 +34,18 @@ export default function Dashboard() {
     //regula hora da mensagem de bom dia
     const diaAtual = new Date()
     const horaAtual = diaAtual.getHours()
-    let msgHora
-    if(horaAtual > 6 && horaAtual< 12){
-        msgHora = "Bom Dia"
+    const [msgHora, setMsgHora] = useState("")
+    useEffect(() => {
+    if(horaAtual > 6 && horaAtual < 12){
+        setMsgHora("Bom Dia")
     }
     else if(horaAtual >= 12 && horaAtual < 18){
-        msgHora = "Boa Tarde"
+        setMsgHora("Boa Tarde")
     }
     else {
-        msgHora = "Boa Noite"
+        setMsgHora("Boa Noite")
     }
+    }, [])
 
     const formatarValor = (valor) => {
         return valor.toLocaleString('pt-BR', { 
