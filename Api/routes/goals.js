@@ -119,18 +119,21 @@ module.exports = async function (fastify, opts) {
   fastify.get('/:idUsuario', { schema: getHistoricGoals }, async function (request, reply) {
     const { idUsuario } = request.params;
     const hoje = new Date();
+    hoje.setUTCHours(0, 0, 0, 0)
+
     try {
       const metas = await fastify.prisma.metas.findMany({
         where: {
           usuario_id: Number(idUsuario),
-          data_fim: { lt: hoje } 
+          data_fim: { lte: hoje } 
         },
         orderBy: { criado_em: 'desc' }
       });
       await atualizarStatusMetas(fastify, metas);
       // Filtra metas que passaram do prazo, atingiram a meta ou não têm meta
       const metasHistoricas = metas.filter(meta =>
-        (meta.data_fim != null && meta.data_fim < hoje) || (Number(meta.valor_atual) >= Number(meta.valor_meta))
+        (meta.data_fim != null && meta.data_fim < hoje) ||  //meta venceu
+        (Number(meta.valor_atual) >= Number(meta.valor_meta)) //meta atingida
       );
       const metasAjustadas = ajustaHorarioMetas(metasHistoricas)
       reply.code(200).send(formatarMetasParaBrasilia(metasAjustadas));
